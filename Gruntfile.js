@@ -23,13 +23,16 @@ module.exports = function (grunt) {
                 files: ['<%= settings.source %>/styles/**/*.{scss,sass}'],
                 tasks: ['compass:server']
             },
+            babel: {
+                files: ['<%= settings.source %>/scripts/**/*.js'],
+                tasks: ['babel:server']
+            },
             livereload: {
                 options: {
                     livereload: '<%= connect.options.livereload %>'
                 },
                 files: [
                     '<%= settings.source %>/**/*.html',
-                    '<%= settings.source %>/**/*.js',
                     '.tmp/**/*.*',
                     '<%= settings.source %>/images/**/*.{png,jpg,jpeg,gif,webp,svg}'
                 ]
@@ -99,6 +102,20 @@ module.exports = function (grunt) {
                 options: {
                   debugInfo: false
                 }
+            }
+        },
+
+        babel: {
+            options: {
+                sourceMap: true
+            },
+            server: {
+                files: [{
+                    expand: true,
+                    cwd: '<%= settings.source %>/scripts',
+                    dest: '.tmp/scripts',
+                    src: '**/*.js'
+                }]
             }
         },
 
@@ -174,6 +191,8 @@ module.exports = function (grunt) {
         grunt.task.run([
             'clean:server',
             'bowerInstall',
+            'compass:server',
+            'babel:server',
             'connect:livereload',
             'watch'
         ]);
@@ -189,6 +208,8 @@ module.exports = function (grunt) {
     grunt.registerTask('build', [
         'clean:dist',
         'bowerInstall',
+        'compass:dist',
+        'babel:dist',
         'copy',
     ]);
 /*
