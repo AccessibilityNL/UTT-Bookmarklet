@@ -8,7 +8,7 @@ define([], function () {
 				top:10px;
 				left:25%;
 				width:50%;
-				height:5em;
+				min-height:5em;
 				background:white;
 				border:solid grey 1px;
 				border-radius:5px;

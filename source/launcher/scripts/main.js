@@ -1,44 +1,50 @@
-var EIII = EIII || {};
+define(function () {
+	let launcher = {};
 
-EIII.BookmarkletLauncher =  function (options) {
-	/*jshint scripturl:true*/
-	let bookmarkletString = 'javascript: ';
-	let {elm} = options;
+	launcher.create =  function (options) {
+		/*jshint scripturl:true*/
+		let bookmarkletString = 'javascript: ';
+		let {elm} = options;
 
-	// Catch input errors
-	if (elm.nodeName.toLowerCase() !== 'a') {
-		throw new Error('Bookmarklets launcher requires an <a /> element.');
-	}
+		// Catch input errors
+		if (elm.nodeName.toLowerCase() !== 'a') {
+			throw new Error('Bookmarklets launcher requires an <a /> element.');
+		}
 
-	// Prevent the bookmarklet from launching directly
-	elm.addEventListener("click", function (event) {
-		if (event.preventDefault) {
-            event.preventDefault();
-        } else {
-            event.returnValue = false;
-        }
-	});
+		// Prevent the bookmarklet from launching directly
+		elm.addEventListener("click", function (event) {
+			if (event.preventDefault) {
+	            event.preventDefault();
+	        } else {
+	            event.returnValue = false;
+	        }
+		});
 
-	bookmarkletString += EIII.BookmarkletLauncher.getBookmarkletString(options);
-	elm.setAttribute('href',  bookmarkletString);
-};
+		bookmarkletString += launcher.getBookmarkletString(options);
+		elm.setAttribute('href',  bookmarkletString);
+		console.log(bookmarkletString);
+	};
 
-EIII.BookmarkletLauncher.getBookmarkletString = function (options) {
-	let host 	   = options.host       || '127.0.0.1';
-	let port 	   = options.port       || ':9000';
-	let scriptPath = options.scriptPath || 'bookmarklet.js';
-	let userKey    = options.userKey    || '1234567890';
-	let protocol   = (document.location.protocol === 'https:' ? 'https://' : 'http://');
+	launcher.getBookmarkletString = function (options) {
+		let host 	   = options.host       || '127.0.0.1';
+		let port 	   = options.port       || ':9000';
+		let scriptPath = options.scriptPath || 'bookmarklet.js';
+		let userKey    = options.userKey    || '1234567890';
+		let protocol   = (document.location.protocol === 'https:' ? 'https://' : 'http://');
 
-	let url = '//' + host + port + '/' + scriptPath + '?key=' + userKey;
+		let url = '//' + host + port + '/' + scriptPath + '?key=' + userKey;
 
-	return '(function () {' +
-        'var id="utt-bookmarklet";' +
-        'if(!document.getElementById(id)){'+
-	    	'var s = document.createElement("script");' +
-		    's.setAttribute("src", "' + url +'");' +
-		    's.setAttribute("id", id);' +
-		    'document.body.appendChild(s);' +
-	 	'}' +
- 	'}());';
-};
+		return '(function () {' +
+	        'var d=document,i="utt-bookmarklet",a="setAttribute";' +
+	        'if(!d.getElementById(i)){'+
+		    	'var s=d.createElement("script");' +
+			    's[a]("src", "' + url +'");' +
+			    's[a]("id", i);' +
+			    'd.body.appendChild(s);' +
+		 	'}' +
+	 	'}());';
+	};
+
+	return launcher;
+
+});

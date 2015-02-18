@@ -27,12 +27,14 @@
     </p>
   </article>
 
-  <script src="scripts/main.js"></script>
   <script src="../bower_components/requirejs/require.js"></script>
   <script>
-    EIII.BookmarkletLauncher({
-      "elm": document.getElementById('bookmerklet')
+    require(['scripts/main'], function (launcher) {
+      launcher.create({
+        "elm": document.getElementById('bookmerklet')
+      });
     });
   </script>
+
 </body>
 </html>

@@ -14,9 +14,6 @@
 
 		require(['UTT/setup'], function (setup) {
 			setup.init();
-
-			// Get user key
-			console.log(rootPath);
 		});
 	}
 
