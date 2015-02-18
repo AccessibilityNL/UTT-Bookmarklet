@@ -1,8 +1,9 @@
 {
-    "name": "UttBookmarklet",
-    "version": "0.1.0",
-    "dependencies": {
-    },
-    "devDependencies": {
-    }
+  "name": "UttBookmarklet",
+  "version": "0.1.0",
+  "dependencies": {
+    "requirejs": "~2.1.16"
+  },
+  "devDependencies": {
+  }
 }

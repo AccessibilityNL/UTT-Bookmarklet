@@ -6,6 +6,7 @@ module.exports = function (grunt) {
     require('load-grunt-tasks')(grunt);
 
     grunt.initConfig({
+        pkg: grunt.file.readJSON('package.json'),
         settings: {
             source: 'source',
             build: 'build'
@@ -20,12 +21,12 @@ module.exports = function (grunt) {
                 files: ['Gruntfile.js']
             },
             compass: {
-                files: ['<%= settings.source %>/styles/**/*.{scss,sass}'],
+                files: ['<%= settings.source %>/launcher/styles/**/*.{scss,sass}'],
                 tasks: ['compass:server']
             },
             babel: {
-                files: ['<%= settings.source %>/scripts/**/*.js'],
-                tasks: ['babel:server']
+                files: ['<%= settings.source %>/**/*.js'],
+                tasks: ['babel:server', 'concat:server']
             },
             livereload: {
                 options: {
@@ -34,7 +35,7 @@ module.exports = function (grunt) {
                 files: [
                     '<%= settings.source %>/**/*.html',
                     '.tmp/**/*.*',
-                    '<%= settings.source %>/images/**/*.{png,jpg,jpeg,gif,webp,svg}'
+                    '<%= settings.source %>/launcher/images/**/*.{png,jpg,jpeg,gif,webp,svg}'
                 ]
             }
         },
@@ -48,7 +49,7 @@ module.exports = function (grunt) {
             },
             livereload: {
                 options: {
-                    open: true,
+                    open: 'http://127.0.0.1:9000/launcher',
                     base: ['.tmp', '<%= settings.source %>']
                 }
             },
@@ -79,16 +80,14 @@ module.exports = function (grunt) {
 
         compass: {
             options: {
-                sassDir: '<%= settings.source %>/styles',
-                cssDir: '.tmp/styles',
-                generatedImagesDir: '.tmp/images/generated',
+                sassDir: '<%= settings.source %>/launcher/styles',
+                cssDir: '.tmp/launcher/styles',
                 imagesDir: '<%= settings.source %>/images',
                 javascriptsDir: '<%= settings.source %>/scripts',
-                fontsDir: '<%= settings.source %>/styles/bootstrap',
+                fontsDir: '<%= settings.source %>/launcher/fonts',
                 importPath: '<%= settings.source %>/bower_components',
                 httpImagesPath: '/images',
-                httpGeneratedImagesPath: '/images/generated',
-                httpFontsPath: '/fonts',
+                httpFontsPath: '/launcher/fonts',
                 relativeAssets: true,
                 assetCacheBuster: false,
                 raw: 'Sass::Script::Number.precision = 10\n'
@@ -107,13 +106,20 @@ module.exports = function (grunt) {
 
         babel: {
             options: {
-                sourceMap: true
+                sourceMap: true,
             },
             server: {
                 files: [{
+                    '.tmp/bookmarklet.js': '<%= settings.source %>/bookmarklet.js'
+                }, {
                     expand: true,
-                    cwd: '<%= settings.source %>/scripts',
-                    dest: '.tmp/scripts',
+                    cwd: '<%= settings.source %>/lib',
+                    dest: '.tmp/lib',
+                    src: '**/*.js'
+                }, {
+                    expand: true,
+                    cwd: '<%= settings.source %>/launcher/scripts',
+                    dest: '.tmp/launcher/scripts',
                     src: '**/*.js'
                 }]
             }
@@ -133,6 +139,17 @@ module.exports = function (grunt) {
             server: '.tmp'
         },
 
+        concat: {
+            server: {
+                options: {
+                    sourceMap: true
+                },
+                files: {
+                    '.tmp/bookmarklet.concat.js': ['.tmp/bookmarklet.js', '.tmp/lib/**/*.js']
+                },
+            }
+        },
+
         // Copies remaining files to places other tasks can use
         copy: {
             dist: {
@@ -144,23 +161,10 @@ module.exports = function (grunt) {
                     src: [
                         '*.{ico,png,txt}',
                         '.htaccess',
-                        '*.html',
-                        'scripts/**/*.js',
-                        'styles/**/*.css',
+                        '/**/*.{html,js,css}',
                         'images/{,*/}*.{webp}',
                         'fonts/*'
                     ]
-                }, {
-                    expand: true,
-                    cwd: '.tmp/images',
-                    dest: '<%= settings.build %>/images',
-                    src: ['generated/*']
-                }, {
-                    expand: true,
-                    flatten: true,
-                    cwd: '<%= settings.source %>',
-                    dest: '<%= settings.build %>/styles/bootstrap',
-                    src: ['styles/bootstrap/*.*']
                 }]
             },
             styles: {
@@ -169,19 +173,7 @@ module.exports = function (grunt) {
                 dest: '.tmp/styles/',
                 src: '{,*/}*.css'
             }
-        },
-
-        // Renames files for browser caching purposes
-        rev: {
-            dist: {
-                files: {
-                    src: [
-                        '<%= settings.build %>/scripts/*.js',
-                        '<%= settings.build %>/styles/main.css',
-                    ]
-                }
-            }
-        },
+        }
     });
 
     grunt.registerTask('serve', function (target) {
@@ -193,6 +185,7 @@ module.exports = function (grunt) {
             'bowerInstall',
             'compass:server',
             'babel:server',
+            'concat:server',
             'connect:livereload',
             'watch'
         ]);
@@ -211,6 +204,11 @@ module.exports = function (grunt) {
         'compass:dist',
         'babel:dist',
         'copy',
+    ]);
+
+    grunt.registerTask('build-bookmark', [
+        'babel:server',
+        'concat:server'
     ]);
 /*
     grunt.registerTask('default', [
