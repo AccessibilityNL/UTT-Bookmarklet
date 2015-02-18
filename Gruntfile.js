@@ -173,6 +173,27 @@ module.exports = function (grunt) {
                 dest: '.tmp/styles/',
                 src: '{,*/}*.css'
             }
+        },
+
+        mochaTest: {
+            test: {
+                src: ['test/**/*.js']
+            }
+        },
+
+        jshint: {
+            options: {
+                jshintrc: '.jshintrc',
+                reporter: require('jshint-stylish')
+            },
+            all: [
+                'Gruntfile.js',
+                '<%= settings.source %>/**/*.js',
+                '!<%= settings.source %>/bower_components/**',
+            ],
+            test: {
+                src: ['test/**/*.js']
+            }
         }
     });
 
@@ -191,13 +212,13 @@ module.exports = function (grunt) {
         ]);
     });
 
-/*
     grunt.registerTask('test', [
+        'jshint:all:test',
         'clean:server',
-        'connect:test',
-        'karma'
+        'babel:server',
+        'mochaTest'
     ]);
-*/
+
     grunt.registerTask('build', [
         'clean:dist',
         'bowerInstall',

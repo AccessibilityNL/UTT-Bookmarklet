@@ -1,13 +1,6 @@
 var should    = require('should');
 var requirejs = require('requirejs');
-
-requirejs.config({
-    baseUrl: ".tmp",
-    paths: {
-        "UTT": "lib"
-    },
-});
-
+requirejs.config({ baseUrl: ".tmp", paths: {"UTT": "lib"} });
 
 describe('Bookmerklet Setup', function() {
     var setup;
