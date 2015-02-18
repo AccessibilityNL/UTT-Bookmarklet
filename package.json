@@ -24,6 +24,9 @@
     "karma-chrome-launcher": "^0.1.4",
     "karma-jasmine": "^0.1.5",
     "load-grunt-tasks": "~0.4.0",
+    "mocha": "^2.1.0",
+    "requirejs": "^2.1.16",
+    "should": "^5.0.0",
     "time-grunt": "~0.2.1"
   },
   "engines": {
