@@ -30,7 +30,6 @@ define(function () {
 		let port 	   = options.port       || ':9000';
 		let scriptPath = options.scriptPath || 'bookmarklet.js';
 		let userKey    = options.userKey    || '1234567890';
-		let protocol   = (document.location.protocol === 'https:' ? 'https://' : 'http://');
 
 		let url = '//' + host + port + '/' + scriptPath + '?key=' + userKey;
 
