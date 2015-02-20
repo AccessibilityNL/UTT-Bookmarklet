@@ -2,7 +2,7 @@
 Of key importance to the success of the UTT bookmarklet is it's extensibility. To ease the development of the UTT Bookmarklet and of future extensions the decision was made to build the UTT Bookmarklet using a number of powerful technologies.
 
 ## Grunt
-Grunt is a build tool for Node. It allows developers of the UTT Bookmarklet and any future extensions of it to work with technologies that require a build step before they can be deployed to the browser. These build-to-browser technologies are designed to speed op the development process and to make projects more maintainable. In addition to this Grunt is used to simplify minification of the project, which is important to improve to speed up the final product. With Grunt, we're using Connect, Watch, Bower, Clean, Concat, Jshint, Copy, cssmin and ugilfy. These are all to ease the development and build process. 
+Grunt is a build tool for Node. It allows developers of the UTT Bookmarklet and any future extensions of it to work with technologies that require a build step before they can be deployed to the browser. These build-to-browser technologies are designed to speed op the development process and to make projects more maintainable. In addition to this Grunt is used to simplify minification of the project, which is important to improve to speed up the final product. With Grunt, we're using Connect, Watch, Bower, Clean, Concat, Jshint, Copy, Cssmin and Ugilfy. These are all to ease the development and build process. 
 
 The disadvantage to grunt is that it requires the developers to work with the command line and Node.js. Many developers are not yet familiar with this, though for a project such as Grunt is the most commonly used build tool at this time.
 
