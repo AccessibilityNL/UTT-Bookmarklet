@@ -258,6 +258,7 @@ module.exports = function (grunt) {
         'jshint:all:test',
         'clean:server',
         'babel:server',
+        'build-components',
         'mochaTest'
     ]);
 

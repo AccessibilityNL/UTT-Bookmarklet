@@ -3,7 +3,7 @@ function (React, UttBookmarklet) {
 
     let setup = {
         init() {
-            let styleLink = setup.createStyleNode()
+            let styleLink = setup.createStyleNode();
             let rootNode  = setup.createRootNode();
 
             document.head.appendChild(styleLink);
