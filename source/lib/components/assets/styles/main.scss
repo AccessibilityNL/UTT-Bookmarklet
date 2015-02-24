@@ -1,16 +1,4 @@
 #utt-bookmarklet-root {
-	* {
-		font-size: 12px;
-		margin:0;
-		padding:0;
-		color:#000;
-		text-align:left;
-	}
-
-	h1 {
-		font-size:15px;
-	}
-
 	@import "panel.scss";
 	@import "tabs.scss";
 }
