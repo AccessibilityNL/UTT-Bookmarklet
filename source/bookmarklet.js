@@ -8,17 +8,19 @@
         require.config({
             baseUrl: rootPath,
             paths: {
-                UTT: 'lib'
-            }
+                UTT: 'lib',
+                React: 'bower_components/React/react'
+            },
+            shim: { exports: 'React' }
         });
 
-        require(['UTT/setup'], function (setup) {
+        require(['UTT/setup'], (setup) => {
             setup.init();
         });
     }
 
     if (typeof require === 'undefined') {
-        var s = document.createElement('script');
+        let s = document.createElement('script');
         s.onload = start;
         s.setAttribute('src', rootPath + 'bower_components/requirejs/require.js');
         document.body.appendChild(s);

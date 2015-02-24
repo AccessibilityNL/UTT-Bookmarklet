@@ -21,12 +21,20 @@ module.exports = function (grunt) {
                 files: ['Gruntfile.js']
             },
             compass: {
-                files: ['<%= settings.source %>/launcher/styles/**/*.{scss,sass}'],
+                files: ['<%= settings.source %>/launcher/styles/**/*.scss'],
                 tasks: ['compass:server']
+            },
+            compass_components: {
+                files: ['<%= settings.source %>/lib/components/assets/styles/**/*.scss'],
+                tasks: ['compass:components']
             },
             babel: {
                 files: ['<%= settings.source %>/**/*.js'],
                 tasks: ['babel:server', 'concat:server']
+            },
+            react: {
+                files: ['<%= settings.source %>/lib/components/**/*.jsx'],
+                tasks: ['build-components']
             },
             livereload: {
                 options: {
@@ -92,6 +100,12 @@ module.exports = function (grunt) {
                 assetCacheBuster: false,
                 raw: 'Sass::Script::Number.precision = 10\n'
             },
+            components: {
+                options: {
+                    sassDir: '<%= settings.source %>/lib/components/assets/styles',
+                    cssDir: '.tmp/lib/components/assets/styles'
+                }
+            },
             dist: {
                 options: {
                     generatedImagesDir: '<%= settings.build %>/images/generated'
@@ -121,6 +135,14 @@ module.exports = function (grunt) {
                     cwd: '<%= settings.source %>/launcher/scripts',
                     dest: '.tmp/launcher/scripts',
                     src: '**/*.js'
+                }]
+            },
+            components: {
+                files: [{
+                    expand: true,
+                    cwd: '.tmp/lib/components/',
+                    dest: '.tmp/lib/components/',
+                    src: '**/*.js',
                 }]
             }
         },
@@ -181,6 +203,24 @@ module.exports = function (grunt) {
             }
         },
 
+        react: {
+            options: {
+                extension: 'js',
+                harmony: true
+            },
+            components: {
+                files: [{
+                    expand: true,
+                    cwd: '<%= settings.source %>/lib/components/',
+                    dest: '.tmp/lib/components/',
+                    src: '**/*.jsx',
+                    rename: function(dest, src) {
+                        return dest + src.replace(/\.jsx$/, ".js");
+                    }
+                }]
+            }
+        },
+
         jshint: {
             options: {
                 jshintrc: '.jshintrc',
@@ -205,8 +245,10 @@ module.exports = function (grunt) {
             'clean:server',
             'bowerInstall',
             'compass:server',
+            'compass:components',
             'babel:server',
             'concat:server',
+            'build-components',
             'connect:livereload',
             'watch'
         ]);
@@ -222,9 +264,15 @@ module.exports = function (grunt) {
     grunt.registerTask('build', [
         'clean:dist',
         'bowerInstall',
+        'compass:components',
         'compass:dist',
         'babel:dist',
         'copy',
+    ]);
+
+    grunt.registerTask('build-components', [
+        'react:components',
+        'babel:components'
     ]);
 
     grunt.registerTask('build-bookmark', [

@@ -1,0 +1,13 @@
+.panel {
+    position:      fixed;
+    top:           10px;
+    left:          25%;
+    width:         50%;
+    min-height:    5em;
+    background:    white;
+    border:        solid gray 1px;
+    border-radius: 5px;
+    padding:       1em;
+    z-index:       99999999;
+    opacity:       0.95;
+}

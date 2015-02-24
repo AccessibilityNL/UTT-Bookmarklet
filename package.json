@@ -19,6 +19,7 @@
     "grunt-karma": "^0.8.3",
     "grunt-mocha-test": "^0.12.7",
     "grunt-newer": "~0.6.1",
+    "grunt-react": "^0.10.0",
     "grunt-rev": "~0.1.0",
     "grunt-usemin": "~2.0.0",
     "jshint-stylish": "^1.0.0",
