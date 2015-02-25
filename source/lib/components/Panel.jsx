@@ -1,11 +1,8 @@
 define(['React'], function (React) {
 
 	let Panel = React.createClass({
-		footbar() {
-			alert(1234);
-		},
 		render() {
-			return <div className="panel" onClick={this.foobar}>
+			return <div className="panel">
 				{this.props.children}
 			</div>;
 		}

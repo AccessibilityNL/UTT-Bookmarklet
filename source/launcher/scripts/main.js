@@ -22,7 +22,6 @@ define(function () {
 
         bookmarkletString += launcher.getBookmarkletString(options);
         elm.setAttribute('href',  bookmarkletString);
-        console.log(bookmarkletString);
     };
 
     launcher.getBookmarkletString = function (options) {
@@ -30,8 +29,11 @@ define(function () {
         let port       = options.port       || ':9000';
         let scriptPath = options.scriptPath || 'bookmarklet.js';
         let userKey    = options.userKey    || '1234567890';
+        let modules    = options.modules    || [];
 
-        let url = '//' + host + port + '/' + scriptPath + '?key=' + userKey;
+        let query = '?key=' + userKey + '&mds=' + modules.join();
+
+        let url = '//' + host + port + '/' + scriptPath + query;
 
         return '(function(){' +
             'var d=document,i="utt-bookmarklet",a="setAttribute";' +

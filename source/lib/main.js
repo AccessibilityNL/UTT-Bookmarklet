@@ -1,10 +1,20 @@
 define(['React', 'UTT/components/UttBookmarklet'],
 function (React, UttBookmarklet) {
 
-    let setup = {
-        init() {
-            let styleLink = setup.createStyleNode();
-            let rootNode  = setup.createRootNode();
+    let UTT = {
+        modulesLoaded(...modules) {
+            console.log(modules);
+            modules.forEach((mdl) => mdl.init());
+        },
+
+        init({modules, userKey}) {
+            let styleLink = UTT.createStyleNode();
+            let rootNode  = UTT.createRootNode();
+
+            // Prefix module names
+            modules = modules.map((modName) => 'UTT/modules/' + modName + '/main');
+
+            require(modules, UTT.modulesLoaded);
 
             document.head.appendChild(styleLink);
             document.body.appendChild(rootNode);
@@ -34,6 +44,6 @@ function (React, UttBookmarklet) {
         }
     };
 
-    return setup;
+    return UTT;
 
 });

@@ -2,7 +2,8 @@
 
     let scriptSrc = document.getElementById('utt-bookmarklet').src;
     let rootPath  = scriptSrc.match(/^https?\:\/\/([^\/?#]+)(?:[\/?#]|$)/i)[0];
-    let userKey   = scriptSrc.split('key=')[1].split('&')[0];
+    let userKey   = (scriptSrc.split('key=')[1] || '').split('&')[0];
+    let modules   = (scriptSrc.split('mds=')[1] || '').split('&')[0].split(',');
 
     function start() {
         require.config({
@@ -14,8 +15,12 @@
             shim: { exports: 'React' }
         });
 
-        require(['UTT/setup'], (setup) => {
-            setup.init();
+        require(['UTT/main'], (UTT) => {
+            UTT.init({
+                userKey: userKey,
+                modules: modules,
+                launch: true,
+            });
         });
     }
 
