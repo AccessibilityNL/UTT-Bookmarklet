@@ -7,7 +7,7 @@ function (React, UttBookmarklet) {
             modules.forEach((mdl) => mdl.init());
         },
 
-        init({modules, userKey}) {
+        init({modules/*, userKey*/}) {
             let styleLink = UTT.createStyleNode();
             let rootNode  = UTT.createRootNode();
 
@@ -34,7 +34,6 @@ function (React, UttBookmarklet) {
                 require.toUrl("UTT/components/assets/styles/main.css")
             );
             return link;
-
         },
 
         createRootNode() {

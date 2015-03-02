@@ -1,5 +1,22 @@
 {
-    "node": true,
-    "browser": true,
-    "esnext": true
+    "esnext":   true,
+  	"indent":   4,
+    "node":     true,
+    "browser":  true,
+    "curly":    true,   // Require {} for every new block or scope
+    "eqeqeq":   true,   // Require triple equals i.e. `===`
+    "undef":    true,   // Require variables be declared before they are used
+    "forin":    false,  // Tolerate `for in` loops without `hasOwnPrototype`
+    "noempty":  true,   // Prohibit use of empty blocks.
+    "nonew":    true,   // Prohibit use of constructors for side-effects.
+    "plusplus": false,  // Prohibit use of `++` & `--`.
+    "trailing": true,   // Prohibit trailing whitespaces.
+    "white":    false,  // Check against strict whitespace and indentation rules.
+    "freeze":   true,   // Prohibits overwriting prototypes of native objects
+    "maxdepth": 5,      // Limit nested blocks
+    "unused":   true,   // Warns when you define and never use your variables
+    "globals":  {
+    	"define":  true,
+    	"require": true
+	}
 }

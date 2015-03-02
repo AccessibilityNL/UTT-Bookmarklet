@@ -113,7 +113,7 @@ module.exports = function (grunt) {
             },
             server: {
                 options: {
-                  debugInfo: false
+                    debugInfo: false
                 }
             }
         },

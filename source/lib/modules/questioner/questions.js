@@ -10,5 +10,6 @@ define({
                 'failed': 'no',
                 'cantTell': 'Unclear'
             }
-    }}
+        }
+    }
 });
