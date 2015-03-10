@@ -1,0 +1,17 @@
+.utt-highlight {
+	outline:solid 3px;
+	-webkit-animation: utt-highlight-anim 2s infinite; /* Chrome, Safari, Opera */
+    animation: utt-highlight-anim 2s infinite;
+}
+
+/* Chrome, Safari, Opera */
+@-webkit-keyframes utt-highlight-anim {
+    from {outline-color: rgba(255,0,0,0) }
+    to {outline-color:  rgba(255,0,0,1) }
+}
+
+/* Standard syntax */
+@keyframes utt-highlight-anim {
+    from {outline-color: rgba(255,0,0,0) }
+    to {outline-color:  rgba(255,0,0,1) }
+}
