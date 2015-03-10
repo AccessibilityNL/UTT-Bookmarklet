@@ -46,30 +46,30 @@ function (React, QuestionerElm, questionData, highlighter) {
 			}, []);
         },
 
-        onAnswer(question, answer) {
+        onAnswer({id, element}, answer) {
         	let xhr = new XMLHttpRequest();   // new HttpRequest instance
-        	let assert = questioner.createAssert(
-	        		question.questionId,
-	        		question.element,
-	        		answer);
+        	let assert = questioner.createAssert(id, element, answer);
 
 			xhr.open("POST", "/");
 			xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
 			xhr.send(JSON.stringify(assert));
-
-        	//console.log("Send: ", assert);
         },
 
-        createAssert(test, elm, result) {
+        createAssert(test, elm, outcome) {
         	return {
         		subject: questioner.subject,
-        		result: result,
+        		result: {
+        			outcome: outcome,
+        			pointer: {
+        				charSnippet: elm.outerHTML.substr(0, 100),
+					}
+    			},
         		mode: 'manual',
         		testcase: test,
-        		pointer: elm.outerHTML.substr(0, 100),
         		assertedBy: questioner.assertor
         	};
         }
+
     };
 
     return questioner;
