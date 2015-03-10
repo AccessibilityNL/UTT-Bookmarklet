@@ -20,6 +20,7 @@ define(['React', './Tab'], function (React, Tab) {
 			};
 
 			return <a href="#" style={tabWidth}
+			key={'tab-item-' + index}
 			className={ this.state.activeTab === index ? 'active': '' }
 			onClick={ ()=> this.changeTab(index) }>
 				{tab.props.name}
@@ -30,13 +31,13 @@ define(['React', './Tab'], function (React, Tab) {
 			let style = {
 				display: (this.state.activeTab === index ? 'block' : 'none')
 			};
-			return <div style={style}>
+			return <div style={style} key={'tab-view-' + index}>
 				{tab}
 			</div>;
 		},
 
 		render() {
-			let children = this.props.children;
+			let children   = this.props.children || [];
 			this.tabLength = children.length;
 
 			let tabBar   = children.map(this.renderTabBar);

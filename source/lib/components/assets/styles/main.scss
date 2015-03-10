@@ -1,5 +1,6 @@
-#utt-bookmarklet-root {
+#utt-bookmarklet-container {
 	@import "panel.scss";
 	@import "tabs.scss";
 }
 
+@import "highlight.scss";
