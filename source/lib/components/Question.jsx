@@ -3,21 +3,37 @@ function (React, strFormat) {
     let count = 0;
 
     let Questioner = React.createClass({
+        answer: null,
+
+        getInitialState() {
+            return {
+                error: false
+            };
+        },
 
         render() {
             let q = this.props.question;
+            let error = '';
+
+            if (this.state.error) {
+                error = <div className="error">Please answer the question first.</div>;
+            }
+
             return <div>
+                {error}
                 <div>{this.createQuestionText(q)}</div>
                 <div>{q.help}</div>
                 {q.answers.map(this.showAnswer)}
-                <button onClick={this.nextQuestion}>Next question</button>
+                <button onClick={this.answerQuestion}>Next question</button>
             </div>;
         },
 
-        nextQuestion() {
-            // TODO: Check if an answer was set
-
-            this.props.onNext();
+        answerQuestion() {
+            if (this.answer) {
+                this.props.onAnswer(this.props.question, this.answer);
+            } else {
+                this.setState({error: true});
+            }
         },
 
         createQuestionText(q) {
@@ -30,10 +46,17 @@ function (React, strFormat) {
         showAnswer(answer) {
             count += 1;
             return <div key={'answer-' + count}>
-                <input name="question" type="radio" id={'answer-' + count} />
+                <input name="question" type="radio"
+                    id={'answer-' + count}
+                    value={answer.value}
+                    onChange={this.handleChange} />
                 <label htmlFor={'answer-' + count}> {answer.text}</label>
             </div>;
-        }
+        },
+
+        handleChange(event) {
+            this.answer = event.target.value;
+        },
 
 
     });

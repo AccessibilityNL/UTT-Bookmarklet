@@ -8,7 +8,11 @@ function (React, Question) {
             };
         },
 
-        nextQuestion() {
+        answerQuestion(question, answer) {
+            if (this.props.onAnswer) {
+                this.props.onAnswer(question, answer);
+            }
+
             this.setState({
                 currentQuestion: this.state.currentQuestion + 1
             });
@@ -22,7 +26,7 @@ function (React, Question) {
         renderQuestion(q) {
             return <div>
                 Question {this.state.currentQuestion + 1} of {this.props.questions.length}
-                <Question question={q} onNext={this.nextQuestion} />
+                <Question question={q} onAnswer={this.answerQuestion} />
             </div>;
         },
 

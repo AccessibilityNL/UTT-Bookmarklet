@@ -9,7 +9,8 @@ function (React, QuestionerElm, questionData, highlighter) {
         init() {
 			questioner.questions = questioner.buildQuestions(questionData);
 			questioner.component = React.createElement(QuestionerElm, {
-				questions: questioner.questions
+				questions: questioner.questions,
+				onAnswer: questioner.onAnswer
 			});
         },
 
@@ -36,6 +37,10 @@ function (React, QuestionerElm, questionData, highlighter) {
 				));
 				return questions;
 			}, []);
+        },
+
+        onAnswer(question, answer) {
+        	console.log(question.questionId, question.element, answer);
         }
     };
     return questioner;
