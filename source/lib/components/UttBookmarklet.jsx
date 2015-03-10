@@ -14,8 +14,11 @@ function (React, Panel, TabPanel) {
 					Hello Bookmarklet
 				</h1>
 				<TabPanel>
-				  <Tab name="Foo">Hello Foo</Tab>
-				  <Tab name="Bar">Hello Bar</Tab>
+					{this.props.modules.map((module, index) =>
+						<Tab name={ module.name } key={'module-' + index}>
+							{ module.component }
+						</Tab>
+					)}
 				</TabPanel>
 			</Panel>;
 		}
