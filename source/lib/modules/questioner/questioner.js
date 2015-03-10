@@ -2,11 +2,18 @@ define(['React', 'UTT/components/questioner', './questiondata', 'UTT/utils/highl
 function (React, QuestionerElm, questionData, highlighter) {
 
     let questioner = {
-    	name: 'Questions',
+    	name:     'Questions',
+    	subject:   null,
         component: null,
         questions: null,
+        assertor:  null,
 
-        init() {
+        init({userKey}) {
+        	if (window) {
+        		questioner.subject = window.location.href;
+        	}
+        	questioner.assertor = userKey;
+
 			questioner.questions = questioner.buildQuestions(questionData);
 			questioner.component = React.createElement(QuestionerElm, {
 				questions: questioner.questions,
@@ -40,8 +47,30 @@ function (React, QuestionerElm, questionData, highlighter) {
         },
 
         onAnswer(question, answer) {
-        	console.log(question.questionId, question.element, answer);
+        	let xhr = new XMLHttpRequest();   // new HttpRequest instance
+        	let assert = questioner.createAssert(
+	        		question.questionId,
+	        		question.element,
+	        		answer);
+
+			xhr.open("POST", "/");
+			xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+			xhr.send(JSON.stringify(assert));
+
+        	//console.log("Send: ", assert);
+        },
+
+        createAssert(test, elm, result) {
+        	return {
+        		subject: questioner.subject,
+        		result: result,
+        		mode: 'manual',
+        		testcase: test,
+        		pointer: elm.outerHTML.substr(0, 100),
+        		assertedBy: questioner.assertor
+        	};
         }
     };
+
     return questioner;
 });

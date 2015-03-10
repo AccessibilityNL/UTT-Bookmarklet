@@ -16,13 +16,13 @@ function (React, strFormat) {
             let error = '';
 
             if (this.state.error) {
-                error = <div className="error">Please answer the question first.</div>;
+                error = <p className="error">Please answer the question first.</p>;
             }
 
             return <div>
                 {error}
-                <div>{this.createQuestionText(q)}</div>
-                <div>{q.help}</div>
+                <p>{this.createQuestionText(q)}</p>
+                <p>{q.help}</p>
                 {q.answers.map(this.showAnswer)}
                 <button onClick={this.answerQuestion}>Next question</button>
             </div>;

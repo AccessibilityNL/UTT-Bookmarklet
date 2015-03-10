@@ -4,16 +4,19 @@ function (React, UttBookmarklet) {
     let UTT = {
         bookmarkNode: null,
         containerNode: null,
+        userKey: null,
 
         modulesLoaded(...modules) {
-            modules.forEach((module) => module.init());
+            let options = {userKey: UTT.userKey};
+            modules.forEach((module) => module.init(options));
             UTT.bookmarkNode.props.modules = modules;
             React.render(UTT.bookmarkNode, UTT.containerNode);
         },
 
-        init({modules/*, userKey*/}) {
+        init({modules, userKey}) {
             let styleLink = UTT.createStyleNode();
             UTT.containerNode  = UTT.createContainerNode();
+            UTT.userKey = userKey;
 
             // Prefix module names
             modules = modules.map((modName) => 'UTT/modules/' + modName + '/' + modName);
