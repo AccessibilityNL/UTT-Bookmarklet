@@ -2,14 +2,25 @@ define(['React', 'UTT/components/questioner', './questiondata',
         'UTT/utils/highlighter', 'UTT/utils/assertion'],
 function (React, QuestionerElm, questionData, highlighter, assertion) {
 
+    function isDecending(parent, child) {
+        let node = child.parentNode;
+        while (node !== null) {
+            if (node === parent) {
+                return true;
+            }
+            node = node.parentNode;
+        }
+        return false;
+    }
+
+
     let questioner = {
         name:     'Questions',
-        subject:   null,
         component: null,
         questions: null,
-        assertor:  null,
-        userKey: null,
-        url: null,
+        userKey:   null,
+        url:       null,
+        subject:   null,
 
         init({userKey, url}) {
             // Setup defaults
@@ -31,12 +42,22 @@ function (React, QuestionerElm, questionData, highlighter, assertion) {
             return Object.keys(questionData.questions)
             .reduce((questions, questionId) => {
                 let question = questionData.questions[questionId];
-                let elms = highlighter.find(question.selector.css);
+                let nodes = highlighter.find(question.selector.css);
+                nodes = Array.prototype.slice.call(nodes);
+                let bookmarklet = highlighter.find('#utt-bookmarklet-container')[0];
+
+                let elms = nodes.reduce((elms, elm) => {
+                    if (!isDecending(bookmarklet, elm)) {
+
+                        elms.push(elm);
+                    }
+                    return elms;
+                }, []);
+
                 if (!elms) {
                     return questions;
                 }
                 // use an array instead of a nodeList
-                elms = Array.prototype.slice.call(elms);
 
                 // Apply question limit
                 if (typeof question.limit === 'number') {
