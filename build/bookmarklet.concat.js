@@ -3,13 +3,13 @@
 (function () {
 
     var scriptSrc = document.getElementById("utt-bookmarklet").src;
-    var rootPath = scriptSrc.match(/^https?\:\/\/([^\/?#]+)(?:[\/?#]|$)/i)[0];
+    var baseUrl = scriptSrc.substring(0, scriptSrc.lastIndexOf("/") + 1);
     var userKey = (scriptSrc.split("key=")[1] || "").split("&")[0];
     var modules = (scriptSrc.split("mds=")[1] || "").split("&")[0].split(",");
 
     function start() {
         require.config({
-            baseUrl: rootPath,
+            baseUrl: baseUrl,
             paths: {
                 UTT: "lib",
                 React: "bower_components/React/react"
@@ -28,7 +28,7 @@
     if (typeof require === "undefined") {
         var s = document.createElement("script");
         s.onload = start;
-        s.setAttribute("src", rootPath + "bower_components/requirejs/require.js");
+        s.setAttribute("src", baseUrl + "bower_components/requirejs/require.js");
         document.body.appendChild(s);
     } else {
         start();
