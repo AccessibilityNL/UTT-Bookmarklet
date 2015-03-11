@@ -10,7 +10,7 @@
             baseUrl,
             paths: {
                 UTT: 'lib',
-                React: 'bower_components/React/react'
+                React: 'bower_components/react/react'
             },
             shim: { exports: 'React' }
         });
