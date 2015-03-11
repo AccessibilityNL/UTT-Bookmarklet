@@ -1,11 +1,11 @@
 "use strict";
 
-define(function () {
+define(["./userkey"], function (userkey) {
     var launcher = {};
 
     launcher.create = function (options) {
         /*jshint scripturl:true*/
-        var bookmarkletString = "javascript: ";
+        var bookmarkletString = "javascript:";
         var elm = options.elm;
 
         // Catch input errors
@@ -27,10 +27,10 @@ define(function () {
     };
 
     launcher.getBookmarkletString = function (options) {
-        var host = options.host || "127.0.0.1";
-        var port = options.port || ":9000";
+        var host = options.host || window.location.hostname;
+        var port = options.port || ":" + window.location.port;
         var scriptPath = options.scriptPath || "bookmarklet.js";
-        var userKey = options.userKey || "1234567890";
+        var userKey = options.userKey || userkey.getKey();
         var modules = options.modules || [];
 
         var query = "?key=" + userKey + "&mds=" + modules.join();
