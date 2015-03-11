@@ -1,0 +1,33 @@
+/* line 1, ../../../../../source/lib/components/assets/styles/highlight.scss */
+.utt-highlight {
+  outline: solid 3px;
+  -webkit-animation: utt-highlight-anim 2s infinite;
+  /* Chrome, Safari, Opera */
+  animation: utt-highlight-anim 2s infinite;
+}
+
+/* Chrome, Safari, Opera */
+@-webkit-keyframes utt-highlight-anim {
+  /* line 9, ../../../../../source/lib/components/assets/styles/highlight.scss */
+  from {
+    outline-color: rgba(255, 0, 0, 0);
+  }
+
+  /* line 10, ../../../../../source/lib/components/assets/styles/highlight.scss */
+  to {
+    outline-color: red;
+  }
+}
+
+/* Standard syntax */
+@keyframes utt-highlight-anim {
+  /* line 15, ../../../../../source/lib/components/assets/styles/highlight.scss */
+  from {
+    outline-color: rgba(255, 0, 0, 0);
+  }
+
+  /* line 16, ../../../../../source/lib/components/assets/styles/highlight.scss */
+  to {
+    outline-color: red;
+  }
+}

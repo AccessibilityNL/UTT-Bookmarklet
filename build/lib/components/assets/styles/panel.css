@@ -1,0 +1,29 @@
+/* line 1, ../../../../../source/lib/components/assets/styles/panel.scss */
+.panel {
+  position: fixed;
+  top: 10px;
+  left: 25%;
+  width: 50%;
+  min-height: 5em;
+  background: white;
+  border: solid gray 1px;
+  border-radius: 5px;
+  z-index: 99999999;
+  opacity: 0.95;
+}
+/* line 13, ../../../../../source/lib/components/assets/styles/panel.scss */
+.panel * {
+  font-size: 12px;
+  margin: 0;
+  padding: 0;
+  color: #000;
+  text-align: left;
+}
+/* line 21, ../../../../../source/lib/components/assets/styles/panel.scss */
+.panel .title {
+  font-size: 12px;
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+  background: #eee;
+  padding: 0 1em;
+}

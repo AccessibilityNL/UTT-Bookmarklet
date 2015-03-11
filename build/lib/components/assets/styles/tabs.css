@@ -1,0 +1,18 @@
+/* line 6, ../../../../../source/lib/components/assets/styles/tabs.scss */
+.tab-bar > a {
+  display: inline-block;
+  background: #5299df;
+  padding: .2em 0;
+  text-indent: 1em;
+  text-decoration: none;
+}
+/* line 12, ../../../../../source/lib/components/assets/styles/tabs.scss */
+.tab-bar > a.active {
+  background: #7db7f0;
+}
+
+/* line 17, ../../../../../source/lib/components/assets/styles/tabs.scss */
+.tab {
+  background: #7db7f0;
+  padding: 1em;
+}
