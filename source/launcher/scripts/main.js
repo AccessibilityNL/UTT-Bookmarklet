@@ -1,10 +1,10 @@
-define([],
-function () {
+define(['./userkey'],
+function (userkey) {
     let launcher = {};
 
     launcher.create =  function (options) {
         /*jshint scripturl:true*/
-        let bookmarkletString = 'javascript: ';
+        let bookmarkletString = 'javascript:';
         let {elm} = options;
 
         // Catch input errors
@@ -29,7 +29,7 @@ function () {
         let host       = options.host       || window.location.hostname;
         let port       = options.port       || ':' + window.location.port;
         let scriptPath = options.scriptPath || 'bookmarklet.js';
-        let userKey    = options.userKey    || '';
+        let userKey    = options.userKey    || userkey.getKey();
         let modules    = options.modules    || [];
 
         let query = '?key=' + userKey + '&mds=' + modules.join();
