@@ -7,7 +7,10 @@ function (React, UttBookmarklet) {
         userKey: null,
 
         modulesLoaded(...modules) {
-            let options = {userKey: UTT.userKey};
+            let options = {
+                userKey: UTT.userKey,
+                url: require.toUrl(".")
+            };
             modules.forEach((module) => module.init(options));
             UTT.bookmarkNode.props.modules = modules;
             React.render(UTT.bookmarkNode, UTT.containerNode);

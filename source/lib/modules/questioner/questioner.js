@@ -1,5 +1,6 @@
-define(['React', 'UTT/components/questioner', './questiondata', 'UTT/utils/highlighter'],
-function (React, QuestionerElm, questionData, highlighter) {
+define(['React', 'UTT/components/questioner', './questiondata',
+        'UTT/utils/highlighter', 'UTT/utils/assertion'],
+function (React, QuestionerElm, questionData, highlighter, assertion) {
 
     let questioner = {
         name:     'Questions',
@@ -7,14 +8,19 @@ function (React, QuestionerElm, questionData, highlighter) {
         component: null,
         questions: null,
         assertor:  null,
+        userKey: null,
+        url: null,
 
-        init({userKey}) {
+        init({userKey, url}) {
+            // Setup defaults
+            Object.assign(questioner, {
+                userKey, url,
+                questions: questioner.buildQuestions(questionData)
+            });
+
             if (window) {
                 questioner.subject = window.location.href;
             }
-            questioner.assertor = userKey;
-
-            questioner.questions = questioner.buildQuestions(questionData);
             questioner.component = React.createElement(QuestionerElm, {
                 questions: questioner.questions,
                 onAnswer: questioner.onAnswer
@@ -39,37 +45,28 @@ function (React, QuestionerElm, questionData, highlighter) {
                 // For each element, create q question and push it on the questions array
                 questions.push(...elms.map((element) =>
                     Object.assign({
-                        element, questionId
+                        element,
+                        id: questionId
                     }, question)
                 ));
                 return questions;
             }, []);
         },
 
-        onAnswer({id, element}, answer) {
-            let xhr = new XMLHttpRequest();   // new HttpRequest instance
-            let assert = questioner.createAssert(id, element, answer);
+        onAnswer({id, element}, outcome) {
+            let xhr    = new XMLHttpRequest();   // new HttpRequest instance
+            let target = questionData.postUrl || (questioner.url + 'assertions');
+            let {userKey, url, subject} = questioner;
 
-            xhr.open("POST", "/");
+            let assert = assertion.create({
+                element, outcome, userKey, url, subject,
+                testcase: id,
+            });
+
+            xhr.open("PUT", target);
             xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
             xhr.send(JSON.stringify(assert));
-        },
-
-        createAssert(test, elm, outcome) {
-            return {
-                subject: questioner.subject,
-                result: {
-                    outcome: outcome,
-                    pointer: {
-                        charSnippet: elm.outerHTML.substr(0, 100),
-                    }
-                },
-                mode: 'manual',
-                testcase: test,
-                assertedBy: questioner.assertor
-            };
         }
-
     };
 
     return questioner;

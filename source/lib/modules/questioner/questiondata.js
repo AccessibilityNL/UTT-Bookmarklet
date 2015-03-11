@@ -1,6 +1,7 @@
 define({
+    // postUrl: '' // (optionsal) Path to which the data should be posted
     questions: {
-        '1.1.1-img-alt': {
+        'auto-wcag:1.1.1-img-alt': {
             selector: { css:'img[alt]' },
             variables: ['alt'],
             text: 'Is "{0}" a good description for this image?',
