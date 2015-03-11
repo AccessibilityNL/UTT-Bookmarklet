@@ -174,19 +174,22 @@ module.exports = function (grunt) {
 
         // Copies remaining files to places other tasks can use
         copy: {
-            dist: {
+            build: {
                 files: [{
                     expand: true,
-                    dot: true,
                     cwd: '<%= settings.source %>',
                     dest: '<%= settings.build %>',
-                    src: [
-                        '*.{ico,png,txt}',
-                        '.htaccess',
-                        '/**/*.{html,js,css}',
-                        'images/{,*/}*.{webp}',
-                        'fonts/*'
-                    ]
+                    src: '**/*.{html,jpg,gif,png,ico,txt,css}'
+                }, {
+                    expand: true,
+                    cwd: '.tmp',
+                    dest: '<%= settings.build %>',
+                    src: '**/*.{css,js}'
+                }, {
+                    expand: true,
+                    cwd: '<%= settings.source %>/bower_components',
+                    dest: '<%= settings.build %>/bower_components',
+                    src: '**/*.js'
                 }]
             },
             styles: {
@@ -263,12 +266,14 @@ module.exports = function (grunt) {
     ]);
 
     grunt.registerTask('build', [
-        'clean:dist',
+        'clean:server',
         'bowerInstall',
+        'compass:server',
         'compass:components',
-        'compass:dist',
-        'babel:dist',
-        'copy',
+        'babel:server',
+        'concat:server',
+        'build-components',
+        'copy:build'
     ]);
 
     grunt.registerTask('build-components', [
