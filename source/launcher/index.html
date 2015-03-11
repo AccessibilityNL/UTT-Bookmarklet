@@ -31,8 +31,9 @@
   <script>
     require(['scripts/main'], function (launcher) {
       launcher.create({
-        "elm": document.getElementById('bookmerklet'),
-        'modules': ['questioner']
+        elm:     document.getElementById('bookmerklet'),
+        modules: ['questioner'],
+        folder:  window.location.pathname.split('launcher')[0]
       });
     });
   </script>

@@ -30,11 +30,12 @@ function (userkey) {
         let port       = options.port       || ':' + window.location.port;
         let scriptPath = options.scriptPath || 'bookmarklet.js';
         let userKey    = options.userKey    || userkey.getKey();
+        let folder     = options.folder     || '/';
         let modules    = options.modules    || [];
 
         let query = '?key=' + userKey + '&mds=' + modules.join();
 
-        let url = '//' + host + port + '/' + scriptPath + query;
+        let url = '//' + host + port + folder + scriptPath + query;
 
         return '(function(){' +
             'var d=document,i="utt-bookmarklet",a="setAttribute";' +
