@@ -31,11 +31,12 @@ define(["./userkey"], function (userkey) {
         var port = options.port || ":" + window.location.port;
         var scriptPath = options.scriptPath || "bookmarklet.js";
         var userKey = options.userKey || userkey.getKey();
+        var folder = options.folder || "/";
         var modules = options.modules || [];
 
         var query = "?key=" + userKey + "&mds=" + modules.join();
 
-        var url = "//" + host + port + "/" + scriptPath + query;
+        var url = "//" + host + port + folder + scriptPath + query;
 
         return "(function(){" + "var d=document,i=\"utt-bookmarklet\",a=\"setAttribute\";" + "if(!d.getElementById(i)){" + "var s=d.createElement(\"script\");" + "s[a](\"src\",\"" + url + "\");" + "s[a](\"id\",i);" + "d.body.appendChild(s);" + "}" + "}());";
     };
