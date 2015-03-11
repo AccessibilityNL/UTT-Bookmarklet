@@ -41,7 +41,6 @@ function (React, strFormat) {
                 let value;
                 let elm = q.element;
                 if (variable === 'text') {
-                    console.log(elm);
                     value = elm.textContent || elm.innerText;
                 } else {
                     value = elm.getAttribute(variable);
