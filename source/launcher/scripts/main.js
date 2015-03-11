@@ -1,4 +1,5 @@
-define(function () {
+define([],
+function () {
     let launcher = {};
 
     launcher.create =  function (options) {
@@ -25,10 +26,10 @@ define(function () {
     };
 
     launcher.getBookmarkletString = function (options) {
-        let host       = options.host       || '127.0.0.1';
-        let port       = options.port       || ':9000';
+        let host       = options.host       || window.location.hostname;
+        let port       = options.port       || ':' + window.location.port;
         let scriptPath = options.scriptPath || 'bookmarklet.js';
-        let userKey    = options.userKey    || '1234567890';
+        let userKey    = options.userKey    || '';
         let modules    = options.modules    || [];
 
         let query = '?key=' + userKey + '&mds=' + modules.join();
