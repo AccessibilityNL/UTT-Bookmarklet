@@ -266,7 +266,7 @@ module.exports = function (grunt) {
     ]);
 
     grunt.registerTask('build', [
-        'clean:server',
+        'clean:dist',
         'bowerInstall',
         'compass:server',
         'compass:components',
