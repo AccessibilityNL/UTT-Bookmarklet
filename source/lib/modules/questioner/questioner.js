@@ -1,4 +1,4 @@
-define(['React', 'UTT/components/questioner', './questiondata',
+define(['React', 'UTT/components/Questioner', './questiondata',
         'UTT/utils/highlighter', 'UTT/utils/assertion'],
 function (React, QuestionerElm, questionData, highlighter, assertion) {
 
