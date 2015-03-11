@@ -6,7 +6,20 @@ define({
             variables: ['alt'],
             text: 'Is "{0}" a good description for this image?',
             help: '',
-            limit: 5,
+            limit: 10,
+            answers: [
+                {value: 'passed',   'text': 'yes'},
+                {value: 'failed',   'text': 'no'},
+                {value: 'cantTell', 'text': 'Unclear'},
+            ]
+        },
+
+        'auto-wcag:2-4-2-title': {
+            selector: { css:'title' },
+            variables: ['text'],
+            text: 'Is "{0}" a good description for this page?',
+            help: '',
+            limit: 1,
             answers: [
                 {value: 'passed',   'text': 'yes'},
                 {value: 'failed',   'text': 'no'},

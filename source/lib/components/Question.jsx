@@ -38,8 +38,15 @@ function (React, strFormat) {
 
         createQuestionText(q) {
             return strFormat(q.text, ...q.variables.map((variable) => {
-                let attr = q.element.getAttribute(variable);
-                return attr;
+                let value;
+                let elm = q.element;
+                if (variable === 'text') {
+                    console.log(elm);
+                    value = elm.textContent || elm.innerText;
+                } else {
+                    value = elm.getAttribute(variable);
+                }
+                return value;
             }));
         },
 
