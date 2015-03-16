@@ -21,6 +21,13 @@
                 modules: modules,
                 launch: true,
             });
+            if (window) {
+                if (!window.UTT) {
+                    window.UTT = {};
+                }
+                console.log('assign');
+                window.UTT.toggle = UTT.toggle;
+            }
         });
     }
 

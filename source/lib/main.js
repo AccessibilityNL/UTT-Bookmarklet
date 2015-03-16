@@ -5,7 +5,10 @@ function (React, UttBookmarklet) {
         bookmarkNode: null,
         containerNode: null,
         userKey: null,
+        running: false,
+
         render () {
+            UTT.running = true;
             React.render(UTT.bookmarkNode, UTT.containerNode);
         },
 
@@ -35,6 +38,22 @@ function (React, UttBookmarklet) {
 
             UTT.bookmarkNode = React.createElement(UttBookmarklet, {modules: []});
             React.render(UTT.bookmarkNode, UTT.containerNode);
+        },
+
+        start() {
+            console.log("Start!");
+            UTT.render();
+        },
+
+        stop() {
+            console.log("Stop!");
+            UTT.running = false;
+            React.unmountComponentAtNode(UTT.containerNode);
+        },
+
+        toggle() {
+            console.log('toggle');
+            UTT[UTT.running ? 'stop' : 'start']();
         },
 
         createStyleNode() {
