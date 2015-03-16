@@ -5,15 +5,19 @@ function (React, UttBookmarklet) {
         bookmarkNode: null,
         containerNode: null,
         userKey: null,
+        render () {
+            React.render(UTT.bookmarkNode, UTT.containerNode);
+        },
 
         modulesLoaded(...modules) {
             let options = {
                 userKey: UTT.userKey,
-                url: require.toUrl(".")
+                url:     require.toUrl("."),
+                render:  UTT.render
             };
             modules.forEach((module) => module.init(options));
             UTT.bookmarkNode.props.modules = modules;
-            React.render(UTT.bookmarkNode, UTT.containerNode);
+            UTT.render();
         },
 
         init({modules, userKey}) {

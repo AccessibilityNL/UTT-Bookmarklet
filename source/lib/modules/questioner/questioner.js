@@ -13,7 +13,7 @@ function (React, QuestionerElm, questionData, highlighter, assertion) {
         return false;
     }
 
-
+    let update;
     let questioner = {
         name:     'Questions',
         component: null,
@@ -22,19 +22,21 @@ function (React, QuestionerElm, questionData, highlighter, assertion) {
         url:       null,
         subject:   null,
 
-        init({userKey, url}) {
+        init({userKey, url, render}) {
             // Setup defaults
             Object.assign(questioner, {
                 userKey, url,
                 questions: questioner.buildQuestions(questionData)
             });
+            update = render;
 
             if (window) {
                 questioner.subject = window.location.href;
             }
             questioner.component = React.createElement(QuestionerElm, {
                 questions: questioner.questions,
-                onAnswer: questioner.onAnswer
+                onAnswer: questioner.onAnswer,
+                showQuestion: 0
             });
         },
 
@@ -46,13 +48,7 @@ function (React, QuestionerElm, questionData, highlighter, assertion) {
                 nodes = Array.prototype.slice.call(nodes);
                 let bookmarklet = highlighter.find('#utt-bookmarklet-container')[0];
 
-                let elms = nodes.reduce((elms, elm) => {
-                    if (!isDecending(bookmarklet, elm)) {
-
-                        elms.push(elm);
-                    }
-                    return elms;
-                }, []);
+                let elms = nodes.filter((elm) => !isDecending(bookmarklet, elm) );
 
                 if (!elms) {
                     return questions;
@@ -75,6 +71,9 @@ function (React, QuestionerElm, questionData, highlighter, assertion) {
         },
 
         onAnswer({id, element}, outcome) {
+            questioner.component.props.showQuestion += 1;
+            update();
+
             let xhr    = new XMLHttpRequest();   // new HttpRequest instance
             let target = questionData.postUrl || (questioner.url + 'assertions');
             let {userKey, url, subject} = questioner;

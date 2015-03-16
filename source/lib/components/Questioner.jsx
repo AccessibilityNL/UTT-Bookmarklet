@@ -12,22 +12,29 @@ function (React, Question) {
             if (this.props.onAnswer) {
                 this.props.onAnswer(question, answer);
             }
-
-            this.setState({
-                currentQuestion: this.state.currentQuestion + 1
-            });
         },
 
         render() {
-            let q = this.props.questions[this.state.currentQuestion];
-            return (q ? this.renderQuestion(q) : this.renderDone());
+            let showQuestion = +this.props.showQuestion;
+            let q = this.props.questions[showQuestion];
+            if (this.props.questions.length === 0) {
+                return this.renderNoQuestions();
+            } else if (q) {
+                return this.renderQuestion(q);
+            } else {
+                return this.renderDone();
+            }
         },
 
         renderQuestion(q) {
             return <div>
-                Question {this.state.currentQuestion + 1} of {this.props.questions.length}
+                Question {this.props.showQuestion + 1} of {this.props.questions.length}
                 <Question question={q} onAnswer={this.answerQuestion} />
             </div>;
+        },
+
+        renderNoQuestions() {
+            return <div>No questions</div>;
         },
 
         renderDone() {
