@@ -30,28 +30,32 @@ The following functions are only permitted to authenticated users.
 
 
 ### API paths with GET method
-assertions
-assertions/:id
-webpages
-webpages/:id
-webpages/:id/assertions   (reference list)
-websites
-websites/:id              (?include=evaluations)
-websites/:id/evaluations  (reference list)
-websites/:id/webpages     (reference list)
-assertors
-assertors/:id/evaluations (reference list)
-evaluations
-evaluations/:id
-evaluations/:id/scope
-evaluations/:id/creator
-evaluations/:id/auditResult
-evaluations/:id/auditResult/:assertionId
+URI                         | Notes
+:---------------------------|:-----------------------
+assertions                  |
+assertions/:id              |
+webpages                    |
+webpages/:id                |
+webpages/:id/assertions     | (reference list)
+websites                    |
+websites/:id                | (?include=evaluations)
+websites/:id/evaluations    | (reference list)
+websites/:id/webpages       | (reference list)
+assertors                   |
+assertors/:id/evaluations   | (reference list)
+evaluations                 |
+evaluations/:id             |
+evaluations/:id/scope       |
+evaluations/:id/creator     |
+evaluations/:id/auditResult |
+evaluations/:id/auditResult/:assertionId     |
 
 
 ### API paths with POST method
-evaluations
-evaluations/:id/auditResult
+URI                         | Notes
+:---------------------------|:----------------------------------
+evaluations                 | Create an evaluation
+evaluations/:id/auditResult | Add an assertion to an evaluation
 
 
 ## Resource Description
