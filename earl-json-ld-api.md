@@ -57,19 +57,30 @@ URI                         | Notes
 evaluations                 | Create an evaluation
 evaluations/:id/auditResult | Add an assertion to an evaluation
 
+## Options
+
+- `include=context`: Add the context object, instead of a path to the context
+- ``
+
 
 ## Resource Description
 
 ### Assertions
     {
-      "@context": "http://www.uttbookmarklet.com/assertions/context.jsonld",
-      "@type":                "earl:assertion",
-      "@id":                  "utt:asssertions/1234567890",
-      "subject":         "utt:evaluations/123456/scope",
-      "assertedBy":      "utt:evaluations/123456/assertor",
-      "testRequirement": "wcag20:text-equiv-all",
-      "result":          {"outcome": "earl:failed"},
-      "date":             "2014-01-01T19:20:30+01:00",
+      "@context":   "http://www.uttbookmarklet.com/assertions/context.jsonld",
+      "@type":      "Assertion",
+      "@id":        "utt:asssertions/1234567890",
+      "subject":    "utt:evaluations/123456/scope",
+      "assertedBy": "utt:evaluations/123456/assertor",
+      "test": {
+        "@type": "TestRequirement",
+        "@id":   "wcag20:text-equiv-all"
+      }
+      "result": {
+        "@type":  "TestResult"
+        "outcome": "failed"
+      },
+      "date": "2014-01-01T19:20:30+01:00",
     }
 
 
@@ -77,8 +88,8 @@ evaluations/:id/auditResult | Add an assertion to an evaluation
     {
       "@context":    "http://www.uttbookmarklet.com/webpages/context.jsonld"
       "@type":       "wcag-em:webpage",
-      "@id":         "host:webpages/123456",
-      "handle":      "Structure page 1",
+      "@id":         "utt:webpages/123456",
+      "title":       "Structure page 1",
       "description": "http://example.com/1"
     }
 
@@ -86,8 +97,8 @@ evaluations/:id/auditResult | Add an assertion to an evaluation
 ### websites
     {
       "@context":    "http://www.uttbookmarklet.com/websites/context.jsonld"
-      "@type":       "wcag-em:website"
-      "@id":         "host/websites/12345"
+      "@type":       "website"
+      "@id":         "utt:websites/12345"
       "dct:title":   "Example Org",
       "domain":      "www.example.org",
       "evaluations": [
@@ -150,19 +161,16 @@ evaluations/:id/auditResult | Add an assertion to an evaluation
 
 
 ## Authentication
-
-
-
-
-
-
 URI                | URL parameters     | Description
 :------------------|:-------------------|:----------------------------------------------------------
 `GET /session`     | `name`, `password` | __Only via HTTPS__, retrieves new session key, requires valid owner name and password
 `DELETE /session`  |                    | Closes session
 
 
-Resources: (type + id required)
-- assertion
-- evaluation
-
+# Sources of inspiration
+- http://www.w3.org/TR/EARL10-Schema/
+- http://json-ld.org/
+- https://github.com/w3c/wcag-em-report-tool/blob/master/dataformat.md 
+- https://github.com/waagsociety/citysdk-ld
+- https://github.com/UKGovLD/linked-data-api/blob/wiki/Specification.md
+- http://answers.semanticweb.com/questions/2763/the-relation-of-linked-datasemantic-web-to-rest
