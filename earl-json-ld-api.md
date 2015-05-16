@@ -70,8 +70,9 @@ evaluations/:id/auditResult | Add an assertion to an evaluation
       "@context":   "http://www.uttbookmarklet.com/assertions/context.jsonld",
       "@type":      "Assertion",
       "@id":        "utt:asssertions/1234567890",
+      // The subject can be an evaluation.scope or a webpage
       "subject":    "utt:evaluations/123456/scope",
-      "assertedBy": "utt:evaluations/123456/assertor",
+      "assertedBy": "utt:assertors/123456",
       "test": {
         "@type": "TestRequirement",
         "@id":   "wcag20:text-equiv-all"
@@ -90,6 +91,7 @@ evaluations/:id/auditResult | Add an assertion to an evaluation
       "@type":       "wcag-em:webpage",
       "@id":         "utt:webpages/123456",
       "title":       "Structure page 1",
+      "source":      "http://example.com/1",
       "description": "http://example.com/1"
     }
 
@@ -111,7 +113,7 @@ evaluations/:id/auditResult | Add an assertion to an evaluation
 
 ### assertors
     {
-      "@id":   "host:assertors/123456",
+      "@id":   "utt:assertors/123456",
       "@type": "http://xmlns.com/foaf/spec/#Person",
     }
 
