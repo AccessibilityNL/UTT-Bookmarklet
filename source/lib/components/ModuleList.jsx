@@ -4,7 +4,7 @@ define(['React'], function (React) {
          * Render the name of a module
          */
         renderModule(mod) {
-            return <li>
+            return <li className="module">
                 <strong>{mod.title}</strong>
                 <p>{mod.description}</p>
                 <button onClick={mod.activate}>

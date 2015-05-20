@@ -1,8 +1,9 @@
-define(['React'],
-function (React) {
+define(['React', 'UTT/components/Assessor'],
+function (React, Assessor) {
 
 	return function assertor(config, locale) {
-		console.log('start ' + config.foo);
+		console.log(config);
+		return React.createElement(Assessor, null);
 	};
 });
 

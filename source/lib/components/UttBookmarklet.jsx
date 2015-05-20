@@ -1,15 +1,11 @@
-define(['React', './Panel', './HomePanel'],
-function (React, Panel, HomePanel) {
-
-
+define(['React', './Panel'],
+function (React, Panel) {
     let UttBookmarklet = React.createClass({
         render() {
             return <Panel>
-                <HomePanel modules={this.props.modules}
-                           locale={this.props.locale} />
+                {this.props.children}
             </Panel>;
         }
     });
-
     return UttBookmarklet;
 });
