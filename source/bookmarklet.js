@@ -25,7 +25,6 @@
                 if (!window.UTT) {
                     window.UTT = {};
                 }
-                console.log('assign');
                 window.UTT.toggle = UTT.toggle;
             }
         });

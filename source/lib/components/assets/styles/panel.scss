@@ -1,14 +1,14 @@
 .panel {
-    position:      fixed;
-    top:           10px;
-    left:          25%;
-    width:         50%;
-    min-height:    5em;
-    background:    white;
-    border:        solid gray 1px;
+    position: fixed;
+    top: 10px;
+    right: 5%;
+    width: 300px;
+    height: 500px;
+    background: white;
+    border: solid gray 1px;
     border-radius: 5px;
-    z-index:       99999999;
-    opacity:       0.95;
+    z-index: 99999999;
+    opacity: 0.95;
 
     * {
         font-size: 12px;

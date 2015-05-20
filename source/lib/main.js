@@ -1,5 +1,13 @@
-define(['React', 'UTT/components/UttBookmarklet'],
-function (React, UttBookmarklet) {
+define(['React', 'UTT/components/UttBookmarklet', './config'],
+function (React, UttBookmarklet, config) {
+
+    function createModuleActivator(mod) {
+        return function () {
+            require([mod.source], (moduleStart) => {
+                moduleStart(mod.config, mod.locale);
+            });
+        };
+    }
 
     let UTT = {
         bookmarkNode: null,
@@ -12,47 +20,55 @@ function (React, UttBookmarklet) {
             React.render(UTT.bookmarkNode, UTT.containerNode);
         },
 
-        modulesLoaded(...modules) {
-            let options = {
-                userKey: UTT.userKey,
-                url:     require.toUrl("."),
-                render:  UTT.render
-            };
-            modules.forEach((module) => module.init(options));
-            UTT.bookmarkNode.props.modules = modules;
-            UTT.render();
-        },
+        // modulesLoaded(...modules) {
+        //     let options = {
+        //         userKey: UTT.userKey,
+        //         url:     require.toUrl("."),
+        //         render:  UTT.render
+        //     };
+        //     modules.forEach((module) => module.init(options));
+        //     UTT.bookmarkNode.props.modules = modules;
+        //     UTT.render();
+        // },
 
-        init({modules, userKey}) {
+        init({userKey}) {
             let styleLink = UTT.createStyleNode();
             UTT.containerNode  = UTT.createContainerNode();
             UTT.userKey = userKey;
 
-            // Prefix module names
-            modules = modules.map((modName) => 'UTT/modules/' + modName + '/' + modName);
+            let {modules, locale} = config;
 
-            require(modules, UTT.modulesLoaded);
+            // Prefix module names
+            //modules = modules.map((modName) => 'UTT/modules/' + modName + '/' + modName);
+
+            //require(modules, UTT.modulesLoaded);
+
+            modules = modules.map((mod) => {
+                return Object.assign({
+                    'activate': createModuleActivator(mod)
+                }, mod);
+            });
 
             document.head.appendChild(styleLink);
             document.body.appendChild(UTT.containerNode);
 
-            UTT.bookmarkNode = React.createElement(UttBookmarklet, {modules: []});
+            UTT.bookmarkNode = React.createElement(UttBookmarklet, {
+                modules: modules,
+                locale: locale
+            });
             React.render(UTT.bookmarkNode, UTT.containerNode);
         },
 
         start() {
-            console.log("Start!");
             UTT.render();
         },
 
         stop() {
-            console.log("Stop!");
             UTT.running = false;
             React.unmountComponentAtNode(UTT.containerNode);
         },
 
         toggle() {
-            console.log('toggle');
             UTT[UTT.running ? 'stop' : 'start']();
         },
 

@@ -1,28 +1,15 @@
-define(['React', './Panel', './TabPanel'],
-function (React, Panel, TabPanel) {
+define(['React', './Panel', './HomePanel'],
+function (React, Panel, HomePanel) {
 
-	let Tab = TabPanel.Tab;
-	let iconSrc = require.toUrl(
-		"UTT/components/assets/images/utt-icon.png"
-	);
 
-	let UttBookmarklet = React.createClass({
-		render() {
-			return <Panel>
-				<h1 className="title">
-					<img src={iconSrc} alt="UTT" width="12" height="12" />
-					Hello Bookmarklet
-				</h1>
-				<TabPanel>
-					{this.props.modules.map((module, index) =>
-						<Tab name={ module.name } key={'module-' + index}>
-							{ module.component }
-						</Tab>
-					)}
-				</TabPanel>
-			</Panel>;
-		}
-	});
+    let UttBookmarklet = React.createClass({
+        render() {
+            return <Panel>
+                <HomePanel modules={this.props.modules}
+                           locale={this.props.locale} />
+            </Panel>;
+        }
+    });
 
-	return UttBookmarklet;
+    return UttBookmarklet;
 });
