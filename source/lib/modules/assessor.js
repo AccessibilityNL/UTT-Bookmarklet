@@ -1,9 +1,18 @@
-define(['React', 'UTT/components/Assessor'],
-function (React, Assessor) {
+define(['React', 'UTT/components/Assessor', './questioner/questiondata',
+	'./questioner/buildQuestions'],
+function (React, Assessor, questiondata, buildQuestions) {
 
 	return function assertor(config, locale) {
-		console.log(config);
-		return React.createElement(Assessor, null);
+		let questions = buildQuestions(questiondata);
+
+		return React.createElement(Assessor, {
+			question: questions[0],
+			sendResult(result) {
+				console.log('next, result = ' + result);
+			}
+		});
+
 	};
+
 });
 
