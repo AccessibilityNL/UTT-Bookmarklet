@@ -285,10 +285,10 @@ module.exports = function (grunt) {
         'babel:server',
         'concat:server'
     ]);
-/*
+
     grunt.registerTask('default', [
         'test',
         'build'
     ]);
-*/
+
 };
