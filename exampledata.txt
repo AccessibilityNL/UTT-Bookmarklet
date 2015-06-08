@@ -1,0 +1,269 @@
+1. Retreive the user based on it's private (unique) key
+=======================================================
+assertors?q[_privateKey]=:privatekey:           | GET
+
+RESPONSE
+{
+  // There is no context on this object due to it being very simple
+  "@id":   "http://www.uttbookmarklet.com/assertors/::id::",
+  "@type": "http://xmlns.com/foaf/spec/#Person",
+  // Note: The private key is not returned, since it's private ;)
+}
+
+If the key is unknown, return a NEW user
+
+
+
+2. Create a new page
+====================
+webpages/           | POST
+
+REQUEST:
+{
+    "@context":    "http://www.uttbookmarklet.com/contexts/webpage.jsonld",
+    "@type":       "webpage",
+    "title":       "Example homepage",
+    "source":      "http://example.com/"
+}
+
+RESPONSE            200 OK
+{
+    "@context":     "http://www.uttbookmarklet.com/contexts/webpage.jsonld",
+    "@type":        "webpage",
+    "@id":          "utt:webpages/::id::", // new
+    "date":         "::date::", // new
+    "title":        "Example homepage",
+    "source":       "http://example.com/"
+}
+
+
+
+3. Create evluation it's first assertion
+========================================
+evaluations                 | POST
+
+REQUEST:
+{
+    "@context": "http://www.uttbookmarklet.com/contexts/evaluation.jsonld",
+    "@type":    "evaluation",
+    "creator":  {
+        "@id": "utt:assertors/::id::",
+        // Only allow POST if the private key matches the user
+        "utt:_privateKey": "a9sdjv9j498haw4g98sdvm9h8gauhnosicvj"
+    },
+    "auditResult": [{
+        "@type":        "Assertion",
+        "subject":      "utt:webpages/::id::",
+        "assertedBy":   "utt:assertors/::id::",
+        "mode":         "earl:semiAuto",
+        "test": {
+            "@id":      "wcag20:text-equiv-all",
+            "@type":    "TestRequirement"
+        },
+        "result": {
+            "@type":    "TestResult",
+            "outcome":  "earl:failed"
+        }
+    }]
+}
+
+RESPONSE            200 OK
+{
+    "@context": "http://www.uttbookmarklet.com/contexts/evaluation.jsonld",
+    "@type":    "evaluation",
+    "@id":      "utt:evaluations/123456",   // new
+    "date":     "::date::"                  // new
+    "creator":  "utt:assertors/::id::",
+    "auditResult": [
+        // A GET with ?include=auditResult will replace the URIs with objects
+        "utt:assertions/::id::"
+    ]
+}
+
+
+
+4A. Append assertion
+====================
+evaluations/::id::/auditResult    | POST
+
+REQUEST:
+{
+    "@context":     "http://www.uttbookmarklet.com/contexts/assertion.jsonld"
+    "@type":        "Assertion",
+    "subject":      "utt:webpages/::id::",
+    "assertedBy": {
+        "@id": "utt:assertors/::id::",
+        // Only allow POST if the private key matches the user
+        "utt:_privateKey": "a9sdjv9j498haw4g98sdvm9h8gauhnosicvj"
+    },
+    "mode": "earl:semiAuto",
+    "test": {
+        "@id":     "wcag20:text-equiv-all",
+        "@type":   "TestRequirement"
+    },
+    "result": {
+        "@type": "TestResult",
+        "outcome": "earl:failed"
+    }
+}
+
+RESPONSE            200 OK
+{
+    "@context":     "http://www.uttbookmarklet.com/contexts/assertion.jsonld"
+    "@type":        "Assertion",
+    "@id":          "utt:assertions/::id::",    // new
+    "evaluation":   "evaluations/::id::",       // new
+    "date":         "::date::",                 // new
+    "subject":      "utt:webpages/::id::",
+    "assertedBy":   "utt:assertors/::id::",
+    "mode":         "earl:semiAuto",
+    "test": {
+        "@id":     "wcag20:text-equiv-all",
+        "@type":   "TestRequirement"
+    },
+    "result": {
+        "@type": "TestResult",
+        "outcome": "earl:failed"
+    }
+}
+
+
+
+4B. Variation on Assertion
+==========================
+evaluations/::id::/auditResult    | POST
+
+POST
+{
+    "@context":     "http://www.uttbookmarklet.com/contexts/assertion.jsonld"
+    "@type":        "Assertion",
+    "subject":      "utt:webpages/::id::",
+    "assertedBy": {
+        "@id": "utt:assertors/::id::",
+        // Only allow POST if the private key matches the user
+        "utt:_privateKey": "a9sdjv9j498haw4g98sdvm9h8gauhnosicvj"
+    },
+    "mode": "earl:semiAuto",
+    "test": {
+        "@type":   "TestCriterion",
+        "@id":     "auto:SC1-4-1-a",
+        "isPartOf": {
+            "@type": "TestRequirement",
+            "@id": "wcag20:text-equiv-all"
+        }
+    },
+    "result": {
+        "@type": "TestResult",
+        "outcome": "earl:failed"
+    }
+}
+
+RESPONSE
+{
+    "@context":     "http://www.uttbookmarklet.com/contexts/assertion.jsonld"
+    "@type":        "Assertion",
+    "@id":          "utt:assertions/::id::",    // new
+    "evaluation":   "evaluations/::id::",       // new
+    "date":         "::date::",                 // new
+    "subject":      "utt:webpages/::id::",
+    "assertedBy":   "utt:assertors/::id::",
+    "mode":         "earl:semiAuto",
+    "test": {
+        "@type":    "TestCriterion",
+        "@id":      "auto:SC1-4-1-a",
+        "isPartOf": {
+            "@type": "TestRequirement",
+            "@id":   "wcag20:text-equiv-all"
+        }
+    },
+    "result": {
+        "@type":    "TestResult",
+        "outcome":  "earl:failed"
+    }
+}
+
+
+
+http://www.uttbookmarklet.com/contexts/webpage.jsonld
+=====================================================
+{
+    "earl":         "http://www.w3.org/ns/earl#",
+    "dct":          "http://purl.org/dc/terms/",
+    "utt":          "http://api.uttbookmarklet.com/",
+    "wcagem":       "http://www.w3.org/TR/WCAG-EM/#",
+    "wcag20":       "http://www.w3.org/TR/WCAG20/#",
+    "auto":         "https://www.w3.org/community/auto-wcag/wiki/",
+    "webpage":      "wcagem:webpage",
+    "title":        "dct:title",
+    "date": {
+        "@type":    "http://www.w3.org/2001/XMLSchema#dateTime",
+        "@id":      "dct:data"
+    },
+    "source": {
+        "@type":    "@id",
+        "@id":      "dct:source"
+    }
+}
+
+
+
+http://www.uttbookmarklet.com/contexts/evaluation.jsonld
+========================================================
+{
+    "@vocab":       "http://www.w3.org/ns/earl#",
+    "earl":         "http://www.w3.org/ns/earl#",
+    "utt":          "http://api.uttbookmarklet.com/",
+    "wcag20":       "http://www.w3.org/TR/WCAG20/#",
+    "dct":          "http://purl.org/dc/terms/",
+    "wcagem":       "http://www.w3.org/TR/WCAG-EM/#",
+    "auto":         "https://www.w3.org/community/auto-wcag/wiki/",
+    "date": {
+        // Format:  2010-05-29T14:17:39+02:00
+        "@type":    "http://www.w3.org/2001/XMLSchema#dateTime",
+        "@id":      "dct:data"
+    },
+    "creator":      "dct:creator",
+    "evaluation":   "wcagem:evaluation",
+    "subject":      { "@type": "@id", "@id": "earl:subject" },
+    "assertedBy":   { "@type": "@id", "@id": "earl:assertedBy" },
+    "mode":         { "@type": "@id", "@id": "earl:mode" },
+    "outcome":      { "@type": "@id", "@id": "earl:outcome" },
+    "isPartOf":     { "@type": "@id", "@id": "dct:isPartOf" },
+    "auditResult": {
+        "@type":    "@id",
+        "@id":      "wcagem:step4"
+    }
+}
+
+
+
+http://www.uttbookmarklet.com/contexts/assertion.jsonld
+=======================================================
+{
+    "@vocab":       "http://www.w3.org/ns/earl#",
+    "earl":         "http://www.w3.org/ns/earl#",
+    "dct":          "http://purl.org/dc/terms/",
+    "utt":          "http://api.uttbookmarklet.com/",
+    "wcagem":       "http://www.w3.org/TR/WCAG-EM/#",
+    "wcag20":       "http://www.w3.org/TR/WCAG20/#",
+    "auto":         "https://www.w3.org/community/auto-wcag/wiki/",
+    "subject":      { "@type": "@id", "@id": "earl:subject" },
+    "assertedBy":   { "@type": "@id", "@id": "earl:assertedBy" },
+    "mode":         { "@type": "@id", "@id": "earl:mode" },
+    "outcome":      { "@type": "@id", "@id": "earl:outcome" },
+    "isPartOf":     { "@type": "@id", "@id": "dct:isPartOf" },
+    "evaluation": {
+        "@type":    "@id",
+        "@reverse": "wcagem:step4"
+    },
+    "date": {
+        // Format:  2010-05-29T14:17:39+02:00
+        "@type":    "http://www.w3.org/2001/XMLSchema#dateTime",
+        "@id":      "dct:data"
+    }
+}
+
+
+
+
+
