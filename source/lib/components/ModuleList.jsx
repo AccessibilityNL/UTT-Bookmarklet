@@ -15,13 +15,15 @@ define(['React'], function (React) {
          */
         renderModule(mod, i) {
             return <li className="module" key={i}>
-                <strong>{mod.title}</strong>
+                <img src="" width="30" height="30" alt="" role="presentation" />
+                <h2>{mod.title}</h2>
                 <p>{mod.description}</p>
                 <button onClick={mod.activate}>
                     Start testing
                 </button>
             </li>;
         }
+
     });
 
     return ModuleList;

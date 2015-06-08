@@ -2,6 +2,22 @@
 	@import "panel.scss";
 	@import "tabs.scss";
 	@import "home.scss";
+
+    div, p, li, ul, h1, h2, h3, h4, h5, h6 {
+        font-size: 12px;
+        margin:0;
+        padding:0;
+        color:#000;
+        text-align:left;
+        list-style:none;
+    }
+
+    button {
+    	background:#C44E60;
+    	color:white;
+    	border:0;
+    	padding:1px 4px;
+    }
 }
 
 @import "highlight.scss";

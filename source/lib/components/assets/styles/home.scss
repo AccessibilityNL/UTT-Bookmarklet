@@ -1,17 +1,27 @@
-.header, .module {
-	padding:.5em 1em;
-	border-bottom:solid 1px #999;
-}
+.home {
+	.module {
+		padding:10px;
+		padding-left:45px;
+		border-bottom:solid 1px #BEC1C2;
+		background:#F0F8FB;
+		position:relative;
 
-.info {
-	display:block;
-	opacity:1;
-	&.hide {
-		display:none;
-		height:0;
-		opacity:0;
+		> img {
+			position:absolute;
+			top:10px;
+			left:5px;
+		}
+		> button {
+			position: absolute;
+			top: 15px;
+			right: 5px;
+		}
 	}
 
-    /*-webkit-transition: height 2s;
-    transition: height 2s;*/
+	.result-list {
+		color:#1481A4;
+		font-size:20px;
+		padding:5px;
+	}
+
 }

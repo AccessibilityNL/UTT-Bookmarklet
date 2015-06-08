@@ -1,4 +1,5 @@
-define(['React', 'UTT/components/UttBookmarklet', './config', 'UTT/modules/home'],
+define(['React', 'UTT/components/UttBookmarklet', './config',
+    'UTT/modules/home', 'UTT/utils/browser-polyfill'],
 function (React, UttBookmarklet, config, home) {
     let UTT;
 

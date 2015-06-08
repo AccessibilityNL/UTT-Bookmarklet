@@ -11,6 +11,7 @@ function (React, UttModule) {
 
         renderQuestion(q) {
             return <div>
+                <p>Question {this.props.current} of {this.props.total}</p>
                 <p>{q.text}</p>
                 <p>{q.help}</p>
                 {q.answers.map((answer, i) =>
@@ -24,6 +25,7 @@ function (React, UttModule) {
         renderNoQuestion() {
             return <div>{this.props.locale.NO_QUESTION}</div>;
         }
+
 	});
 	return Assessor;
 

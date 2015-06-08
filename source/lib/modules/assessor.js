@@ -2,25 +2,37 @@ define(['React', 'UTT/components/Assessor',
 	'./assessor/buildQuestions'],
 function (React, Assessor, buildQuestions) {
 
-	return function assertor({questions, category}, locale, render) {
+	let saveResult = function (question, result) {
+		console.log(result);
+	};
 
-		require([questions], (qData) => {
+	return function assertor({questions, category}, locale, render) {
+		require([questions, 'UTT/main'], (qData, UTT) => {
 			let questions = qData[category];
 			if (!questions) {
 				return;
 			}
-			console.log(questions);
 			questions = buildQuestions(questions);
 
-			console.log(questions);
+			let showQuestion = function (i) {
+				render(Assessor, {
+					question: questions[i],
+					locale: locale,
+					current: i + 1,
+					total: questions.length,
+					sendResult(result) {
+						saveResult(questions[i], result);
+						if (questions[i+1]) {
+							showQuestion(i+1);
+						} else {
+							UTT.showHome();
+						}
 
-			render(Assessor, {
-				question: questions[0],
-				locale: locale,
-				sendResult(result) {
-					console.log('next, result = ' + result);
-				}
-			});
+					}
+				});
+			};
+			showQuestion(0);
+
 		});
 
 	};

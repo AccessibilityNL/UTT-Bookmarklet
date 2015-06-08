@@ -2,27 +2,45 @@
     position: fixed;
     top: 10px;
     right: 5%;
-    width: 300px;
-    height: 500px;
+    width: 310px;
+    height: 440px;
+
+    padding: 5px;
+    box-shadow: 0 0 15px RGBA(0, 0, 0, 0.6);
     background: white;
-    border: solid gray 1px;
-    border-radius: 5px;
+
     z-index: 99999999;
     opacity: 0.95;
 
-    * {
-        font-size: 12px;
-        margin:0;
-        padding:0;
-        color:#000;
-        text-align:left;
-    }
+    .header {
+        background: #14B3D4;
+        padding:.5em 1em;
+        position:relative;
+        cursor: move;
 
-    .title {
-        font-size:12px;
-        border-top-left-radius:5px;
-        border-top-right-radius:5px;
-        background:#eee;
-        padding:0 1em;
+        h1 {
+            color: white;
+            font-size:20px;
+        }
+        p {
+            color: white;
+        }
+
+        .info {
+            display:block;
+            opacity:1;
+
+            &.hide {
+                display:none;
+                height:0;
+                opacity:0;
+            }
+        }
+
+        .info-button {
+            position:absolute;
+            top:-5px;
+            right:15px;
+        }
     }
 }
