@@ -1,25 +1,29 @@
 define(['React', './UttModule'],
 function (React, UttModule) {
 
-
 	let Assessor = React.createClass({
-        sendAnswer(answer) {
-            this.props.sendResult(answer);
-        },
-		render() {
+        render() {
             let q = this.props.question;
-            console.log(q);
-
             return <UttModule>
+                {q ? this.renderQuestion(q) : this.renderNoQuestion()}
+            </UttModule>;
+        },
+
+        renderQuestion(q) {
+            return <div>
                 <p>{q.text}</p>
                 <p>{q.help}</p>
-                {q.answers.map((answer) =>
-                    <button onClick={this.sendAnswer.bind(this, answer.value)}>
+                {q.answers.map((answer, i) =>
+                    <button key={i} onClick={this.props.sendResult.bind(null, answer.value)}>
                         {answer.text}
                     </button>
                 )}
-            </UttModule>;
-		}
+            </div>;
+        },
+
+        renderNoQuestion() {
+            return <div>{this.props.locale.NO_QUESTION}</div>;
+        }
 	});
 	return Assessor;
 

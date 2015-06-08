@@ -2,12 +2,17 @@ define(['React', 'UTT/components/UttBookmarklet', './config', 'UTT/modules/home'
 function (React, UttBookmarklet, config, home) {
     let UTT;
 
+    function renderModule(comp, attr, children) {
+        UTT.bookmarkNode = React.createElement(
+            UttBookmarklet, {}, React.createElement(comp, attr, children)
+        );
+        UTT.render();
+    }
+
     function createModuleActivator(mod) {
         return function () {
             require([mod.controller, ], (modController) => {
-                React.render(React.createElement(
-                    UttBookmarklet, {}, modController(mod.config, mod.locale)
-                ), UTT.containerNode);
+                modController(mod.config, mod.locale, renderModule);
             });
         };
     }

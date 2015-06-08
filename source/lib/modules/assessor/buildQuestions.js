@@ -26,10 +26,13 @@ function (strFormat, highlighter) {
     }
 
 	function buildQuestions(questionData) {
-        return Object.keys(questionData.questions)
+        return Object.keys(questionData)
         .reduce((questions, questionId) => {
-            let question = questionData.questions[questionId];
+            let question = questionData[questionId];
             let nodes = highlighter.find(question.selector.css);
+
+            console.log(question);
+
             nodes = Array.prototype.slice.call(nodes);
             let bookmarklet = highlighter.find('#utt-bookmarklet-container')[0];
 
@@ -55,7 +58,7 @@ function (strFormat, highlighter) {
             questions.forEach((question) => {
             	question.text = createQuestionText(question);
             });
-
+            console.log(questions.length);
             return questions;
         }, []);
     }
