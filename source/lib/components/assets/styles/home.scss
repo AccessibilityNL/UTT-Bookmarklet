@@ -1,15 +1,18 @@
 .home {
+	.header {
+
+	}
 	.module {
-		padding:10px;
-		padding-left:45px;
+		padding:14px 10px;
+		padding-left:47px;
 		border-bottom:solid 1px #BEC1C2;
 		background:#F0F8FB;
 		position:relative;
 
 		> img {
 			position:absolute;
-			top:10px;
-			left:5px;
+			top:14px;
+			left:10px;
 		}
 		> button {
 			position: absolute;
@@ -18,10 +21,26 @@
 		}
 	}
 
-	.result-list {
-		color:#1481A4;
-		font-size:20px;
-		padding:5px;
+	.content {
+		height: 305px;
+		overflow-y: auto;
+		overflow-x: none;
 	}
 
+	.results-overview {
+		padding:18px 6px;
+		text-align:center;
+
+		ul, li, button {
+			display:inline-block;
+		}
+		li + li {
+			margin-left:6px;
+		}
+		button {
+			margin-left:24px;
+			padding:3px 10px;
+			font-size:13px;
+		}
+	}
 }

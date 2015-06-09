@@ -5,7 +5,7 @@ define(['React'], function (React) {
          * Render this module
          */
         render() {
-            return <ul>
+            return <ul className="content">
                 {this.props.modules.map(this.renderModule)}
             </ul>;
         },
