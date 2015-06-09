@@ -1,25 +1,12 @@
-define(['React', './ModuleList'],
-function (React, ModuleList) {
+define(['React', './Header', './ModuleList'],
+function (React, Header, ModuleList) {
     let HomePanel = React.createClass({
 
         render() {
             return <div className="home">
-                {this.renderHeader()}
+                <Header></Header>
                 <ModuleList modules={this.props.modules} />
                 {this.renderResultLink()}
-            </div>;
-        },
-
-        renderHeader() {
-            return <div className="header">
-                <h1>
-                    <img src="" width="54" height="54" />
-                    AccessVerify
-                </h1>
-                <button className="info-button" onClick={this.toggleInfo}>Tool info</button>
-                <p className={this.state.showInfo ? 'show info': 'hide info'}>
-                    Basic check for the accessibility of the web
-                </p>
             </div>;
         },
 
@@ -34,17 +21,6 @@ function (React, ModuleList) {
                 </ul>
                 <button>Results</button>
             </div>;
-        },
-
-        getInitialState() {
-            return { showInfo: false };
-        },
-
-        toggleInfo() {
-            console.log(this.state.showInfo);
-            this.setState({
-                showInfo: !this.state.showInfo
-            });
         }
 
     });
