@@ -1,3 +1,4 @@
+@import "variables.scss";
 .panel {
     position: fixed;
     top: 10px;
@@ -12,35 +13,29 @@
     z-index: 99999999;
     opacity: 0.95;
 
+    > * {
+        margin-top:0;
+    }
+
     .header {
-        background: #14B3D4;
+        background: $color-primary;
         padding:10px 7px;
         position:relative;
         cursor: move;
 
         h1 {
-            color: white;
+            color: $color-back;
             font-size:20px;
         }
         p {
-            color: white;
-        }
-
-        .info {
-            display:block;
-            opacity:1;
-
-            &.hide {
-                display:none;
-                height:0;
-                opacity:0;
-            }
+            color: $color-back;
         }
 
         .info-button {
             position:absolute;
             top:-5px;
             right:5px;
+            margin-top:0;
         }
     }
 }

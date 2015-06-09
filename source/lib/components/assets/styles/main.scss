@@ -1,23 +1,44 @@
+@import "variables.scss";
+
 #utt-bookmarklet-container {
 	@import "panel.scss";
+	@import "UttModule.scss";
     @import "home.scss";
-	@import "assessor.scss";
+    @import "assessor.scss";
 
     div, p, li, ul, h1, h2, h3, h4, h5, h6 {
         font-size: 12px;
-        margin:0;
-        padding:0;
-        color:#000;
-        text-align:left;
+        color: $color-fore;
         list-style:none;
     }
 
+    * {
+        margin:0;
+        padding:0;
+        text-align:left;
+    }
+    * + * {
+        margin-top: 5px;
+    }
+
     button {
-    	background:#C44E60;
+    	background: $color-highlight;
     	color:white;
     	border:0;
     	padding:1px 4px;
     }
+    a {
+        color:$color-highlight;
+    }
+
+    h2, h3 {
+        color: $color-primary-dark;
+    }
+
+    .hide { display:none  }
+    .show { display:block }
+
+
 
     -webkit-touch-callout: none;
     -webkit-user-select: none;

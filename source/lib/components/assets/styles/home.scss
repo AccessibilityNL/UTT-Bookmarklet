@@ -1,12 +1,13 @@
+@import "variables.scss";
 .home {
-	.header {
-
+	* {
+		margin-top:0;
 	}
-	.module {
+	.module-item {
 		padding:14px 10px;
 		padding-left:47px;
-		border-bottom:solid 1px #BEC1C2;
-		background:#F0F8FB;
+		border-bottom:solid 1px $color-border;
+		background:$color-primary-light;
 		position:relative;
 
 		> img {
