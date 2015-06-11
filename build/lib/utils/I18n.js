@@ -94,4 +94,4 @@ define([], function () {
 
 	return i18n;
 });
-//# sourceMappingURL=I18n.js.map
+//# sourceMappingURL=i18n.js.map
