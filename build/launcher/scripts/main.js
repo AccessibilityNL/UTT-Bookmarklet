@@ -38,7 +38,7 @@ define(["./userkey"], function (userkey) {
 
         var url = "//" + host + port + folder + scriptPath + query;
 
-        return "(function(){" + "var d=document,i=\"utt-bookmarklet\",a=\"setAttribute\";" + "if(!d.getElementById(i)){" + "var s=d.createElement(\"script\");" + "s[a](\"src\",\"" + url + "\");" + "s[a](\"id\",i);" + "d.body.appendChild(s);" + "}" + "}());";
+        return "(function(){" + "var d=document,i=\"utt-bookmarklet\",a=\"setAttribute\";" + "if(!d.getElementById(i)){" + "var s=d.createElement(\"script\");" + "s[a](\"src\",\"" + url + "\");" + "s[a](\"id\",i);" + "d.body.appendChild(s);" + "}else if(UTT && UTT.toggle)UTT.toggle()" + "}());";
     };
 
     return launcher;

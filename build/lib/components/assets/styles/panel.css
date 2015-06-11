@@ -1,29 +1,40 @@
-/* line 1, ../../../../../source/lib/components/assets/styles/panel.scss */
+/* line 2, ../../../../../source/lib/components/assets/styles/panel.scss */
 .panel {
   position: fixed;
   top: 10px;
-  left: 25%;
-  width: 50%;
-  min-height: 5em;
+  right: 5%;
+  width: 310px;
+  height: 440px;
+  padding: 5px;
+  box-shadow: 0 0 15px RGBA(0, 0, 0, 0.6);
   background: white;
-  border: solid gray 1px;
-  border-radius: 5px;
   z-index: 99999999;
   opacity: 0.95;
 }
-/* line 13, ../../../../../source/lib/components/assets/styles/panel.scss */
-.panel * {
-  font-size: 12px;
-  margin: 0;
-  padding: 0;
-  color: #000;
-  text-align: left;
+/* line 16, ../../../../../source/lib/components/assets/styles/panel.scss */
+.panel > * {
+  margin-top: 0;
 }
-/* line 21, ../../../../../source/lib/components/assets/styles/panel.scss */
-.panel .title {
-  font-size: 12px;
-  border-top-left-radius: 5px;
-  border-top-right-radius: 5px;
-  background: #eee;
-  padding: 0 1em;
+/* line 20, ../../../../../source/lib/components/assets/styles/panel.scss */
+.panel .header {
+  background: #20b7d6;
+  padding: 10px 7px;
+  position: relative;
+  cursor: move;
+}
+/* line 26, ../../../../../source/lib/components/assets/styles/panel.scss */
+.panel .header h1 {
+  color: white;
+  font-size: 20px;
+}
+/* line 30, ../../../../../source/lib/components/assets/styles/panel.scss */
+.panel .header p {
+  color: white;
+}
+/* line 34, ../../../../../source/lib/components/assets/styles/panel.scss */
+.panel .header .info-button {
+  position: absolute;
+  top: -5px;
+  right: 5px;
+  margin-top: 0;
 }
