@@ -7,6 +7,7 @@ define(function () {
         modules: [{
             'title':       'Images',
             'description': 'Test explination text 1 line.',
+            'image': 'icon.images',
             "controller": "UTT/modules/assessor",
             "config": {
                 "questions": "UTT/modules/assessor/questions",
@@ -17,6 +18,7 @@ define(function () {
             'title': 'Multimedia',
             'description': 'Test explination text 2 line.',
             "controller": "UTT/modules/assessor",
+            'image': 'icon.media',
             config: {
                 "questions": "UTT/modules/assessor/questions",
                 "category": "media"
@@ -26,6 +28,7 @@ define(function () {
             'title': 'Language change',
             'description': 'Test explination text 3 line.',
             "controller": "UTT/modules/assessor",
+            'image': 'icon.language',
             config: {
                 "questions": "UTT/modules/assessor/questions",
                 "category": "language"
@@ -35,6 +38,7 @@ define(function () {
             'title': 'Navigation',
             'description': 'Test explination text 4 line.',
             "controller": "UTT/modules/assessor",
+            'image': 'icon.navigation',
             config: {
                 "questions": "UTT/modules/assessor/questions",
                 "category": "navigation"
@@ -44,6 +48,7 @@ define(function () {
             'title': 'Keyboard',
             'description': 'Test explination text 5 line.',
             "controller": "UTT/modules/assessor",
+            'image': 'icon.keyboard',
             config: {
                 "questions": "UTT/modules/assessor/questions",
                 "category": "keyboard"
