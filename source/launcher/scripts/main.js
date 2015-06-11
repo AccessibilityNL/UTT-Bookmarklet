@@ -44,7 +44,7 @@ function (userkey) {
                 's[a]("src","' + url +'");' +
                 's[a]("id",i);' +
                 'd.body.appendChild(s);' +
-            '}' +
+            '}else if(UTT && UTT.toggle)UTT.toggle()' +
         '}());';
     };
 

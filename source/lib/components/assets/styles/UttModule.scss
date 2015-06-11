@@ -1,0 +1,26 @@
+@import "variables.scss";
+.module {
+	position: relative;
+	height: 100%;
+	width: 100%;
+
+	h2, h3 {
+		color: $color-primary-dark;
+	}
+	h2 { font-size: 15px }
+	h3 { font-size: 14px }
+
+	.footer {
+		margin:0;
+		background: #EAEAEA;
+		position:absolute;
+		bottom:0;
+		width:100%;
+
+		> p {
+			padding: 3px 10px;
+		}
+	}
+
+
+}

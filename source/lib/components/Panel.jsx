@@ -1,4 +1,5 @@
-define(['React'], function (React) {
+define(['React'],
+function (React) {
 
 	let Panel = React.createClass({
 		render() {

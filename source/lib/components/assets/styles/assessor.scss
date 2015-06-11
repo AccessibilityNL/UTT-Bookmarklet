@@ -1,0 +1,52 @@
+@import "variables.scss";
+.assessor {
+	.module-head {
+		position:relative;
+		padding: 14px;
+  		border-bottom: solid 1px $color-border;
+
+		img {
+		 	position: absolute;
+			top: 9px;
+			right: 15px;
+		}
+
+		.progress-bar {
+			height: 13px;
+			border: solid 1px $color-border;
+			width: 200px;
+			border-radius: 6px;
+			position:relative;
+			.label {
+				position: absolute;
+				top: 0;
+				right: 4px;
+				font-size: 10px;
+			}
+			.bar {
+				  background: $color-primary;
+				  margin:1px;
+				  width: 11px;
+				  height: 11px;
+				  float: left;
+				  border-radius: 5px;
+			}
+		}
+	}
+
+	.content {
+		padding: 14px;
+
+		button {
+			min-width: 65px;
+			padding: 5px;
+			margin-right:7px;
+			text-align:center;
+			display:inline-block;
+			background:$color-primary;
+			color:$color-back;
+		}
+	}
+
+
+}

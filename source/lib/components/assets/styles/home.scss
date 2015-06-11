@@ -1,0 +1,47 @@
+@import "variables.scss";
+.home {
+	* {
+		margin-top:0;
+	}
+	.module-item {
+		padding:14px 10px;
+		padding-left:47px;
+		border-bottom:solid 1px $color-border;
+		background:$color-primary-light;
+		position:relative;
+
+		> img {
+			position:absolute;
+			top:14px;
+			left:10px;
+		}
+		> button {
+			position: absolute;
+			top: 15px;
+			right: 5px;
+		}
+	}
+
+	.content {
+		height: 305px;
+		overflow-y: auto;
+		overflow-x: none;
+	}
+
+	.results-overview {
+		padding:18px 6px;
+		text-align:center;
+
+		ul, li, button {
+			display:inline-block;
+		}
+		li + li {
+			margin-left:6px;
+		}
+		button {
+			margin-left:24px;
+			padding:3px 10px;
+			font-size:13px;
+		}
+	}
+}

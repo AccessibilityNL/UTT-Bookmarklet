@@ -2,8 +2,8 @@
   "name": "UttBookmarklet",
   "version": "0.1.0",
   "dependencies": {
-    "requirejs": "~2.1.16"
+    "requirejs": "~2.1.16",
+    "react": "~0.13.3"
   },
-  "devDependencies": {
-  }
+  "devDependencies": {}
 }
