@@ -1,0 +1,30 @@
+/* line 2, ../../../../../source/lib/components/assets/styles/UttModule.scss */
+.module {
+  position: relative;
+  height: 100%;
+  width: 100%;
+}
+/* line 7, ../../../../../source/lib/components/assets/styles/UttModule.scss */
+.module h2, .module h3 {
+  color: #1481a4;
+}
+/* line 10, ../../../../../source/lib/components/assets/styles/UttModule.scss */
+.module h2 {
+  font-size: 15px;
+}
+/* line 11, ../../../../../source/lib/components/assets/styles/UttModule.scss */
+.module h3 {
+  font-size: 14px;
+}
+/* line 13, ../../../../../source/lib/components/assets/styles/UttModule.scss */
+.module .footer {
+  margin: 0;
+  background: #EAEAEA;
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+}
+/* line 20, ../../../../../source/lib/components/assets/styles/UttModule.scss */
+.module .footer > p {
+  padding: 3px 10px;
+}

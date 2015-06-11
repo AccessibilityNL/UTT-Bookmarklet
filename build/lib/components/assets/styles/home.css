@@ -1,0 +1,49 @@
+/* line 3, ../../../../../source/lib/components/assets/styles/home.scss */
+.home * {
+  margin-top: 0;
+}
+/* line 6, ../../../../../source/lib/components/assets/styles/home.scss */
+.home .module-item {
+  padding: 14px 10px;
+  padding-left: 47px;
+  border-bottom: solid 1px #bec1c2;
+  background: #f0f8fb;
+  position: relative;
+}
+/* line 13, ../../../../../source/lib/components/assets/styles/home.scss */
+.home .module-item > img {
+  position: absolute;
+  top: 14px;
+  left: 10px;
+}
+/* line 18, ../../../../../source/lib/components/assets/styles/home.scss */
+.home .module-item > button {
+  position: absolute;
+  top: 15px;
+  right: 5px;
+}
+/* line 25, ../../../../../source/lib/components/assets/styles/home.scss */
+.home .content {
+  height: 305px;
+  overflow-y: auto;
+  overflow-x: none;
+}
+/* line 31, ../../../../../source/lib/components/assets/styles/home.scss */
+.home .results-overview {
+  padding: 18px 6px;
+  text-align: center;
+}
+/* line 35, ../../../../../source/lib/components/assets/styles/home.scss */
+.home .results-overview ul, .home .results-overview li, .home .results-overview button {
+  display: inline-block;
+}
+/* line 38, ../../../../../source/lib/components/assets/styles/home.scss */
+.home .results-overview li + li {
+  margin-left: 6px;
+}
+/* line 41, ../../../../../source/lib/components/assets/styles/home.scss */
+.home .results-overview button {
+  margin-left: 24px;
+  padding: 3px 10px;
+  font-size: 13px;
+}

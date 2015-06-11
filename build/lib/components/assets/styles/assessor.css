@@ -1,0 +1,50 @@
+/* line 3, ../../../../../source/lib/components/assets/styles/assessor.scss */
+.assessor .module-head {
+  position: relative;
+  padding: 14px;
+  border-bottom: solid 1px #bec1c2;
+}
+/* line 8, ../../../../../source/lib/components/assets/styles/assessor.scss */
+.assessor .module-head img {
+  position: absolute;
+  top: 9px;
+  right: 15px;
+}
+/* line 14, ../../../../../source/lib/components/assets/styles/assessor.scss */
+.assessor .module-head .progress-bar {
+  height: 13px;
+  border: solid 1px #bec1c2;
+  width: 200px;
+  border-radius: 6px;
+  position: relative;
+}
+/* line 20, ../../../../../source/lib/components/assets/styles/assessor.scss */
+.assessor .module-head .progress-bar .label {
+  position: absolute;
+  top: 0;
+  right: 4px;
+  font-size: 10px;
+}
+/* line 26, ../../../../../source/lib/components/assets/styles/assessor.scss */
+.assessor .module-head .progress-bar .bar {
+  background: #20b7d6;
+  margin: 1px;
+  width: 11px;
+  height: 11px;
+  float: left;
+  border-radius: 5px;
+}
+/* line 37, ../../../../../source/lib/components/assets/styles/assessor.scss */
+.assessor .content {
+  padding: 14px;
+}
+/* line 40, ../../../../../source/lib/components/assets/styles/assessor.scss */
+.assessor .content button {
+  min-width: 65px;
+  padding: 5px;
+  margin-right: 7px;
+  text-align: center;
+  display: inline-block;
+  background: #20b7d6;
+  color: white;
+}
