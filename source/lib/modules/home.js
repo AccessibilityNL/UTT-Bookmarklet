@@ -1,9 +1,8 @@
 define(['React', 'UTT/components/HomePanel'],
 function (React, HomePanel) {
 
-	return function home({modules}, locale) {
-		console.log('start home');
-		return React.createElement(HomePanel, {modules, locale});
+	return function home({modules}, i18n) {
+		return React.createElement(HomePanel, {modules, i18n});
 	};
 });
 

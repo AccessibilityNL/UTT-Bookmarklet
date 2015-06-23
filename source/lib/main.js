@@ -1,7 +1,10 @@
 define(['React', 'UTT/components/UttBookmarklet', './config',
-    'UTT/modules/home', 'UTT/utils/browser-polyfill'],
-function (React, UttBookmarklet, config, home) {
+    'UTT/modules/home', 'UTT/utils/translator',
+    'UTT/utils/browser-polyfill'],
+function (React, UttBookmarklet, config, home, translator) {
     let UTT;
+
+    config.i18n = translator({messageBundle: config.locale});
 
     function renderModule(comp, attr, children) {
         UTT.bookmarkNode = React.createElement(
@@ -13,7 +16,10 @@ function (React, UttBookmarklet, config, home) {
     function createModuleActivator(mod) {
         return function () {
             require([mod.controller, ], (modController) => {
-                modController(mod.config, mod.locale, renderModule);
+                let i18n = translator({
+                    messageBundle: Object.assign(mod.locale, config.locale)
+                });
+                modController(mod.config, i18n, renderModule);
             });
         };
     }
@@ -56,8 +62,11 @@ function (React, UttBookmarklet, config, home) {
         },
 
         showHome() {
-            let {modules, locale} = config;
-            UTT.bookmarkNode = React.createElement(UttBookmarklet, null, home({modules}, locale));
+            let {modules, i18n} = config;
+            UTT.bookmarkNode = React.createElement(
+                        UttBookmarklet, null,
+                        home({modules}, i18n));
+
             React.render(UTT.bookmarkNode, UTT.containerNode);
         },
 

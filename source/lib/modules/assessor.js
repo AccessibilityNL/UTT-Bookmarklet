@@ -6,7 +6,7 @@ function (React, Assessor, buildQuestions) {
 		console.log(result);
 	};
 
-	return function assertor({questions, category}, locale, render) {
+	return function assertor({questions, category}, i18n, render) {
 		require([questions, 'UTT/main'], (qData, UTT) => {
 			let questions = qData[category];
 			if (!questions) {
@@ -17,7 +17,7 @@ function (React, Assessor, buildQuestions) {
 			let showQuestion = function (i) {
 				render(Assessor, {
 					question: questions[i],
-					locale: locale,
+					i18n: i18n,
 					current: i + 1,
 					total: questions.length,
 					sendResult(result) {
