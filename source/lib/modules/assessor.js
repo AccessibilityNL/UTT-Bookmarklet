@@ -1,6 +1,9 @@
 define(['React', 'UTT/components/Assessor',
-	'./assessor/buildQuestions'],
-function (React, Assessor, buildQuestions) {
+	'./assessor/buildQuestions', './assertor/earlStore'],
+function (React, Assessor) {
+
+	let buildQuestions = require('./assessor/buildQuestions');
+	let earlStore      = require('./assertor/earlStore');
 
 	let saveResult = function (question, result) {
 		console.log(result);
