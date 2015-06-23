@@ -10,7 +10,7 @@ define([], function () {
         answers: [
             {value: 'passed',   'text': 'yes'},
             {value: 'failed',   'text': 'no'},
-            {value: 'cantTell', 'text': 'Unclear'},
+            {value: 'cantTell', 'text': 'unclear'},
         ]
     };
 
@@ -46,9 +46,21 @@ define([], function () {
             }
         },
 
-        "media":    { 'auto-wcag:having-fun': dummyQuestion },
-        "language": { 'auto-wcag:having-fun': dummyQuestion },
-        "keyboard": { 'auto-wcag:having-fun': dummyQuestion }
+        "media":    {
+            'auto-wcag:having-fun1': dummyQuestion,
+            'auto-wcag:having-fun2': dummyQuestion,
+            'auto-wcag:having-fun3': dummyQuestion
+        },
+        "language": {
+            'auto-wcag:having-fun1': dummyQuestion,
+            'auto-wcag:having-fun2': dummyQuestion,
+            'auto-wcag:having-fun3': dummyQuestion
+        },
+        "keyboard": {
+            'auto-wcag:having-fun1': dummyQuestion,
+            'auto-wcag:having-fun2': dummyQuestion,
+            'auto-wcag:having-fun3': dummyQuestion
+        }
     };
 
     return data;
