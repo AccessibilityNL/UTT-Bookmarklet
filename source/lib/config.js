@@ -19,11 +19,11 @@ define([
 
     let config = {
         modules: assessorNames.map(assessorName => ({
-                'image':      'icon.' + assessorName,
                 "controller": 'UTT/modules/assessor',
                 "config": {
+                    'icon':   `icon-${assessorName}.svg`,
                     "questions": "UTT/modules/assessor/questions",
-                    "category": assessorName
+                    "category":  assessorName
                 },
                 locale: Object.assign(
                         require('UTT/locale/assessor/' + assessorName),

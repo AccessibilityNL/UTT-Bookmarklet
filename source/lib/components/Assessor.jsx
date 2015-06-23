@@ -8,11 +8,13 @@ function (React, UttModule) {
             i18n  = this.props.i18n;
             let q = this.props.question;
             return <UttModule className="assessor" i18n={i18n}>
-                {q ? this.renderQuestion(q) : this.renderNoQuestion()}
+                {q  ? this.renderQuestion(q)
+                    : this.renderNoQuestion()}
             </UttModule>;
         },
 
         renderQuestion(q) {
+            let showHelp = (this.state.showHelp ? 'show': 'hide');
             return <div>
                 {this.renderModuleHead()}
                 <div className="content">
@@ -22,7 +24,7 @@ function (React, UttModule) {
                     <p><a href="" onClick={this.toggleHelp}>
                         {i18n`more information`}
                     </a></p>
-                    <p className={this.state.showHelp ? 'show': 'hide'}>{q.help}</p>
+                    <p className={showHelp}>{q.help}</p>
                     {q.answers.map((answer, i) =>
                         <button key={i} onClick={this.props.sendResult.bind(null, answer.value)}>
                             {i18n(answer.text)}
@@ -33,17 +35,20 @@ function (React, UttModule) {
         },
 
         renderModuleHead() {
-            let perc = (this.props.current - 1) / this.props.total * 100;
+            let perc    = (this.props.current - 1) / this.props.total * 100;
 
             return <div className="module-head">
                 <h2>{i18n`CATG_TITLE`}</h2>
-                <img src="" width="48" height="48" alt="" />
+                <img src={this.props.iconSrc} width="48" height="48"
+                    alt="" role="presentation" />
                 <p>{i18n`CATG_DESCR`}</p>
                 <div className="progress-bar">
                     <span className="label">
                         {this.props.current + " / " + this.props.total}
                     </span>
-                    <span className="bar" style={{"width" : perc + "%"}}></span>
+                    <span className="bar" style={{
+                        "width" : perc + "%"
+                    }}></span>
                 </div>
             </div>;
         },

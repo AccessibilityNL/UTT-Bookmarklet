@@ -6,9 +6,12 @@ function (React, Assessor, buildQuestions) {
 		console.log(result);
 	};
 
-	return function assertor({questions, category}, i18n, render) {
+	return function assertor({questions, category, icon}, i18n, render) {
 		require([questions, 'UTT/main'], (qData, UTT) => {
 			let questions = qData[category];
+			let iconSrc = require.toUrl(
+				'UTT/components/assets/images/' + icon);
+
 			if (!questions) {
 				return;
 			}
@@ -19,6 +22,7 @@ function (React, Assessor, buildQuestions) {
 					question: questions[i],
 					i18n: i18n,
 					current: i + 1,
+					iconSrc: iconSrc,
 					total: questions.length,
 					sendResult(result) {
 						saveResult(questions[i], result);

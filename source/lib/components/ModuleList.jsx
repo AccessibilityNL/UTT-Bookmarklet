@@ -19,7 +19,10 @@ function (React) {
          */
         renderModule(mod, i) {
             return <li className="module-item" key={i}>
-                <img src="" width="30" height="30" alt="" role="presentation" />
+                <img src={require.toUrl(
+                        "UTT/components/assets/images/" + mod.config.icon
+                    )}
+                    width="30" height="30" alt="" role="presentation" />
                 <h2>{mod.locale.CATG_TITLE}</h2>
                 <p>{mod.locale.CATG_DESCR}</p>
                 <button onClick={mod.activate}>

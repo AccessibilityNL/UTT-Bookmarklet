@@ -4,10 +4,12 @@ define(['React'], function (React) {
 
     let Header = React.createClass({
     	render() {
+            let logoSrc = require.toUrl("UTT/components/assets/images/logo.svg");
             i18n = this.props.i18n;
             return <div className="header">
                 <h1>
-                    <img src="" width="54" height="54" />
+                    <img src={logoSrc}
+                        width="54" height="54" />
                     {i18n`TOOL_NAME`}
                 </h1>
                 <button className="info-button" onClick={this.toggleInfo}>
