@@ -1,61 +1,36 @@
-define(function () {
-    let localeAssessor = {
-        "NO_QUESTION": "No questions"
-    };
+define([
+    'UTT/locale/common',
+    'UTT/locale/assessor/common',
+    'UTT/locale/assessor/images',
+    'UTT/locale/assessor/media',
+    'UTT/locale/assessor/language',
+    'UTT/locale/assessor/navigation',
+    'UTT/locale/assessor/keyboard'
+], function () {
+    let localeAssessor = require('UTT/locale/assessor/common');
+
+    const assessorNames = [
+        'images',
+        'media',
+        'language',
+        'navigation',
+        'keyboard'
+    ];
 
     let config = {
-        modules: [{
-            'title':       'Images',
-            'description': 'Test explination text 1 line.',
-            'image': 'icon.images',
-            "controller": "UTT/modules/assessor",
-            "config": {
-                "questions": "UTT/modules/assessor/questions",
-                "category": "images"
-            },
-            locale: localeAssessor
-        }, {
-            'title': 'Multimedia',
-            'description': 'Test explination text 2 line.',
-            "controller": "UTT/modules/assessor",
-            'image': 'icon.media',
-            config: {
-                "questions": "UTT/modules/assessor/questions",
-                "category": "media"
-            },
-            locale: localeAssessor
-        }, {
-            'title': 'Language change',
-            'description': 'Test explination text 3 line.',
-            "controller": "UTT/modules/assessor",
-            'image': 'icon.language',
-            config: {
-                "questions": "UTT/modules/assessor/questions",
-                "category": "language"
-            },
-            locale: localeAssessor
-        }, {
-            'title': 'Navigation',
-            'description': 'Test explination text 4 line.',
-            "controller": "UTT/modules/assessor",
-            'image': 'icon.navigation',
-            config: {
-                "questions": "UTT/modules/assessor/questions",
-                "category": "navigation"
-            },
-            locale: localeAssessor
-        }, {
-            'title': 'Keyboard',
-            'description': 'Test explination text 5 line.',
-            "controller": "UTT/modules/assessor",
-            'image': 'icon.keyboard',
-            config: {
-                "questions": "UTT/modules/assessor/questions",
-                "category": "keyboard"
-            },
-            locale: localeAssessor
-        }],
-        locale: {}
+        modules: assessorNames.map(assessorName => ({
+                'image':      'icon.' + assessorName,
+                "controller": 'UTT/modules/assessor',
+                "config": {
+                    "questions": "UTT/modules/assessor/questions",
+                    "category": assessorName
+                },
+                locale: Object.assign(
+                        require('UTT/locale/assessor/' + assessorName),
+                        localeAssessor)
+            })
+        ),
+        locale: require('UTT/locale/common')
     };
 
     return config;
