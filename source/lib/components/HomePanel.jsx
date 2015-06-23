@@ -1,11 +1,14 @@
 define(['React', './Header', './ModuleList'],
 function (React, Header, ModuleList) {
-    let HomePanel = React.createClass({
 
+    let i18n;
+
+    let HomePanel = React.createClass({
         render() {
+            i18n = this.props.i18n;
             return <div className="home">
-                <Header></Header>
-                <ModuleList modules={this.props.modules} />
+                <Header i18n={i18n}></Header>
+                <ModuleList modules={this.props.modules} i18n={i18n} />
                 {this.renderResultLink()}
             </div>;
         },
@@ -19,7 +22,7 @@ function (React, Header, ModuleList) {
                     <li><img src="" alt="TODO" width="24" height="24" /></li>
                     <li><img src="" alt="TODO" width="24" height="24" /></li>
                 </ul>
-                <button>Results</button>
+                <button>{i18n`results`}</button>
             </div>;
         }
 

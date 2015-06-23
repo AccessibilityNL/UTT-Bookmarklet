@@ -1,12 +1,14 @@
 define(['React', 'UTT/main', './Header'],
 function (React, UTT, Header) {
 
+	let i18n;
 	let UttModule = React.createClass({
 		render() {
+			i18n = this.props.i18n;
 			return <div className={this.props.className + " module"}>
-				<Header></Header>
+				<Header i18n={i18n}></Header>
 
-				<div class="content">
+				<div className="content">
 					{this.props.children}
 				</div>
 

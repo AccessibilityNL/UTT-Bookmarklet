@@ -1,10 +1,13 @@
-define(['React', './UttModule', 'UTT/utils/i18n'],
-function (React, UttModule, i18n) {
+define(['React', './UttModule'],
+function (React, UttModule) {
+
+    let i18n;
 
 	let Assessor = React.createClass({
         render() {
+            i18n  = this.props.i18n;
             let q = this.props.question;
-            return <UttModule className="assessor">
+            return <UttModule className="assessor" i18n={i18n}>
                 {q ? this.renderQuestion(q) : this.renderNoQuestion()}
             </UttModule>;
         },
@@ -13,15 +16,16 @@ function (React, UttModule, i18n) {
             return <div>
                 {this.renderModuleHead()}
                 <div className="content">
-                    <h3>{i18n`Question ${this.props.current}`}</h3>
+                    <h3>{i18n`question ${this.props.current}`}</h3>
                     <p>{q.text}</p>
+
                     <p><a href="" onClick={this.toggleHelp}>
-                        {i18n`More information`}
+                        {i18n`more information`}
                     </a></p>
                     <p className={this.state.showHelp ? 'show': 'hide'}>{q.help}</p>
                     {q.answers.map((answer, i) =>
                         <button key={i} onClick={this.props.sendResult.bind(null, answer.value)}>
-                            {answer.text}
+                            {i18n(answer.text)}
                         </button>
                     )}
                 </div>
@@ -32,9 +36,9 @@ function (React, UttModule, i18n) {
             let perc = (this.props.current - 1) / this.props.total * 100;
 
             return <div className="module-head">
-                <h2>HEAD</h2>
+                <h2>{i18n`CATG_TITLE`}</h2>
                 <img src="" width="48" height="48" alt="" />
-                <p>TEXT</p>
+                <p>{i18n`CATG_DESCR`}</p>
                 <div className="progress-bar">
                     <span className="label">
                         {this.props.current + " / " + this.props.total}
@@ -45,7 +49,7 @@ function (React, UttModule, i18n) {
         },
 
         renderNoQuestion() {
-            return <div>{i18n`No question`}</div>;
+            return <div>{i18n`no question`}</div>;
         },
 
         getInitialState() {
