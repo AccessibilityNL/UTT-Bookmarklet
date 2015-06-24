@@ -1,12 +1,13 @@
 define(['React', 'UTT/components/Assessor',
-	'./assessor/buildQuestions', './assertor/earlStore'],
+	'./assessor/buildQuestions', 'UTT/earlTools/earlStore'],
 function (React, Assessor) {
 
-	let buildQuestions = require('./assessor/buildQuestions');
-	let earlStore      = require('./assertor/earlStore');
+	let buildQuestions = require('UTT/modules/assessor/buildQuestions');
+	let earlStore      = require('UTT/earlTools/earlStore');
 
 	let saveResult = function (question, result) {
-		console.log(result);
+		let assertion = earlStore.buildAssertion(question, result);
+		earlStore.addAssertion(assertion);
 	};
 
 	return function assertor({questions, category, icon}, i18n, render) {
