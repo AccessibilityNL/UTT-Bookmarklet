@@ -45,7 +45,7 @@
 //# sourceMappingURL=bookmarklet.js.map
 "use strict";
 
-define(["UTT/locale/common", "UTT/locale/assessor/common", "UTT/locale/assessor/images", "UTT/locale/assessor/media", "UTT/locale/assessor/language", "UTT/locale/assessor/navigation", "UTT/locale/assessor/keyboard", "./browser-polyfill"], function () {
+define(["UTT/locale/common", "UTT/locale/assessor/common", "UTT/locale/assessor/images", "UTT/locale/assessor/media", "UTT/locale/assessor/language", "UTT/locale/assessor/navigation", "UTT/locale/assessor/keyboard", "UTT/utils/browser-polyfill"], function () {
     var localeAssessor = require("UTT/locale/assessor/common");
 
     var assessorNames = ["images", "media", "language", "navigation", "keyboard"];
@@ -484,7 +484,7 @@ define([], function () {
 //# sourceMappingURL=questions.js.map
 "use strict";
 
-define(["React", "UTT/components/HomePanel", "./browser-polyfill"], function (React, HomePanel) {
+define(["React", "UTT/components/HomePanel", "UTT/utils/browser-polyfill"], function (React, HomePanel) {
 
 	return function home(_ref, i18n) {
 		var modules = _ref.modules;
