@@ -8,7 +8,7 @@ define([], function () {
         variables: [],
         limit: 3,
         help: "Summer means happy times and good sunshine. It means going to the beach, " + "going to Disneyland, having fun.",
-        answers: [{ value: "passed", text: "yes" }, { value: "failed", text: "no" }, { value: "cantTell", text: "Unclear" }]
+        answers: [{ value: "passed", text: "yes" }, { value: "failed", text: "no" }, { value: "cantTell", text: "unclear" }]
     };
 
     var data = {
@@ -35,9 +35,21 @@ define([], function () {
             }
         },
 
-        media: { "auto-wcag:having-fun": dummyQuestion },
-        language: { "auto-wcag:having-fun": dummyQuestion },
-        keyboard: { "auto-wcag:having-fun": dummyQuestion }
+        media: {
+            "auto-wcag:having-fun1": dummyQuestion,
+            "auto-wcag:having-fun2": dummyQuestion,
+            "auto-wcag:having-fun3": dummyQuestion
+        },
+        language: {
+            "auto-wcag:having-fun1": dummyQuestion,
+            "auto-wcag:having-fun2": dummyQuestion,
+            "auto-wcag:having-fun3": dummyQuestion
+        },
+        keyboard: {
+            "auto-wcag:having-fun1": dummyQuestion,
+            "auto-wcag:having-fun2": dummyQuestion,
+            "auto-wcag:having-fun3": dummyQuestion
+        }
     };
 
     return data;

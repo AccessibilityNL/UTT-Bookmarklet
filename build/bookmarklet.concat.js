@@ -12,7 +12,9 @@
             baseUrl: baseUrl,
             paths: {
                 UTT: "lib",
-                React: "bower_components/react/react"
+                React: "bower_components/react/react",
+                qwest: "bower_components/qwest/qwest.min",
+                "UTT/locale": "lib/locale/en"
             },
             shim: { exports: "React" }
         });
@@ -43,64 +45,24 @@
 //# sourceMappingURL=bookmarklet.js.map
 "use strict";
 
-define(function () {
-    var localeAssessor = {
-        NO_QUESTION: "No questions"
-    };
+define(["UTT/locale/common", "UTT/locale/assessor/common", "UTT/locale/assessor/images", "UTT/locale/assessor/media", "UTT/locale/assessor/language", "UTT/locale/assessor/navigation", "UTT/locale/assessor/keyboard"], function () {
+    var localeAssessor = require("UTT/locale/assessor/common");
+
+    var assessorNames = ["images", "media", "language", "navigation", "keyboard"];
 
     var config = {
-        modules: [{
-            title: "Images",
-            description: "Test explination text 1 line.",
-            image: "icon.images",
-            controller: "UTT/modules/assessor",
-            config: {
-                questions: "UTT/modules/assessor/questions",
-                category: "images"
-            },
-            locale: localeAssessor
-        }, {
-            title: "Multimedia",
-            description: "Test explination text 2 line.",
-            controller: "UTT/modules/assessor",
-            image: "icon.media",
-            config: {
-                questions: "UTT/modules/assessor/questions",
-                category: "media"
-            },
-            locale: localeAssessor
-        }, {
-            title: "Language change",
-            description: "Test explination text 3 line.",
-            controller: "UTT/modules/assessor",
-            image: "icon.language",
-            config: {
-                questions: "UTT/modules/assessor/questions",
-                category: "language"
-            },
-            locale: localeAssessor
-        }, {
-            title: "Navigation",
-            description: "Test explination text 4 line.",
-            controller: "UTT/modules/assessor",
-            image: "icon.navigation",
-            config: {
-                questions: "UTT/modules/assessor/questions",
-                category: "navigation"
-            },
-            locale: localeAssessor
-        }, {
-            title: "Keyboard",
-            description: "Test explination text 5 line.",
-            controller: "UTT/modules/assessor",
-            image: "icon.keyboard",
-            config: {
-                questions: "UTT/modules/assessor/questions",
-                category: "keyboard"
-            },
-            locale: localeAssessor
-        }],
-        locale: {}
+        modules: assessorNames.map(function (assessorName) {
+            return {
+                controller: "UTT/modules/assessor",
+                config: {
+                    icon: "icon-" + assessorName + ".svg",
+                    questions: "UTT/modules/assessor/questions",
+                    category: assessorName
+                },
+                locale: Object.assign(require("UTT/locale/assessor/" + assessorName), localeAssessor)
+            };
+        }),
+        locale: require("UTT/locale/common")
     };
 
     return config;
@@ -108,8 +70,140 @@ define(function () {
 //# sourceMappingURL=config.js.map
 "use strict";
 
-define(["React", "UTT/components/UttBookmarklet", "./config", "UTT/modules/home", "UTT/utils/browser-polyfill"], function (React, UttBookmarklet, config, home) {
+define(function () {
+
+	return function () {};
+});
+//# sourceMappingURL=createCssPointer.js.map
+"use strict";
+
+define(["./createCssPointer", "qwest"], function (cssPointer, qwest) {
+	console.log(qwest);
+
+	// Should not be hardcoded!
+	var contextRoot = "http://utt-dev.huell.appnormal.com/v1";
+
+	var privateKey = "abcdefghijklmnop";
+
+	var connected = true;
+
+	// do stuff with promises
+	var earlStore = Object.seal({
+
+		setContextRoot: function setContextRoot(rootDomain) {
+			contextRoot = rootDomain;
+		},
+
+		buildAssertion: function buildAssertion(question, result) {
+			return {};
+			// return {
+			//     "@context":   contextRoot + "/assertions/context.jsonld",
+			//     "@type":      "Assertion",
+			//     "@id":        "utt:asssertions/1234567890",
+			//     "subject":    "utt:evaluations/123456/scope",
+			//     "assertedBy": "utt:assertors/123456",
+			//     "test": {
+			//         "@type": "TestRequirement",
+			//         "@id":   "wcag20:text-equiv-all"
+			//     },
+			//     "result": {
+			//         "@type":  "TestResult",
+			//         "outcome": "failed"
+			//     },
+			//     "date": "2014-01-01T19:20:30+01:00",
+			// };
+		},
+
+		addAssertion: function addAssertion() {
+			var evaluation = earlStore.getEvaluation();
+			//evaluation.addStuff = true;
+		},
+
+		getAssertions: function getAssertions() {},
+
+		getEvaluation: function getEvaluation() {
+			earlStore.connect();
+		},
+
+		connect: function connect() {
+			// if (connected) {
+			// 	return;
+			// }
+			console.log("get", contextRoot + "/assertors");
+			qwest.get(contextRoot + "/assertors", {
+				q: privateKey
+
+			}).then(function (response) {
+				console.log("then:", response);
+			})["catch"](function (e, response) {
+				console.log("catch:", e, response);
+			});
+		}
+
+	});
+
+	return earlStore;
+});
+//# sourceMappingURL=earlStore.js.map
+"use strict";
+
+define({
+    "no question": "No questions",
+    "question {0}": "Question {0}",
+    "more information": "More information" });
+//# sourceMappingURL=common.js.map
+"use strict";
+
+define({
+    CATG_TITLE: "Images",
+    CATG_DESCR: "Test explination text 1 line."
+});
+//# sourceMappingURL=images.js.map
+"use strict";
+
+define({
+  CATG_TITLE: "Keyboard",
+  CATG_DESCR: "Test explination text 5 line." });
+//# sourceMappingURL=keyboard.js.map
+"use strict";
+
+define({
+  CATG_TITLE: "Language change",
+  CATG_DESCR: "Test explination text 3 line." });
+//# sourceMappingURL=language.js.map
+"use strict";
+
+define({
+  CATG_TITLE: "Multimedia",
+  CATG_DESCR: "Test explination text 2 line."
+});
+//# sourceMappingURL=media.js.map
+"use strict";
+
+define({
+  CATG_TITLE: "Navigation",
+  CATG_DESCR: "Test explination text 4 line."
+});
+//# sourceMappingURL=navigation.js.map
+"use strict";
+
+define({
+    TOOL_NAME: "AccessVerify",
+    TOOL_DESCR: "Basic check for the accessibility of the web",
+    "tool info": "Tool info",
+    results: "Results",
+    "star testing": "Star testing",
+    yes: "Yes",
+    no: "No",
+    unclear: "unclear"
+});
+//# sourceMappingURL=common.js.map
+"use strict";
+
+define(["React", "UTT/components/UttBookmarklet", "./config", "UTT/modules/home", "UTT/utils/translator", "UTT/utils/browser-polyfill"], function (React, UttBookmarklet, config, home, translator) {
     var UTT = undefined;
+
+    config.i18n = translator({ messageBundle: config.locale });
 
     function renderModule(comp, attr, children) {
         UTT.bookmarkNode = React.createElement(UttBookmarklet, {}, React.createElement(comp, attr, children));
@@ -119,7 +213,10 @@ define(["React", "UTT/components/UttBookmarklet", "./config", "UTT/modules/home"
     function createModuleActivator(mod) {
         return function () {
             require([mod.controller], function (modController) {
-                modController(mod.config, mod.locale, renderModule);
+                var i18n = translator({
+                    messageBundle: Object.assign(mod.locale, config.locale)
+                });
+                modController(mod.config, i18n, renderModule);
             });
         };
     }
@@ -165,9 +262,10 @@ define(["React", "UTT/components/UttBookmarklet", "./config", "UTT/modules/home"
 
         showHome: function showHome() {
             var modules = config.modules;
-            var locale = config.locale;
+            var i18n = config.i18n;
 
-            UTT.bookmarkNode = React.createElement(UttBookmarklet, null, home({ modules: modules }, locale));
+            UTT.bookmarkNode = React.createElement(UttBookmarklet, null, home({ modules: modules }, i18n));
+
             React.render(UTT.bookmarkNode, UTT.containerNode);
         },
 
@@ -203,18 +301,25 @@ define(["React", "UTT/components/UttBookmarklet", "./config", "UTT/modules/home"
 //# sourceMappingURL=main.js.map
 "use strict";
 
-define(["React", "UTT/components/Assessor", "./assessor/buildQuestions"], function (React, Assessor, buildQuestions) {
+define(["React", "UTT/components/Assessor", "./assessor/buildQuestions", "UTT/earlTools/earlStore"], function (React, Assessor) {
+
+	var buildQuestions = require("UTT/modules/assessor/buildQuestions");
+	var earlStore = require("UTT/earlTools/earlStore");
 
 	var saveResult = function saveResult(question, result) {
-		console.log(result);
+		var assertion = earlStore.buildAssertion(question, result);
+		earlStore.addAssertion(assertion);
 	};
 
-	return function assertor(_ref, locale, render) {
+	return function assertor(_ref, i18n, render) {
 		var questions = _ref.questions;
 		var category = _ref.category;
+		var icon = _ref.icon;
 
 		require([questions, "UTT/main"], function (qData, UTT) {
 			var questions = qData[category];
+			var iconSrc = require.toUrl("UTT/components/assets/images/" + icon);
+
 			if (!questions) {
 				return;
 			}
@@ -233,8 +338,9 @@ define(["React", "UTT/components/Assessor", "./assessor/buildQuestions"], functi
 			})(function (i) {
 				render(Assessor, {
 					question: questions[i],
-					locale: locale,
+					i18n: i18n,
 					current: i + 1,
+					iconSrc: iconSrc,
 					total: questions.length,
 					sendResult: function sendResult(result) {
 						saveResult(questions[i], result);
@@ -251,25 +357,6 @@ define(["React", "UTT/components/Assessor", "./assessor/buildQuestions"], functi
 	};
 });
 //# sourceMappingURL=assessor.js.map
-"use strict";
-
-define(function () {
-
-		// do stuff with promises
-		var earlStore = {
-				buildEarl: function buildEarl(question, result) {
-						return {};
-				},
-				connect: function connect() {},
-				getEvaluation: function getEvaluation() {},
-				addResult: function addResult() {},
-				getResults: function getResults() {}
-
-		};
-
-		return earlStore;
-});
-//# sourceMappingURL=EarlStore.js.map
 "use strict";
 
 var _toConsumableArray = function (arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) arr2[i] = arr[i]; return arr2; } else { return Array.from(arr); } };
@@ -305,8 +392,6 @@ define(["UTT/utils/strFormat", "UTT/utils/highlighter"], function (strFormat, hi
             var question = questionData[questionId];
             var nodes = highlighter.find(question.selector.css);
 
-            console.log(question);
-
             nodes = Array.prototype.slice.call(nodes);
             var bookmarklet = highlighter.find("#utt-bookmarklet-container")[0];
 
@@ -333,7 +418,6 @@ define(["UTT/utils/strFormat", "UTT/utils/highlighter"], function (strFormat, hi
             questions.forEach(function (question) {
                 question.text = createQuestionText(question);
             });
-            console.log(questions.length);
             return questions;
         }, []);
     }
@@ -351,7 +435,7 @@ define([], function () {
         variables: [],
         limit: 3,
         help: "Summer means happy times and good sunshine. It means going to the beach, " + "going to Disneyland, having fun.",
-        answers: [{ value: "passed", text: "yes" }, { value: "failed", text: "no" }, { value: "cantTell", text: "Unclear" }]
+        answers: [{ value: "passed", text: "yes" }, { value: "failed", text: "no" }, { value: "cantTell", text: "unclear" }]
     };
 
     var data = {
@@ -378,9 +462,21 @@ define([], function () {
             }
         },
 
-        media: { "auto-wcag:having-fun": dummyQuestion },
-        language: { "auto-wcag:having-fun": dummyQuestion },
-        keyboard: { "auto-wcag:having-fun": dummyQuestion }
+        media: {
+            "auto-wcag:having-fun1": dummyQuestion,
+            "auto-wcag:having-fun2": dummyQuestion,
+            "auto-wcag:having-fun3": dummyQuestion
+        },
+        language: {
+            "auto-wcag:having-fun1": dummyQuestion,
+            "auto-wcag:having-fun2": dummyQuestion,
+            "auto-wcag:having-fun3": dummyQuestion
+        },
+        keyboard: {
+            "auto-wcag:having-fun1": dummyQuestion,
+            "auto-wcag:having-fun2": dummyQuestion,
+            "auto-wcag:having-fun3": dummyQuestion
+        }
     };
 
     return data;
@@ -390,11 +486,10 @@ define([], function () {
 
 define(["React", "UTT/components/HomePanel"], function (React, HomePanel) {
 
-	return function home(_ref, locale) {
+	return function home(_ref, i18n) {
 		var modules = _ref.modules;
 
-		console.log("start home");
-		return React.createElement(HomePanel, { modules: modules, locale: locale });
+		return React.createElement(HomePanel, { modules: modules, i18n: i18n });
 	};
 });
 //# sourceMappingURL=home.js.map
@@ -1758,103 +1853,6 @@ define(function () {
 //# sourceMappingURL=highlighter.js.map
 "use strict";
 
-var _toConsumableArray = function (arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) arr2[i] = arr[i]; return arr2; } else { return Array.from(arr); } };
-
-define([], function () {
-	// http://jaysoo.ca/2014/03/20/i18n-with-es6-template-strings/
-
-	// Matches optional type annotations in i18n strings.
-	// e.g. i18n`This is a number ${x}:n(2)` formats x as number
-	//      with two fractional digits.
-	var typeInfoRegex = /^:([a-z])(\((.+)\))?/;
-
-	var locale = undefined;
-	var defaultCurrency = undefined;
-	var messageBundle = {};
-
-	var localizers = {
-		s /*string*/: function (v) {
-			return v.toLocaleString(locale);
-		},
-		c /*currency*/: function (v, currency) {
-			return v.toLocaleString(locale, {
-				style: "currency",
-				currency: currency || defaultCurrency
-			});
-		},
-		n /*number*/: function (v, fractionalDigits) {
-			return v.toLocaleString(locale, {
-				minimumFractionDigits: fractionalDigits,
-				maximumFractionDigits: fractionalDigits
-			});
-		}
-	};
-
-	function i18n(literals) {
-		for (var _len = arguments.length, values = Array(_len > 1 ? _len - 1 : 0), _key = 1; _key < _len; _key++) {
-			values[_key - 1] = arguments[_key];
-		}
-
-		var translationKey = buildKey(literals);
-		var translationString = messageBundle[translationKey] || translationKey;
-		var typeInfoForValues = literals.slice(1).map(extractTypeInfo);
-		var localizedValues = values.map(function (v, i) {
-			return localize(v, typeInfoForValues[i]);
-		});
-		return buildMessage.apply(undefined, [translationString].concat(_toConsumableArray(localizedValues)));
-	}
-
-	i18n.setLocale = function (_locale, _defaultCurrency, _messageBundle) {
-		locale = _locale;
-		defaultCurrency = _defaultCurrency;
-		messageBundle = _messageBundle;
-	};
-
-	// e.g. I18n._buildKey(['', ' has ', ':c in the']) == '{0} has {1} in the bank'
-	function buildKey(literals) {
-		var stripType = function (s) {
-			return s.replace(typeInfoRegex, "");
-		};
-		var lastPartialKey = stripType(literals[literals.length - 1]);
-		var prependPartialKey = function (memo, curr, i) {
-			return "" + stripType(curr) + "{" + i + "}" + memo;
-		};
-
-		return literals.slice(0, -1).reduceRight(prependPartialKey, lastPartialKey);
-	}
-
-	function extractTypeInfo(literal) {
-		var match = typeInfoRegex.exec(literal);
-		if (match) {
-			return { type: match[1], options: match[3] };
-		} else {
-			return { type: "s", options: "" };
-		}
-	}
-
-	function localize(value, _ref) {
-		var type = _ref.type;
-		var options = _ref.options;
-
-		return localizers[type](value, options);
-	}
-
-	// e.g. I18n._formatStrings('{0} {1}!', 'hello', 'world') == 'hello world!'
-	function buildMessage(str) {
-		for (var _len = arguments.length, values = Array(_len > 1 ? _len - 1 : 0), _key = 1; _key < _len; _key++) {
-			values[_key - 1] = arguments[_key];
-		}
-
-		return str.replace(/{(\d)}/g, function (_, index) {
-			return values[Number(index)];
-		});
-	}
-
-	return i18n;
-});
-//# sourceMappingURL=i18n.js.map
-"use strict";
-
 define(function () {
     return function (input) {
         for (var _len = arguments.length, args = Array(_len > 1 ? _len - 1 : 0), _key = 1; _key < _len; _key++) {
@@ -1867,3 +1865,121 @@ define(function () {
     };
 });
 //# sourceMappingURL=strFormat.js.map
+"use strict";
+
+var _toConsumableArray = function (arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) arr2[i] = arr[i]; return arr2; } else { return Array.from(arr); } };
+
+define(function () {
+    var translator = undefined;
+
+    // Matches optional type annotations in i18n strings.
+    // e.g. i18n`This is a number ${x}:n(2)` formats x as number
+    //      with two fractional digits.
+    var typeInfoRegex = /^:([a-z])(\((.+)\))?/;
+
+    translator = function (_ref) {
+        var locale = _ref.locale;
+        var defaultCurrency = _ref.defaultCurrency;
+        var messageBundle = _ref.messageBundle;
+
+        return function (literals) {
+            for (var _len = arguments.length, values = Array(_len > 1 ? _len - 1 : 0), _key = 1; _key < _len; _key++) {
+                values[_key - 1] = arguments[_key];
+            }
+
+            if (!Array.isArray(literals)) {
+                literals = [literals];
+            }
+            var translationKey = translator.buildKey(literals);
+            var translationString = messageBundle[translationKey];
+
+            if (translationString) {
+                var _ret = (function () {
+                    var typeInfoForValues = literals.slice(1).map(translator.extractTypeInfo);
+                    var localizedValues = values.map(function (v, i) {
+                        return translator.localize(locale, v, typeInfoForValues[i]);
+                    });
+                    return {
+                        v: translator.buildMessage.apply(translator, [translationString].concat(_toConsumableArray(localizedValues)))
+                    };
+                })();
+
+                if (typeof _ret === "object") return _ret.v;
+            }
+
+            if (translator.logging) {
+                console.warn("Translation missing '" + translationKey + "'");
+            }
+
+            return translationKey;
+        };
+    };
+
+    Object.assign(translator, {
+        defaultCurrency: "EURO",
+        logging: true,
+        localizers: {
+            /*string*/
+            s: function (locale, v) {
+                return v.toLocaleString(locale);
+            },
+
+            /*currency*/
+            c: function (locale, v, currency) {
+                return v.toLocaleString(locale, {
+                    style: "currency",
+                    currency: currency || translator.defaultCurrency
+                });
+            },
+
+            /*number*/
+            n: function (locale, v, fractionalDigits) {
+                return v.toLocaleString(locale, {
+                    minimumFractionDigits: fractionalDigits,
+                    maximumFractionDigits: fractionalDigits
+                });
+            }
+        },
+
+        buildKey: function buildKey(literals) {
+            var stripType = function (s) {
+                return s.replace(typeInfoRegex, "");
+            };
+            var lastPartialKey = stripType(literals[literals.length - 1]);
+            var prependPartialKey = function (memo, curr, i) {
+                return "" + stripType(curr) + "{" + i + "}" + memo;
+            };
+
+            return literals.slice(0, -1).reduceRight(prependPartialKey, lastPartialKey);
+        },
+
+        extractTypeInfo: function extractTypeInfo(literal) {
+            var match = typeInfoRegex.exec(literal);
+            if (match) {
+                return { type: match[1], options: match[3] };
+            } else {
+                return { type: "s", options: "" };
+            }
+        },
+
+        localize: function localize(locale, value, _ref) {
+            var type = _ref.type;
+            var options = _ref.options;
+
+            return translator.localizers[type](locale, value, options);
+        },
+
+        buildMessage: function buildMessage(str) {
+            for (var _len = arguments.length, values = Array(_len > 1 ? _len - 1 : 0), _key = 1; _key < _len; _key++) {
+                values[_key - 1] = arguments[_key];
+            }
+
+            return str.replace(/{(\d)}/g, function (_, index) {
+                return values[Number(index)];
+            });
+        }
+    });
+
+    return translator;
+});
+//# sourceMappingURL=translator.js.map

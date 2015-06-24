@@ -27,7 +27,7 @@
 }
 /* line 26, ../../../../../source/lib/components/assets/styles/assessor.scss */
 .assessor .module-head .progress-bar .bar {
-  background: #20b7d6;
+  background: #0680a3;
   margin: 1px;
   width: 11px;
   height: 11px;
@@ -45,6 +45,6 @@
   margin-right: 7px;
   text-align: center;
   display: inline-block;
-  background: #20b7d6;
+  background: #0680a3;
   color: white;
 }

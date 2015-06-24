@@ -33,8 +33,6 @@ define(["UTT/utils/strFormat", "UTT/utils/highlighter"], function (strFormat, hi
             var question = questionData[questionId];
             var nodes = highlighter.find(question.selector.css);
 
-            console.log(question);
-
             nodes = Array.prototype.slice.call(nodes);
             var bookmarklet = highlighter.find("#utt-bookmarklet-container")[0];
 
@@ -61,7 +59,6 @@ define(["UTT/utils/strFormat", "UTT/utils/highlighter"], function (strFormat, hi
             questions.forEach(function (question) {
                 question.text = createQuestionText(question);
             });
-            console.log(questions.length);
             return questions;
         }, []);
     }

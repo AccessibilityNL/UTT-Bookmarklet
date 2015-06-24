@@ -1,17 +1,24 @@
 "use strict";
 
-define(["React", "UTT/components/Assessor", "./assessor/buildQuestions"], function (React, Assessor, buildQuestions) {
+define(["React", "UTT/components/Assessor", "./assessor/buildQuestions", "UTT/earlTools/earlStore"], function (React, Assessor) {
+
+	var buildQuestions = require("UTT/modules/assessor/buildQuestions");
+	var earlStore = require("UTT/earlTools/earlStore");
 
 	var saveResult = function saveResult(question, result) {
-		console.log(result);
+		var assertion = earlStore.buildAssertion(question, result);
+		earlStore.addAssertion(assertion);
 	};
 
-	return function assertor(_ref, locale, render) {
+	return function assertor(_ref, i18n, render) {
 		var questions = _ref.questions;
 		var category = _ref.category;
+		var icon = _ref.icon;
 
 		require([questions, "UTT/main"], function (qData, UTT) {
 			var questions = qData[category];
+			var iconSrc = require.toUrl("UTT/components/assets/images/" + icon);
+
 			if (!questions) {
 				return;
 			}
@@ -30,8 +37,9 @@ define(["React", "UTT/components/Assessor", "./assessor/buildQuestions"], functi
 			})(function (i) {
 				render(Assessor, {
 					question: questions[i],
-					locale: locale,
+					i18n: i18n,
 					current: i + 1,
+					iconSrc: iconSrc,
 					total: questions.length,
 					sendResult: function sendResult(result) {
 						saveResult(questions[i], result);

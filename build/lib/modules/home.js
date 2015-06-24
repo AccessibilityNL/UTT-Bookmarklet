@@ -2,11 +2,10 @@
 
 define(["React", "UTT/components/HomePanel"], function (React, HomePanel) {
 
-	return function home(_ref, locale) {
+	return function home(_ref, i18n) {
 		var modules = _ref.modules;
 
-		console.log("start home");
-		return React.createElement(HomePanel, { modules: modules, locale: locale });
+		return React.createElement(HomePanel, { modules: modules, i18n: i18n });
 	};
 });
 //# sourceMappingURL=home.js.map
