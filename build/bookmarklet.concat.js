@@ -45,7 +45,7 @@
 //# sourceMappingURL=bookmarklet.js.map
 "use strict";
 
-define(["UTT/locale/common", "UTT/locale/assessor/common", "UTT/locale/assessor/images", "UTT/locale/assessor/media", "UTT/locale/assessor/language", "UTT/locale/assessor/navigation", "UTT/locale/assessor/keyboard"], function () {
+define(["UTT/locale/common", "UTT/locale/assessor/common", "UTT/locale/assessor/images", "UTT/locale/assessor/media", "UTT/locale/assessor/language", "UTT/locale/assessor/navigation", "UTT/locale/assessor/keyboard", "./browser-polyfill"], function () {
     var localeAssessor = require("UTT/locale/assessor/common");
 
     var assessorNames = ["images", "media", "language", "navigation", "keyboard"];
@@ -484,7 +484,7 @@ define([], function () {
 //# sourceMappingURL=questions.js.map
 "use strict";
 
-define(["React", "UTT/components/HomePanel"], function (React, HomePanel) {
+define(["React", "UTT/components/HomePanel", "./browser-polyfill"], function (React, HomePanel) {
 
 	return function home(_ref, i18n) {
 		var modules = _ref.modules;
@@ -1869,7 +1869,7 @@ define(function () {
 
 var _toConsumableArray = function (arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) arr2[i] = arr[i]; return arr2; } else { return Array.from(arr); } };
 
-define(function () {
+define(["./browser-polyfill"], function () {
     var translator = undefined;
 
     // Matches optional type annotations in i18n strings.

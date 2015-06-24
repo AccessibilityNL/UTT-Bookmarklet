@@ -1,6 +1,6 @@
 "use strict";
 
-define(["React", "./Panel"], function (React, Panel) {
+define(["React", "./Panel", "./browser-polyfill"], function (React, Panel) {
     var UttBookmarklet = React.createClass({ displayName: "UttBookmarklet",
         render: function render() {
             return React.createElement(Panel, null, this.props.children);

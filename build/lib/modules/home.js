@@ -1,6 +1,6 @@
 "use strict";
 
-define(["React", "UTT/components/HomePanel"], function (React, HomePanel) {
+define(["React", "UTT/components/HomePanel", "./browser-polyfill"], function (React, HomePanel) {
 
 	return function home(_ref, i18n) {
 		var modules = _ref.modules;

@@ -1,6 +1,6 @@
 "use strict";
 
-define(["UTT/locale/common", "UTT/locale/assessor/common", "UTT/locale/assessor/images", "UTT/locale/assessor/media", "UTT/locale/assessor/language", "UTT/locale/assessor/navigation", "UTT/locale/assessor/keyboard"], function () {
+define(["UTT/locale/common", "UTT/locale/assessor/common", "UTT/locale/assessor/images", "UTT/locale/assessor/media", "UTT/locale/assessor/language", "UTT/locale/assessor/navigation", "UTT/locale/assessor/keyboard", "./browser-polyfill"], function () {
     var localeAssessor = require("UTT/locale/assessor/common");
 
     var assessorNames = ["images", "media", "language", "navigation", "keyboard"];
