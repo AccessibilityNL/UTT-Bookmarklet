@@ -6,7 +6,7 @@ define([
     'UTT/locale/assessor/language',
     'UTT/locale/assessor/navigation',
     'UTT/locale/assessor/keyboard',
-    './browser-polyfill',
+    'UTT/utils/browser-polyfill',
 ], function () {
     let localeAssessor = require('UTT/locale/assessor/common');
 
