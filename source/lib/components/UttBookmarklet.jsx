@@ -1,4 +1,4 @@
-define(['React', './Panel'],
+define(['React', './Panel', './browser-polyfill'],
 function (React, Panel) {
     let UttBookmarklet = React.createClass({
         render() {
