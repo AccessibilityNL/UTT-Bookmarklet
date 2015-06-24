@@ -76,9 +76,9 @@ evaluations/:id/auditResult | Add an assertion to an evaluation
       "test": {
         "@type": "TestRequirement",
         "@id":   "wcag20:text-equiv-all"
-      }
+      },
       "result": {
-        "@type":  "TestResult"
+        "@type":  "TestResult",
         "outcome": "failed"
       },
       "date": "2014-01-01T19:20:30+01:00",

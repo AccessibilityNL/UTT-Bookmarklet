@@ -1,21 +1,30 @@
 define(['React'], function (React) {
-    let Header = React.createClass({
 
+    let i18n;
+
+    let Header = React.createClass({
     	render() {
+            let logoSrc = require.toUrl("UTT/components/assets/images/logo.svg");
+            i18n = this.props.i18n;
             return <div className="header">
                 <h1>
-                    <img src="" width="54" height="54" />
-                    AccessVerify
+                    <img src={logoSrc}
+                        width="54" height="54" />
+                    {i18n`TOOL_NAME`}
                 </h1>
-                <button className="info-button" onClick={this.toggleInfo}>Tool info</button>
+                <button className="info-button" onClick={this.toggleInfo}>
+                    {i18n`tool info`}
+                </button>
                 <p className={this.state.showInfo ? 'show info': 'hide info'}>
-                    Basic check for the accessibility of the web
+                    {i18n`TOOL_DESCR`}
                 </p>
             </div>;
     	},
+
         getInitialState() {
             return { showInfo: false };
         },
+
         toggleInfo() {
             this.setState({
                 showInfo: !this.state.showInfo
