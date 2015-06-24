@@ -1,4 +1,4 @@
-define(['React', 'UTT/components/HomePanel'],
+define(['React', 'UTT/components/HomePanel', './browser-polyfill'],
 function (React, HomePanel) {
 
 	return function home({modules}, i18n) {

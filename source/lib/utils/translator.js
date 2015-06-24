@@ -1,4 +1,4 @@
-define(function () {
+define(['./browser-polyfill'], function () {
     let translator;
 
     // Matches optional type annotations in i18n strings.
