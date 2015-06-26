@@ -1,15 +1,15 @@
 define(['./mockServer'],
 function (qwest) {
 	const knownTypes = [
-		'assertor',
+		'Assertor',
 		'evaluation',
 		'webpage',
-		'assertion'
+		'Assertion'
 	];
 	const type       = '@type';
 	const userKeys   = {
 		evaluation: 'creator',
-		assertion: 'assertedBy'
+		Assertion: 'assertedBy'
 	};
 	const connections = {};
 
@@ -135,15 +135,16 @@ function (qwest) {
 		connect(apiUrl, userkey) {
 			if (connections[apiUrl]) {
 				return new Promise((resolve) => {
-					resolve(connections[apiUrl]);
+					resolve({ earlAdapter: connections[apiUrl] });
 				});
 			}
 
 			return qwest.get(apiUrl +'/assertor', {
 				'q[_privateKey]': userkey
 			}).then(function (userData) {
+				userData['utt:_privateKey'] = userkey;
 				connections[apiUrl] = createAdapter(apiUrl, userData);
-				return connections[apiUrl];
+				return { earlAdapter: connections[apiUrl] };
 			});
 		}
 	};

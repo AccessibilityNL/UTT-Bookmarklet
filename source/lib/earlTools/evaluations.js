@@ -4,8 +4,7 @@ function () {
 
 		protoEval: {
 		    "@type":       "evaluation",
-		    "creator":     undefined,
-		    // AuditResult is an array, we'll create a new one each eval
+		    // "creator":     undefined,
 		    // "auditResult": []
 		},
 
