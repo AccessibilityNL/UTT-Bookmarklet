@@ -6,25 +6,32 @@ function (UTT) {
 	let evaluations = require('UTT/earlTools/evaluations');
 	let assertions  = require('UTT/earlTools/assertions');
 
-	let evaluation;
-	let webpage;
-	let auditResult;
-
-	let logError = console.error.bind(console);
-
 	let saveResult = function (question, outcome) {
+		let webpage;		// cached page
+		let evaluation;		// cached eval
+		let auditResult;	// cached audit results
 
-		let apiUrl  = UTT.config.apiUrl;
-		let userKey = UTT.userKey;
+		let logError = console.error.bind(console);
+		let apiUrl   = UTT.config.apiUrl;
+		let userKey  = UTT.userKey;
 
 		earlApi.connect(apiUrl, userKey)
 		.then(function (earlAdapter) {
+			// Check if the page is known
+			if (webpage) {
+				return {earlAdapter, webpage};
+			}
+
+			// If not, create and send it to the server
+			webpage = pages.createCurrent();
+			return earlAdapter.post(webpage)
+							  .then((webpage) => ({earlAdapter, webpage}));
+
+		})
+		.then(function ({earlAdapter, webpage}) {
 			if (!evaluation) {
-				webpage     = pages.createCurrent();
 				evaluation  = evaluations.create();
 				auditResult = evaluation.auditResult;
-
-				console.log(evaluation);
 
 				let assertion = assertions.createFromQuestion({
 					webpage, question, outcome

@@ -11,6 +11,7 @@ function (qwest) {
 		evaluation: 'creator',
 		assertion: 'assertedBy'
 	};
+	const connections = {};
 
 	/**
 	 * [getUrlForEarl description]
@@ -132,10 +133,18 @@ function (qwest) {
 		 * @return {Promise}         Which returns the adapter once done
 		 */
 		connect(apiUrl, userkey) {
+			if (connections[apiUrl]) {
+				return new Promise((resolve) => {
+					resolve(connections[apiUrl]);
+				});
+			}
+
 			return qwest.get(apiUrl +'/assertor', {
 				'q[_privateKey]': userkey
-			})
-			.then(createAdapter.bind(null, apiUrl));
+			}).then(function (userData) {
+				connections[apiUrl] = createAdapter(apiUrl, userData);
+				return connections[apiUrl];
+			});
 		}
 	};
 
