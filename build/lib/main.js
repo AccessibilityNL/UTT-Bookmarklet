@@ -24,9 +24,9 @@ define(["React", "UTT/components/UttBookmarklet", "./config", "UTT/modules/home"
     UTT = {
         bookmarkNode: null,
         containerNode: null,
-        userKey: null,
         running: false,
-
+        config: null,
+        userKey: null,
         render: function render() {
             UTT.running = true;
             React.render(UTT.bookmarkNode, UTT.containerNode);
@@ -37,13 +37,14 @@ define(["React", "UTT/components/UttBookmarklet", "./config", "UTT/modules/home"
 
             var styleLink = UTT.createStyleNode();
             UTT.containerNode = UTT.createContainerNode();
-            UTT.userKey = userKey;
-
             config.modules = config.modules.map(function (mod) {
                 return Object.assign({
                     activate: createModuleActivator(mod)
                 }, mod);
             });
+            UTT.userKey = userKey;
+            Object.freeze(config);
+            UTT.config = config;
 
             document.head.appendChild(styleLink);
             document.body.appendChild(UTT.containerNode);

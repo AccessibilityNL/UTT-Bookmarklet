@@ -1,14 +1,9 @@
 "use strict";
 
-define(["React", "UTT/components/Assessor", "./assessor/buildQuestions", "UTT/earlTools/earlStore"], function (React, Assessor) {
+define(["React", "UTT/components/Assessor", "./assessor/buildQuestions", "./assessor/saveResult"], function (React, Assessor) {
 
 	var buildQuestions = require("UTT/modules/assessor/buildQuestions");
-	var earlStore = require("UTT/earlTools/earlStore");
-
-	var saveResult = function saveResult(question, result) {
-		var assertion = earlStore.buildAssertion(question, result);
-		earlStore.addAssertion(assertion);
-	};
+	var saveResult = require("UTT/modules/assessor/saveResult");
 
 	return function assertor(_ref, i18n, render) {
 		var questions = _ref.questions;
@@ -41,8 +36,8 @@ define(["React", "UTT/components/Assessor", "./assessor/buildQuestions", "UTT/ea
 					current: i + 1,
 					iconSrc: iconSrc,
 					total: questions.length,
-					sendResult: function sendResult(result) {
-						saveResult(questions[i], result);
+					sendResult: function sendResult(outcome) {
+						saveResult(questions[i], outcome);
 						if (questions[i + 1]) {
 							showQuestion(i + 1);
 						} else {

@@ -51,6 +51,7 @@ define(["UTT/locale/common", "UTT/locale/assessor/common", "UTT/locale/assessor/
     var assessorNames = ["images", "media", "language", "navigation", "keyboard"];
 
     var config = {
+        apiUrl: "http://utt-dev.huell.appnormal.com/v1",
         modules: assessorNames.map(function (assessorName) {
             return {
                 controller: "UTT/modules/assessor",
@@ -70,81 +71,396 @@ define(["UTT/locale/common", "UTT/locale/assessor/common", "UTT/locale/assessor/
 //# sourceMappingURL=config.js.map
 "use strict";
 
-define(function () {
+var _defineProperty = function (obj, key, value) { return Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); };
 
-	return function () {};
+define(["./earlPointers"], function (earlPointers) {
+    var id = "@id";
+    var type = "@type";
+
+    var assertions = {
+
+        protoAssert: (function () {
+            var _protoAssert = {};
+
+            _defineProperty(_protoAssert, type, "Assertion");
+
+            _defineProperty(_protoAssert, "subject", undefined);
+
+            _defineProperty(_protoAssert, "mode", "earl:semiAuto");
+
+            _defineProperty(_protoAssert, "test", (function () {
+                var _defineProperty2 = {};
+
+                _defineProperty(_defineProperty2, id, undefined);
+
+                _defineProperty(_defineProperty2, type, "TestRequirement");
+
+                return _defineProperty2;
+            })());
+
+            _defineProperty(_protoAssert, "result", (function () {
+                var _defineProperty3 = {};
+
+                _defineProperty(_defineProperty3, type, "TestResult");
+
+                _defineProperty(_defineProperty3, "outcome", undefined);
+
+                _defineProperty(_defineProperty3, "pointer", undefined);
+
+                return _defineProperty3;
+            })());
+
+            return _protoAssert;
+        })(),
+
+        create: function create() {
+            var base = arguments[0] === undefined ? {} : arguments[0];
+
+            // Create separate test and result objects
+            var test = Object.assign({}, assertions.protoAssert.test, base.test);
+
+            var result = Object.assign({}, assertions.protoAssert.result, base.result);
+
+            // Clone base and prototype to a new object
+            var res = Object.assign({}, assertions.protoAssert, base, { test: test, result: result });
+            if (res.subject && typeof res.subject[id] === "string") {
+                res.subject = res.subject[id];
+            }
+            return res;
+        },
+
+        createFromQuestion: function createFromQuestion(_ref) {
+            var webpage = _ref.webpage;
+            var question = _ref.question;
+            var outcome = _ref.outcome;
+
+            var test = _defineProperty({}, id, question.id);
+            var result = {
+                outcome: "earl:" + outcome,
+                pointer: earlPointers.createPointer(question.element)
+            };
+
+            return assertions.create({
+                test: test,
+                result: result,
+                subject: webpage
+            });
+        }
+    };
+
+    return assertions;
 });
-//# sourceMappingURL=createCssPointer.js.map
+
+// "isPartOf": {
+//     "@type": "TestRequirement",
+//     "@id": "wcag20:text-equiv-all"
+// }
+//# sourceMappingURL=assertions.js.map
 "use strict";
 
-define(["./createCssPointer", "qwest"], function (cssPointer, qwest) {
-	console.log(qwest);
+define(["qwest"], function (qwest) {
+	var knownTypes = {
+		Assertor: "assertors",
+		evaluation: "evaluations",
+		webpage: "webpages",
+		Assertion: "assertions"
+	};
 
-	// Should not be hardcoded!
-	var contextRoot = "http://utt-dev.huell.appnormal.com/v1";
+	var type = "@type";
+	var id = "@id";
+	var userKeys = {
+		evaluation: "creator",
+		Assertion: "assertedBy"
+	};
+	var connections = {};
+	var opt = {
+		dataType: "json"
+	};
 
-	var privateKey = "abcdefghijklmnop";
+	function wrapQwest(qPromise) {
+		return new Promise(function (resolve, fail) {
+			return qPromise.then(resolve)["catch"](fail);
+		});
+	}
 
-	var connected = true;
-
-	// do stuff with promises
-	var earlStore = Object.seal({
-
-		setContextRoot: function setContextRoot(rootDomain) {
-			contextRoot = rootDomain;
-		},
-
-		buildAssertion: function buildAssertion(question, result) {
-			return {};
-			// return {
-			//     "@context":   contextRoot + "/assertions/context.jsonld",
-			//     "@type":      "Assertion",
-			//     "@id":        "utt:asssertions/1234567890",
-			//     "subject":    "utt:evaluations/123456/scope",
-			//     "assertedBy": "utt:assertors/123456",
-			//     "test": {
-			//         "@type": "TestRequirement",
-			//         "@id":   "wcag20:text-equiv-all"
-			//     },
-			//     "result": {
-			//         "@type":  "TestResult",
-			//         "outcome": "failed"
-			//     },
-			//     "date": "2014-01-01T19:20:30+01:00",
-			// };
-		},
-
-		addAssertion: function addAssertion() {
-			var evaluation = earlStore.getEvaluation();
-			//evaluation.addStuff = true;
-		},
-
-		getAssertions: function getAssertions() {},
-
-		getEvaluation: function getEvaluation() {
-			earlStore.connect();
-		},
-
-		connect: function connect() {
-			// if (connected) {
-			// 	return;
-			// }
-			console.log("get", contextRoot + "/assertors");
-			qwest.get(contextRoot + "/assertors", {
-				q: privateKey
-
-			}).then(function (response) {
-				console.log("then:", response);
-			})["catch"](function (e, response) {
-				console.log("catch:", e, response);
-			});
+	/**
+  * [getUrlForEarl description]
+  * @param  {[type]} apiUrl  [description]
+  * @param  {[type]} earlObj [description]
+  * @return {[type]}         [description]
+  */
+	function getUrlForEarl(apiUrl, earlObj) {
+		var objId = "";
+		var objType = earlObj[type];
+		if (!knownTypes[objType]) {
+			throw "Unknown EARL type " + earlObj.type;
 		}
 
-	});
+		if (typeof earlObj[id] === "string") {
+			objId = "/" + earlObj[id];
+		}
+		return apiUrl + "/" + knownTypes[objType] + objId;
+	}
 
-	return earlStore;
+	/**
+  * Create a copy of the object, with all required properties
+  *
+  * Post/Put requires a signed user for evaluations and assertions
+  * The @context is also added.
+  * @param  {String} apiUrl
+  * @param  {Object} userData
+  * @param  {Object} earlObj  Object to sign
+  * @return {Object}          Copy of the object with signed values
+  */
+	function prepEarlData(apiUrl, userData, earlObj) {
+		var objType = earlObj[type];
+		var base = {};
+
+		if (!earlObj["@context"]) {
+			base["@context"] = apiUrl + "/contexts/" + objType + ".jsonld";
+		}
+		if (userKeys[objType]) {
+			base[userKeys[objType]] = userData;
+		}
+		return Object.assign(base, earlObj);
+	}
+
+	function createAdapter(apiUrl, userData) {
+		// Bind with static values
+		var prepEarl = prepEarlData.bind(null, apiUrl, userData);
+		var getUrl = getUrlForEarl.bind(null, apiUrl);
+
+		/**
+   * Once connected, the adapter allows RESTful access
+   * to the EARL API, with .post(), .get(), .put(), .delete()
+   * @type {Object}
+   */
+		var earlAdapter = {
+			/**
+    * Create an EARL object at the server
+    * @param  {object} earlObj Any type of EARL object
+    * @return {Promise}        Once done, returns the object as stored on the server
+    */
+			post: function post(earlObj) {
+				if (earlObj["@id"]) {
+					throw "Error: can not create EARL " + earlObj[type] + " with an existing ID (" + earlObj["@id"] + ").";
+				}
+				return wrapQwest(qwest.post(getUrl(earlObj), prepEarl(earlObj), opt));
+			},
+
+			/**
+    * Get the data of an EARL object
+    * @param  {object} earlObj Any type of EARL object
+    * @return {Promise}        Once done, returns the object as stored on the server
+    */
+			get: function get(earlObj) {
+				if (!earlObj["@id"]) {
+					throw "Error: can not get EARL " + earlObj[type] + " without a ID.";
+				}
+				return wrapQwest(qwest.get(getUrl(earlObj), prepEarl(earlObj), opt));
+			},
+
+			/**
+    * Update an EARL object at the server
+    * @param  {object} earlObj Any type of EARL object
+    * @return {Promise}        Once done, returns the object as stored on the server
+    */
+			put: function put(earlObj) {
+				if (!earlObj["@id"]) {
+					throw "Error: can not update EARL " + earlObj[type] + " without an ID.";
+				}
+				return wrapQwest(qwest.put(getUrl(earlObj), prepEarl(earlObj), opt));
+			},
+
+			/**
+    * Delete an EARL object from the server
+    * @param  {object} earlObj Any type of EARL object
+    * @return {Promise}        Once done, returns a boolean indicating success
+    */
+			"delete": function _delete(earlObj) {
+				if (!earlObj["@id"]) {
+					throw "Error: can not delete EARL " + earlObj[type] + " without an ID.";
+				}
+				return wrapQwest(qwest["delete"](getUrl(earlObj), prepEarl(earlObj), opt));
+			} };
+
+		return earlAdapter;
+	}
+
+	/**
+  * Contains a single 'connect' which once connected returns the
+  * adapter
+  * @type {Object}
+  */
+	var earlApi = {
+		/**
+   * Connect to an EARL API
+   * @param  {string} apiUrl
+   * @param  {string} userkey
+   * @return {Promise}         Which returns the adapter once done
+   */
+		connect: function connect(apiUrl, userkey) {
+			if (connections[apiUrl]) {
+				return new Promise(function (resolve) {
+					resolve({ earlAdapter: connections[apiUrl] });
+				});
+			}
+
+			return wrapQwest(qwest.get(apiUrl + "/assertors", {
+				// 'q[_privateKey]': userkey
+				q: userkey
+
+			})).then(function (userData) {
+				userData["utt:_privateKey"] = userkey;
+				connections[apiUrl] = createAdapter(apiUrl, userData);
+				console.log(1);
+				return { earlAdapter: connections[apiUrl] };
+			});
+		}
+	};
+
+	return earlApi;
 });
-//# sourceMappingURL=earlStore.js.map
+//# sourceMappingURL=earlApi.js.map
+"use strict";
+
+define([], function () {
+
+	var earlPointers = {
+		createPointer: function createPointer(domElm) {
+			return "some .poineter #to .an.elm";
+		}
+	};
+
+	return earlPointers;
+});
+//# sourceMappingURL=earlPointers.js.map
+/**
+ * This is a simple wrapper, it loads all in earlTools and puts them in
+ * 1 object
+ */
+"use strict";
+
+(function () {
+
+	var modules = ["webpages", "assertions", "evaluations", "createCssPointer", "earlApi"];
+
+	define(modules.map(function (module) {
+		return "./" + module;
+	}), function () {
+
+		var earlTools = modules.reduce(function (obj, module) {
+			obj[module] = require("UTT/earlTools/" + module);
+			return obj;
+		}, {});
+		return earlTools;
+	});
+})();
+//# sourceMappingURL=earlTools.js.map
+"use strict";
+
+define([], function () {
+	var evaluations = {
+
+		protoEval: {
+			"@type": "evaluation"
+			// "creator":     undefined,
+			// "auditResult": []
+		},
+
+		create: function create() {
+			var base = arguments[0] === undefined ? {} : arguments[0];
+
+			return Object.assign({
+				auditResult: []
+			}, evaluations.protoEval, base);
+		}
+
+	};
+
+	return evaluations;
+});
+//# sourceMappingURL=evaluations.js.map
+"use strict";
+
+var _defineProperty = function (obj, key, value) { return Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); };
+
+define(function () {
+	console.warn("using MOCK connector!");
+	var id = "@id";
+
+	function mockRequest(url, obj) {
+		for (var _len = arguments.length, params = Array(_len > 2 ? _len - 2 : 0), _key = 2; _key < _len; _key++) {
+			params[_key - 2] = arguments[_key];
+		}
+
+		var result = undefined;
+		if (url.substr(-8) === "assertor") {
+			result = (function () {
+				var _result = {};
+
+				_defineProperty(_result, id, url + "/fakeUserId");
+
+				_defineProperty(_result, "@type", "http://xmlns.com/foaf/spec/#Person");
+
+				return _result;
+			})();
+		} else {
+			result = Object.assign({}, obj);
+			if (!result[id]) {
+				result[id] = url + "/FakeID!";
+			}
+		}
+
+		console.log.apply(console, ["mock request to:", url, obj].concat(params, [result]));
+
+		return new Promise(function (resolve) {
+			setTimeout(resolve.bind(null, result), 100);
+		});
+	}
+
+	var mockServer = {
+		post: mockRequest,
+		get: mockRequest,
+		put: mockRequest,
+		"delete": mockRequest
+	};
+
+	return mockServer;
+});
+//# sourceMappingURL=mockServer.js.map
+"use strict";
+
+define([], function () {
+
+	var webpages = {
+		protoPage: {
+			"@type": "webpage",
+			title: undefined,
+			source: undefined
+		},
+
+		create: function create() {
+			var base = arguments[0] === undefined ? {} : arguments[0];
+
+			return Object.assign({}, webpages.protoPage, base);
+		},
+
+		createCurrent: function createCurrent() {
+			var base = arguments[0] === undefined ? {} : arguments[0];
+
+			if (window && window.document) {
+				var title = document.querySelector("title").innerHTML;
+				var source = window.location.href;
+				base = Object.assign({ title: title, source: source }, base);
+			}
+			return webpages.create(base);
+		}
+	};
+
+	return webpages;
+});
+//# sourceMappingURL=webpages.js.map
 "use strict";
 
 define({
@@ -224,9 +540,9 @@ define(["React", "UTT/components/UttBookmarklet", "./config", "UTT/modules/home"
     UTT = {
         bookmarkNode: null,
         containerNode: null,
-        userKey: null,
         running: false,
-
+        config: null,
+        userKey: null,
         render: function render() {
             UTT.running = true;
             React.render(UTT.bookmarkNode, UTT.containerNode);
@@ -237,13 +553,14 @@ define(["React", "UTT/components/UttBookmarklet", "./config", "UTT/modules/home"
 
             var styleLink = UTT.createStyleNode();
             UTT.containerNode = UTT.createContainerNode();
-            UTT.userKey = userKey;
-
             config.modules = config.modules.map(function (mod) {
                 return Object.assign({
                     activate: createModuleActivator(mod)
                 }, mod);
             });
+            UTT.userKey = userKey;
+            Object.freeze(config);
+            UTT.config = config;
 
             document.head.appendChild(styleLink);
             document.body.appendChild(UTT.containerNode);
@@ -301,15 +618,10 @@ define(["React", "UTT/components/UttBookmarklet", "./config", "UTT/modules/home"
 //# sourceMappingURL=main.js.map
 "use strict";
 
-define(["React", "UTT/components/Assessor", "./assessor/buildQuestions", "UTT/earlTools/earlStore"], function (React, Assessor) {
+define(["React", "UTT/components/Assessor", "./assessor/buildQuestions", "./assessor/saveResult"], function (React, Assessor) {
 
 	var buildQuestions = require("UTT/modules/assessor/buildQuestions");
-	var earlStore = require("UTT/earlTools/earlStore");
-
-	var saveResult = function saveResult(question, result) {
-		var assertion = earlStore.buildAssertion(question, result);
-		earlStore.addAssertion(assertion);
-	};
+	var saveResult = require("UTT/modules/assessor/saveResult");
 
 	return function assertor(_ref, i18n, render) {
 		var questions = _ref.questions;
@@ -342,8 +654,8 @@ define(["React", "UTT/components/Assessor", "./assessor/buildQuestions", "UTT/ea
 					current: i + 1,
 					iconSrc: iconSrc,
 					total: questions.length,
-					sendResult: function sendResult(result) {
-						saveResult(questions[i], result);
+					sendResult: function sendResult(outcome) {
+						saveResult(questions[i], outcome);
 						if (questions[i + 1]) {
 							showQuestion(i + 1);
 						} else {
@@ -482,6 +794,73 @@ define([], function () {
     return data;
 });
 //# sourceMappingURL=questions.js.map
+"use strict";
+
+define(["UTT/main", "UTT/earlTools/earlTools"], function (UTT) {
+
+    var earlApi = require("UTT/earlTools/earlApi");
+    var pages = require("UTT/earlTools/webpages");
+    var evaluations = require("UTT/earlTools/evaluations");
+    var assertions = require("UTT/earlTools/assertions");
+
+    var webpage = undefined; // cached page
+    var evaluation = undefined; // cached eval
+    var auditResult = undefined; // cached audit results
+
+    var logError = console.error.bind(console);
+    var apiUrl = UTT.config.apiUrl;
+    var userKey = UTT.userKey;
+
+    var saveResult = function saveResult(question, outcome) {
+        // First, get the connection, or open one if there isn't one yet
+        earlApi.connect(apiUrl, userKey)
+
+        // Get a webpage
+        .then(function (_ref) {
+            var earlAdapter = _ref.earlAdapter;
+
+            // Check if the page is known
+            if (webpage) {
+                return { earlAdapter: earlAdapter, webpage: webpage };
+            }
+
+            // If not, create and send it to the server
+            return earlAdapter.post(pages.createCurrent()).then(function (page) {
+                webpage = page;
+                return { earlAdapter: earlAdapter, webpage: webpage };
+            });
+        }).then(function (_ref) {
+            var earlAdapter = _ref.earlAdapter;
+            var webpage = _ref.webpage;
+
+            var earlMsg = undefined;
+            var promise = undefined;
+            var assertion = assertions.createFromQuestion({
+                webpage: webpage, question: question, outcome: outcome
+            });
+
+            if (!evaluation) {
+                evaluation = evaluations.create();
+                auditResult = evaluation.auditResult;
+                auditResult.push(assertion);
+                promise = earlAdapter.post(evaluation).then(function (response) {
+                    delete response.assertions;
+                    Object.assign(evaluation, response);
+                    return evaluation;
+                });
+            } else {
+                assertion.evaluation = evaluation["@id"];
+                auditResult.push(assertion);
+                promise = earlAdapter.post(assertion);
+            }
+
+            return promise;
+        })["catch"](logError);
+    };
+
+    return saveResult;
+});
+//# sourceMappingURL=saveResult.js.map
 "use strict";
 
 define(["React", "UTT/components/HomePanel", "UTT/utils/browser-polyfill"], function (React, HomePanel) {

@@ -6,6 +6,7 @@ define(["UTT/locale/common", "UTT/locale/assessor/common", "UTT/locale/assessor/
     var assessorNames = ["images", "media", "language", "navigation", "keyboard"];
 
     var config = {
+        apiUrl: "http://utt-dev.huell.appnormal.com/v1",
         modules: assessorNames.map(function (assessorName) {
             return {
                 controller: "UTT/modules/assessor",
