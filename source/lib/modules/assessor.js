@@ -1,14 +1,9 @@
 define(['React', 'UTT/components/Assessor',
-	'./assessor/buildQuestions', 'UTT/earlTools/earlStore'],
+	'./assessor/buildQuestions', './assessor/saveResult'],
 function (React, Assessor) {
 
 	let buildQuestions = require('UTT/modules/assessor/buildQuestions');
-	let earlStore      = require('UTT/earlTools/earlStore');
-
-	let saveResult = function (question, result) {
-		let assertion = earlStore.buildAssertion(question, result);
-		earlStore.addAssertion(assertion);
-	};
+	let saveResult     = require('UTT/modules/assessor/saveResult');
 
 	return function assertor({questions, category, icon}, i18n, render) {
 		require([questions, 'UTT/main'], (qData, UTT) => {
@@ -28,8 +23,8 @@ function (React, Assessor) {
 					current: i + 1,
 					iconSrc: iconSrc,
 					total: questions.length,
-					sendResult(result) {
-						saveResult(questions[i], result);
+					sendResult(outcome) {
+						saveResult(questions[i], outcome);
 						if (questions[i+1]) {
 							showQuestion(i+1);
 						} else {
