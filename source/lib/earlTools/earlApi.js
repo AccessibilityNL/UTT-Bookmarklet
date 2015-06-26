@@ -1,17 +1,27 @@
-define(['./mockServer'],
+define(['qwest'],
 function (qwest) {
-	const knownTypes = [
-		'Assertor',
-		'evaluation',
-		'webpage',
-		'Assertion'
-	];
+	const knownTypes = {
+		'Assertor':   'assertors',
+		'evaluation': 'evaluations',
+		'webpage':    'webpages',
+		'Assertion':  'assertions'
+	};
+
 	const type       = '@type';
+	const id         = '@id';
 	const userKeys   = {
 		evaluation: 'creator',
 		Assertion: 'assertedBy'
 	};
 	const connections = {};
+	const opt = {
+		dataType: 'json'
+	};
+
+	function wrapQwest(qPromise) {
+		return new Promise((resolve, fail) =>
+					qPromise.then(resolve).catch(fail));
+	}
 
 	/**
 	 * [getUrlForEarl description]
@@ -20,15 +30,16 @@ function (qwest) {
 	 * @return {[type]}         [description]
 	 */
 	function getUrlForEarl(apiUrl, earlObj) {
-		let id = '';
-		if (knownTypes.indexOf(earlObj[type]) === -1) {
-			throw 'Unknown EARL type ' + earlObj.typetype;
+		let objId   = '';
+		let objType = earlObj[type];
+		if (!knownTypes[objType]) {
+			throw 'Unknown EARL type ' + earlObj.type;
 		}
 
-		if (typeof earlObj['@id'] === 'string') {
-			id = '/' + earlObj['@id'];
+		if (typeof earlObj[id] === 'string') {
+			objId = '/' + earlObj[id];
 		}
-		return apiUrl + '/' + earlObj[type] + id;
+		return apiUrl + '/' + knownTypes[objType] + objId;
 	}
 
 
@@ -77,7 +88,9 @@ function (qwest) {
 				if (earlObj['@id']) {
 					throw `Error: can not create EARL ${earlObj[type]} with an existing ID (${earlObj['@id']}).`;
 				}
-				return qwest.post(getUrl(earlObj), prepEarl(earlObj));
+				return wrapQwest(
+					qwest.post(getUrl(earlObj), prepEarl(earlObj), opt)
+				);
 			},
 
 			/**
@@ -89,7 +102,9 @@ function (qwest) {
 				if (!earlObj['@id']) {
 					throw `Error: can not get EARL ${earlObj[type]} without a ID.`;
 				}
-				return qwest.get(getUrl(earlObj), prepEarl(earlObj));
+				return wrapQwest(
+					qwest.get(getUrl(earlObj), prepEarl(earlObj), opt)
+				);
 			},
 
 			/**
@@ -101,7 +116,9 @@ function (qwest) {
 				if (!earlObj['@id']) {
 					throw `Error: can not update EARL ${earlObj[type]} without an ID.`;
 				}
-				return qwest.put(getUrl(earlObj), prepEarl(earlObj));
+				return wrapQwest(
+					qwest.put(getUrl(earlObj), prepEarl(earlObj), opt)
+				);
 			},
 
 			/**
@@ -113,7 +130,9 @@ function (qwest) {
 				if (!earlObj['@id']) {
 					throw `Error: can not delete EARL ${earlObj[type]} without an ID.`;
 				}
-				return qwest.delete(getUrl(earlObj), prepEarl(earlObj));
+				return wrapQwest(
+					qwest.delete(getUrl(earlObj), prepEarl(earlObj), opt)
+				);
 			},
 		};
 
@@ -139,11 +158,14 @@ function (qwest) {
 				});
 			}
 
-			return qwest.get(apiUrl +'/assertor', {
-				'q[_privateKey]': userkey
-			}).then(function (userData) {
+			return wrapQwest(qwest.get(apiUrl +'/assertors', {
+				// 'q[_privateKey]': userkey
+				'q': userkey
+
+			})).then(function (userData) {
 				userData['utt:_privateKey'] = userkey;
 				connections[apiUrl] = createAdapter(apiUrl, userData);
+				console.log(1);
 				return { earlAdapter: connections[apiUrl] };
 			});
 		}
