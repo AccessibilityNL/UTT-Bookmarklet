@@ -8,7 +8,7 @@
 		'webpages',
 		'assertions',
 		'evaluations',
-		'createCssPointer',
+		'earlPointers',
 		'earlApi'
 	];
 
