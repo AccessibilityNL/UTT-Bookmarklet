@@ -33,7 +33,6 @@ function (UTT) {
             });
 
         }).then(function ({earlAdapter, webpage}) {
-            let earlMsg;
             let promise;
             let assertion = assertions.createFromQuestion({
                 webpage, question, outcome

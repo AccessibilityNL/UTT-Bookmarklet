@@ -1,3 +1,5 @@
+- copy images during build
+- minimize in build
 - Connect to the API
 - Define test criteria
 - After completing a category, the criteria results are send
