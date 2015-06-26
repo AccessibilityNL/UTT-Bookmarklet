@@ -1,0 +1,10 @@
+- Connect to the API
+- Define test criteria
+- After completing a category, the criteria results are send
+- 'undo' function
+- Draging across the screen
+- Allow Resizing
+- Cross browser CSS work
+- Send CSS pointers with assertions
+- Define questions for each module
+- Have a 'results' module
