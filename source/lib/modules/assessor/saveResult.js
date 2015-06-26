@@ -1,5 +1,5 @@
-define(['UTT/earlTools/earlTools'],
-function () {
+define(['UTT/main', 'UTT/earlTools/earlTools'],
+function (UTT) {
 
 	let earlApi     = require('UTT/earlTools/earlApi');
 	let pages       = require('UTT/earlTools/webpages');
@@ -14,10 +14,10 @@ function () {
 
 	let saveResult = function (question, result) {
 
-		let apiUrl     = 'http://utt-dev.huell.appnormal.com/v1';
-		let privateKey = 'mYpr1V4t3k3Y';
+		let apiUrl  = UTT.config.apiUrl;
+		let userKey = UTT.userKey;
 
-		earlApi.connect(apiUrl, privateKey)
+		earlApi.connect(apiUrl, userKey)
 		.then(function (earlAdapter) {
 			if (!evaluation) {
 				webpage      = pages.createCurrent();

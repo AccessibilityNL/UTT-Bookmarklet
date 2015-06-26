@@ -27,9 +27,9 @@ function (React, UttBookmarklet, config, home, translator) {
     UTT = {
         bookmarkNode: null,
         containerNode: null,
-        userKey: null,
         running: false,
-
+        config: null,
+        userKey: null,
         render () {
             UTT.running = true;
             React.render(UTT.bookmarkNode, UTT.containerNode);
@@ -38,13 +38,14 @@ function (React, UttBookmarklet, config, home, translator) {
         init({userKey}) {
             let styleLink = UTT.createStyleNode();
             UTT.containerNode  = UTT.createContainerNode();
-            UTT.userKey = userKey;
-
             config.modules = config.modules.map((mod) => {
                 return Object.assign({
                     'activate': createModuleActivator(mod)
                 }, mod);
             });
+            UTT.userKey = userKey;
+            Object.freeze(config);
+            UTT.config = config;
 
             document.head.appendChild(styleLink);
             document.body.appendChild(UTT.containerNode);
