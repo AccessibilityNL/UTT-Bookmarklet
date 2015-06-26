@@ -3,7 +3,7 @@ function () {
 	let evaluations = {
 
 		protoEval: {
-		    "@type":       "evaluation",
+		    "@type":       "evaluation"
 		    // "creator":     undefined,
 		    // "auditResult": []
 		},

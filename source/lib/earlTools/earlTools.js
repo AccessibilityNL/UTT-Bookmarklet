@@ -1,3 +1,7 @@
+/**
+ * This is a simple wrapper, it loads all in earlTools and puts them in
+ * 1 object
+ */
 (function () {
 
 	let modules = [
