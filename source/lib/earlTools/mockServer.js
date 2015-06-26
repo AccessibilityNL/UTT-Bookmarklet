@@ -14,7 +14,7 @@ define(function () {
 		} else {
 			result = Object.assign({}, obj);
 			if (!result[id]) {
-				result[id] = 'Fake ID!';
+				result[id] = url + '/FakeID!';
 			}
 		}
 
