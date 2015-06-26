@@ -1,4 +1,4 @@
-define(['qwest'],
+define(['./mockServer'],
 function (qwest) {
 	const knownTypes = [
 		'assertor',
@@ -47,7 +47,7 @@ function (qwest) {
 
 		if (!earlObj['@context']) {
 			base['@context'] = apiUrl + '/contexts/' +
-							   objType + '/context.jsonld';
+							   objType + '.jsonld';
 		}
 		if (userKeys[objType]) {
 			base[userKeys[objType]] = userData;

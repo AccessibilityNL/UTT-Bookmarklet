@@ -23,8 +23,8 @@ function (React, Assessor) {
 					current: i + 1,
 					iconSrc: iconSrc,
 					total: questions.length,
-					sendResult(result) {
-						saveResult(questions[i], result);
+					sendResult(outcome) {
+						saveResult(questions[i], outcome);
 						if (questions[i+1]) {
 							showQuestion(i+1);
 						} else {

@@ -8,11 +8,11 @@ function (UTT) {
 
 	let evaluation;
 	let webpage;
-	let auditResults;
+	let auditResult;
 
 	let logError = console.error.bind(console);
 
-	let saveResult = function (question, result) {
+	let saveResult = function (question, outcome) {
 
 		let apiUrl  = UTT.config.apiUrl;
 		let userKey = UTT.userKey;
@@ -20,22 +20,24 @@ function (UTT) {
 		earlApi.connect(apiUrl, userKey)
 		.then(function (earlAdapter) {
 			if (!evaluation) {
-				webpage      = pages.createCurrent();
-				evaluation   = evaluations.create({webpage});
-				auditResults = evaluation.auditResults;
+				webpage     = pages.createCurrent();
+				evaluation  = evaluations.create();
+				auditResult = evaluation.auditResult;
+
+				console.log(evaluation);
 
 				let assertion = assertions.createFromQuestion({
-					webpage, question, result
+					webpage, question, outcome
 				});
-				auditResults.push(assertion);
+				auditResult.push(assertion);
 
 				return earlAdapter.post(evaluation);
 
 			} else {
 				let assertion = assertions.createFromQuestion({
-					webpage, question, result
+					webpage, question, outcome
 				});
-				auditResults.push(assertion);
+				auditResult.push(assertion);
 				return earlAdapter.post(assertion);
 			}
 
