@@ -6,7 +6,7 @@
 
 (function () {
 
-	var modules = ["webpages", "assertions", "evaluations", "createCssPointer", "earlApi"];
+	var modules = ["webpages", "assertions", "evaluations", "earlPointers", "earlApi"];
 
 	define(modules.map(function (module) {
 		return "./" + module;
