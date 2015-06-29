@@ -18,6 +18,10 @@ function (React) {
          * Render the name of a module
          */
         renderModule(mod, i) {
+            if (mod.config.displayOnHome === false) {
+                return;
+            }
+
             return <li className="module-item" key={i}>
                 <img src={require.toUrl(
                         "UTT/components/assets/images/" + mod.config.icon
