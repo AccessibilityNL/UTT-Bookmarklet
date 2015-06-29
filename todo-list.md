@@ -1,6 +1,8 @@
 - copy images during build
 - minimize in build
 - Connect to the API
+- Add a close button to the header
+- Change to ES6 modules with 'AMD' for babel.
 - Define test criteria
 - After completing a category, the criteria results are send
 - 'undo' function

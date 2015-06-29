@@ -11,7 +11,7 @@
             paths: {
                 UTT: 'lib',
                 React: 'bower_components/react/react',
-                qwest: 'bower_components/qwest/qwest.min',
+                qwest: 'bower_components/qwest/src/qwest',
                 'UTT/locale': 'lib/locale/en'
             },
             shim: { exports: 'React' }
