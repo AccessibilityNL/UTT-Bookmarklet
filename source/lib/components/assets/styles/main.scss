@@ -50,3 +50,13 @@
 }
 
 @import "highlight.scss";
+
+
+.example-appear {
+  opacity: 0.01;
+  transition: opacity 3s ease-in;
+}
+
+.example-appear.example-appear-active {
+  opacity: 1;
+}
