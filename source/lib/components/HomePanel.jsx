@@ -9,21 +9,38 @@ function (React, Header, ModuleList) {
             return <div className="home">
                 <Header i18n={i18n}></Header>
                 <ModuleList modules={this.props.modules} i18n={i18n} />
-                {this.renderResultLink()}
+                {this.renderFooterModule()}
             </div>;
         },
 
-        renderResultLink() {
+        renderFooterModule() {
             return <div className="results-overview">
                 <ul>
-                    <li><img src="" alt="TODO" width="24" height="24" /></li>
-                    <li><img src="" alt="TODO" width="24" height="24" /></li>
-                    <li><img src="" alt="TODO" width="24" height="24" /></li>
-                    <li><img src="" alt="TODO" width="24" height="24" /></li>
-                    <li><img src="" alt="TODO" width="24" height="24" /></li>
+                    {this.props.modules.map(this.renderModStatus)}
                 </ul>
-                <button>{i18n`results`}</button>
+                <button onClick={this.props.footerModule.activate}>
+                    {i18n`results`}
+                </button>
             </div>;
+        },
+
+        renderModStatus(mod, i) {
+            let alt;
+            let icon;
+            if (mod.config.completed) {
+                alt  = mod.locale.CATG_TITLE + ' ' + i18n`complete`;
+                icon = mod.config.iconComplete;
+
+            } else {
+                alt = mod.locale.CATG_TITLE + ' ' + i18n`incomplete`;
+                icon = mod.config.iconIncomplete;
+            }
+
+            return <li key={i}>
+                <img src={require.toUrl(
+                    "UTT/components/assets/images/" + icon
+                )} alt={alt} width="24" height="24" />
+            </li>;
         }
 
     });

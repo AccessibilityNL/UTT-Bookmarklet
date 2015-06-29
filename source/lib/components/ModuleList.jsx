@@ -18,11 +18,12 @@ function (React) {
          * Render the name of a module
          */
         renderModule(mod, i) {
-            if (mod.config.displayOnHome === false) {
-                return;
+            let classes = 'module-item';
+            if (mod.config.completed) {
+                classes += ' completed';
             }
 
-            return <li className="module-item" key={i}>
+            return <li className={classes} key={i}>
                 <img src={require.toUrl(
                         "UTT/components/assets/images/" + mod.config.icon
                     )}
@@ -30,7 +31,7 @@ function (React) {
                 <h2>{mod.locale.CATG_TITLE}</h2>
                 <p>{mod.locale.CATG_DESCR}</p>
                 <button onClick={mod.activate}>
-                    {i18n`star testing`}
+                    {(!mod.config.completed ? i18n`start` : i18n`restart`)}
                 </button>
             </li>;
         }

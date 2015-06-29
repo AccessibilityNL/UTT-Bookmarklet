@@ -3,8 +3,13 @@ define({
     "TOOL_DESCR": "Basic check for the accessibility of the web",
     "tool info": "Tool info",
     "results": "Results",
-    "star testing": "Star testing",
+    "start": "Start",
+    "restart": "Restart",
+    "close": "Close",
+    "Back to overview": "Back to overview",
+    "complete": "Complete",
+    "incomplete": "Incomplete",
     "yes": "Yes",
     "no": "No",
-    "unclear": "unclear"
+    "Unclear": "Unclear"
 });

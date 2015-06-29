@@ -13,7 +13,13 @@ function (React, UTT, Header) {
 				</div>
 
 				<div className="footer"><p>
-				  <a href="" onClick={this.home}>Back to overview</a>
+				  <a href="" onClick={this.home}>
+				  	<img src={require.toUrl(
+				  			'UTT/components/assets/images/home.svg'
+				  		)} alt="" role="presentation"
+				  		width="14" height="14" />
+				  	{i18n`Back to overview`}
+				  </a>
 				</p></div>
 			</div>;
 		},

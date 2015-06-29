@@ -7,7 +7,8 @@ function (React, UttModule) {
         render() {
         	i18n  = this.props.i18n;
         	return <UttModule className="reporter" i18n={i18n}>
-        		foobar
+        		<h1>{i18n`Results list`}</h1>
+
         	</UttModule>;
 		}
 	});
