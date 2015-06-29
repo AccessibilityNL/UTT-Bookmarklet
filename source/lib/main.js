@@ -43,6 +43,14 @@ function (React, UttBookmarklet, config, home, translator) {
                     'activate': createModuleActivator(mod)
                 }, mod);
             });
+
+            if (config.footerModule) {
+                let mod = config.footerModule;
+                config.footerModule = Object.assign({
+                    'activate': createModuleActivator(mod)
+                }, mod);
+            }
+
             UTT.userKey = userKey;
             Object.freeze(config);
             UTT.config = config;
@@ -63,10 +71,10 @@ function (React, UttBookmarklet, config, home, translator) {
         },
 
         showHome() {
-            let {modules, i18n} = config;
+            let {modules, footerModule, i18n} = config;
             UTT.bookmarkNode = React.createElement(
                         UttBookmarklet, null,
-                        home({modules}, i18n));
+                        home({modules, footerModule}, i18n));
 
             React.render(UTT.bookmarkNode, UTT.containerNode);
         },
