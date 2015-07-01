@@ -179,7 +179,7 @@ module.exports = function (grunt) {
                     expand: true,
                     cwd: '<%= settings.source %>',
                     dest: '<%= settings.build %>',
-                    src: '**/*.{html,jpg,gif,png,ico,txt,css}'
+                    src: '**/*.{html,jpg,gif,png,svg,ico,txt,css}'
                 }, {
                     expand: true,
                     cwd: '.tmp',
