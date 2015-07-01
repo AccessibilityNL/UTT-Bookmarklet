@@ -35,11 +35,18 @@
         color: $color-primary-dark;
     }
 
-    .hide { display:none  }
-    .show { display:block }
-
-
-
+    .hide {
+        visibility:hidden;
+        opacity:0;
+        transition:visibility .3s, opacity .3s, max-height .3s ease-out;
+        max-height:0;
+    }
+    .show {
+        visibility:visible;
+        opacity:1;
+        transition:visibility .3s, opacity .3s, max-height .3s ease-in;
+        max-height:3em;
+    }
     -webkit-touch-callout: none;
     -webkit-user-select: none;
     -khtml-user-select: none;
@@ -50,7 +57,6 @@
 }
 
 @import "highlight.scss";
-
 
 .example-appear {
   opacity: 0.01;

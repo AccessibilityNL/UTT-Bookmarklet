@@ -1,5 +1,5 @@
 define({
-    "TOOL_NAME": "AccessVerify",
+    "TOOL_NAME": "EIII-Bookmarklet",
     "TOOL_DESCR": "Basic check for the accessibility of the web",
     "tool info": "Tool info",
     "results": "Results",
