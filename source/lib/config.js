@@ -6,6 +6,7 @@ define([
     'UTT/locale/assessor/language',
     'UTT/locale/assessor/navigation',
     'UTT/locale/assessor/keyboard',
+    'UTT/locale/reporter',
     'UTT/utils/browser-polyfill',
 ], function () {
     let localeAssessor = require('UTT/locale/assessor/common');
@@ -23,8 +24,10 @@ define([
         modules: assessorNames.map(assessorName => ({
                 "controller": 'UTT/modules/assessor',
                 "config": {
-                    'icon':   `icon-${assessorName}.svg`,
-                    "questions": "UTT/modules/assessor/questions",
+                    'icon':           `icon-${assessorName}.svg`,
+                    'iconIncomplete': `icon-${assessorName}-report-0.svg`,
+                    'iconComplete':   `icon-${assessorName}-report-1.svg`,
+                    "questions":      "UTT/modules/assessor/questions",
                     "category":  assessorName
                 },
                 locale: Object.assign(
@@ -32,6 +35,12 @@ define([
                         localeAssessor)
             })
         ),
+        footerModule: {
+            controller: 'UTT/modules/reporter/reporter',
+            config: {
+            },
+            locale: require('UTT/locale/reporter')
+        },
         locale: require('UTT/locale/common')
     };
 

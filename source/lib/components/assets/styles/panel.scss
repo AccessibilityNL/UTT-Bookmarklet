@@ -26,16 +26,37 @@
         h1 {
             color: $color-back;
             font-size:20px;
+            position:relative;
+            > .app-name {
+                position: absolute;
+                top: 1px;
+                left: 65px;
+                border-bottom: solid 1px white;
+                margin:0;
+            }
+            > .app-byline {
+                position: absolute;
+                left: 69px;
+                top: 34px;
+                font-size: 12px;
+                font-weight: normal;
+                margin:0;
+            }
         }
+
         p {
             color: $color-back;
         }
 
         .info-button {
             position:absolute;
-            top:-5px;
-            right:5px;
-            margin-top:0;
+            right:0;
+            bottom:0;
+        }
+        .close-button {
+            position:absolute;
+            top: 1px;
+            right: 2px;
         }
     }
 }

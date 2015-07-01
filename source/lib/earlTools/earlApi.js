@@ -1,4 +1,4 @@
-define(['qwest'],
+define(['./mockServer'],
 function (qwest) {
 	const knownTypes = {
 		'Assertor':   'assertors',
@@ -165,7 +165,6 @@ function (qwest) {
 			})).then(function (userData) {
 				userData['utt:_privateKey'] = userkey;
 				connections[apiUrl] = createAdapter(apiUrl, userData);
-				console.log(1);
 				return { earlAdapter: connections[apiUrl] };
 			});
 		}

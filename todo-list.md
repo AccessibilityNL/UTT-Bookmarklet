@@ -1,10 +1,15 @@
 - Connect to the API
-- Define test criteria
+- Scroll to highlight
+- Send CSS pointers with assertions
 - After completing a category, the criteria results are send
 - 'undo' function
-- Draging across the screen
-- Allow Resizing
-- Cross browser CSS work
-- Send CSS pointers with assertions
-- Define questions for each module
 - Have a 'results' module
+- Cross browser CSS work
+- Animate open/close the bookmarklet, with responsiveness improvements
+- Draging across the screen
+- Animate transitions between panels, with responsiveness improvements
+- Implement full auto-wcag test suite
+- minimize in build
+- Define questions for each module
+- Allow Resizing
+- Change to ES6 modules with 'AMD' for babel.

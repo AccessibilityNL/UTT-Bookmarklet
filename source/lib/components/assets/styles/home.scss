@@ -7,8 +7,16 @@
 		padding:14px 10px;
 		padding-left:47px;
 		border-bottom:solid 1px $color-border;
-		background:$color-primary-light;
+
 		position:relative;
+
+		&.completed {
+			background:$color-done-back;
+			> button {
+				background:$color-done-fore;
+			}
+		}
+
 
 		> img {
 			position:absolute;
@@ -19,6 +27,11 @@
 			position: absolute;
 			top: 15px;
 			right: 5px;
+			min-width: 50px;
+			background-image: url('../images/arrow.svg');
+			background-repeat: no-repeat;
+    		background-position: right top;
+    		background-size: 13px;
 		}
 	}
 
