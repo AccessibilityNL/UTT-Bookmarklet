@@ -1,9 +1,11 @@
 define(['React', 'UTT/components/Assessor',
-	'./assessor/buildQuestions', './assessor/saveResult'],
+	'./assessor/buildQuestions', './assessor/saveResult',
+	'UTT/utils/highlighter'],
 function (React, Assessor) {
 
 	let buildQuestions = require('UTT/modules/assessor/buildQuestions');
 	let saveResult     = require('UTT/modules/assessor/saveResult');
+	let highlighter    = require('UTT/utils/highlighter');
 
 	return function assertor(config, i18n, render) {
 		let {questions, category, icon} = config;
@@ -19,13 +21,19 @@ function (React, Assessor) {
 			questions = buildQuestions(questions);
 
 			let showQuestion = function (i) {
+				let question  = questions[i];
+				let highlight = highlighter.bind(null, question.element);
+				highlight();
+
 				render(Assessor, {
-					question: questions[i],
+					question: question,
 					i18n: i18n,
 					current: i + 1,
 					iconSrc: iconSrc,
+					highlight: highlight,
 					total: questions.length,
 					sendResult(outcome) {
+						highlighter.removeHighlight();
 						config.completed = false;
 						saveResult(questions[i], outcome);
 						if (questions[i+1]) {
