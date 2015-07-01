@@ -36,17 +36,40 @@
 #utt-bookmarklet-container .panel .header h1 {
   color: white;
   font-size: 20px;
+  position: relative;
 }
 /* line 30, ../../../../../source/lib/components/assets/styles/panel.scss */
+#utt-bookmarklet-container .panel .header h1 > .app-name {
+  position: absolute;
+  top: 1px;
+  left: 65px;
+  border-bottom: solid 1px white;
+  margin: 0;
+}
+/* line 37, ../../../../../source/lib/components/assets/styles/panel.scss */
+#utt-bookmarklet-container .panel .header h1 > .app-byline {
+  position: absolute;
+  left: 69px;
+  top: 34px;
+  font-size: 12px;
+  font-weight: normal;
+  margin: 0;
+}
+/* line 47, ../../../../../source/lib/components/assets/styles/panel.scss */
 #utt-bookmarklet-container .panel .header p {
   color: white;
 }
-/* line 34, ../../../../../source/lib/components/assets/styles/panel.scss */
+/* line 51, ../../../../../source/lib/components/assets/styles/panel.scss */
 #utt-bookmarklet-container .panel .header .info-button {
   position: absolute;
-  top: -5px;
-  right: 5px;
-  margin-top: 0;
+  right: 0;
+  bottom: 0;
+}
+/* line 56, ../../../../../source/lib/components/assets/styles/panel.scss */
+#utt-bookmarklet-container .panel .header .close-button {
+  position: absolute;
+  top: 1px;
+  right: 2px;
 }
 /* line 2, ../../../../../source/lib/components/assets/styles/UttModule.scss */
 #utt-bookmarklet-container .module {
@@ -87,41 +110,53 @@
   padding: 14px 10px;
   padding-left: 47px;
   border-bottom: solid 1px #bec1c2;
-  background: #f0f8fb;
   position: relative;
 }
 /* line 13, ../../../../../source/lib/components/assets/styles/home.scss */
+#utt-bookmarklet-container .home .module-item.completed {
+  background: #f3f8ec;
+}
+/* line 15, ../../../../../source/lib/components/assets/styles/home.scss */
+#utt-bookmarklet-container .home .module-item.completed > button {
+  background: #2f742d;
+}
+/* line 21, ../../../../../source/lib/components/assets/styles/home.scss */
 #utt-bookmarklet-container .home .module-item > img {
   position: absolute;
   top: 14px;
   left: 10px;
 }
-/* line 18, ../../../../../source/lib/components/assets/styles/home.scss */
+/* line 26, ../../../../../source/lib/components/assets/styles/home.scss */
 #utt-bookmarklet-container .home .module-item > button {
   position: absolute;
   top: 15px;
   right: 5px;
+  min-width: 50px;
+  background-image: url("../images/arrow.svg");
+  background-repeat: no-repeat;
+  background-position: right top;
+  background-size: 13px;
 }
-/* line 25, ../../../../../source/lib/components/assets/styles/home.scss */
+/* line 38, ../../../../../source/lib/components/assets/styles/home.scss */
 #utt-bookmarklet-container .home .content {
   height: 305px;
   overflow-y: auto;
   overflow-x: none;
 }
-/* line 31, ../../../../../source/lib/components/assets/styles/home.scss */
+/* line 44, ../../../../../source/lib/components/assets/styles/home.scss */
 #utt-bookmarklet-container .home .results-overview {
   padding: 18px 6px;
   text-align: center;
 }
-/* line 35, ../../../../../source/lib/components/assets/styles/home.scss */
+/* line 48, ../../../../../source/lib/components/assets/styles/home.scss */
 #utt-bookmarklet-container .home .results-overview ul, #utt-bookmarklet-container .home .results-overview li, #utt-bookmarklet-container .home .results-overview button {
   display: inline-block;
 }
-/* line 38, ../../../../../source/lib/components/assets/styles/home.scss */
+/* line 51, ../../../../../source/lib/components/assets/styles/home.scss */
 #utt-bookmarklet-container .home .results-overview li + li {
   margin-left: 6px;
 }
-/* line 41, ../../../../../source/lib/components/assets/styles/home.scss */
+/* line 54, ../../../../../source/lib/components/assets/styles/home.scss */
 #utt-bookmarklet-container .home .results-overview button {
   margin-left: 24px;
   padding: 3px 10px;
@@ -178,75 +213,113 @@
   color: white;
 }
 /* line 9, ../../../../../source/lib/components/assets/styles/main.scss */
-#utt-bookmarklet-container div, #utt-bookmarklet-container p, #utt-bookmarklet-container li, #utt-bookmarklet-container ul, #utt-bookmarklet-container h1, #utt-bookmarklet-container h2, #utt-bookmarklet-container h3, #utt-bookmarklet-container h4, #utt-bookmarklet-container h5, #utt-bookmarklet-container h6 {
+#utt-bookmarklet-container div, #utt-bookmarklet-container p, #utt-bookmarklet-container li, #utt-bookmarklet-container ul, #utt-bookmarklet-container h1, #utt-bookmarklet-container h2, #utt-bookmarklet-container h3, #utt-bookmarklet-container h4, #utt-bookmarklet-container h5, #utt-bookmarklet-container h6, #utt-bookmarklet-container img {
   font-size: 12px;
   color: #4d4d4d;
   list-style: none;
+  border: 0;
 }
-/* line 15, ../../../../../source/lib/components/assets/styles/main.scss */
+/* line 16, ../../../../../source/lib/components/assets/styles/main.scss */
 #utt-bookmarklet-container * {
   margin: 0;
   padding: 0;
   text-align: left;
 }
-/* line 20, ../../../../../source/lib/components/assets/styles/main.scss */
+/* line 21, ../../../../../source/lib/components/assets/styles/main.scss */
 #utt-bookmarklet-container * + * {
   margin-top: 5px;
 }
-/* line 24, ../../../../../source/lib/components/assets/styles/main.scss */
+/* line 25, ../../../../../source/lib/components/assets/styles/main.scss */
 #utt-bookmarklet-container button {
   background: #b73756;
   color: white;
   border: 0;
   padding: 1px 4px;
 }
-/* line 30, ../../../../../source/lib/components/assets/styles/main.scss */
+/* line 31, ../../../../../source/lib/components/assets/styles/main.scss */
 #utt-bookmarklet-container a {
   color: #b73756;
 }
-/* line 34, ../../../../../source/lib/components/assets/styles/main.scss */
+/* line 35, ../../../../../source/lib/components/assets/styles/main.scss */
 #utt-bookmarklet-container h2, #utt-bookmarklet-container h3 {
   color: #1481a4;
 }
-/* line 38, ../../../../../source/lib/components/assets/styles/main.scss */
-#utt-bookmarklet-container .hide {
-  display: none;
-}
 /* line 39, ../../../../../source/lib/components/assets/styles/main.scss */
+#utt-bookmarklet-container .hide {
+  visibility: hidden;
+  opacity: 0;
+  transition: visibility .3s, opacity .3s, max-height .3s ease-out;
+  max-height: 0;
+}
+/* line 45, ../../../../../source/lib/components/assets/styles/main.scss */
 #utt-bookmarklet-container .show {
-  display: block;
+  visibility: visible;
+  opacity: 1;
+  transition: visibility .3s, opacity .3s, max-height .3s ease-in;
+  max-height: 3em;
 }
 
-/* line 2, ../../../../../source/lib/components/assets/styles/highlight.scss */
+/* line 5, ../../../../../source/lib/components/assets/styles/highlight.scss */
 .utt-highlight {
-  outline: solid 3px;
-  -webkit-animation: utt-highlight-anim 2s infinite;
+  outline: solid 3px #b73756;
+  -webkit-animation: utt-highlight-anim 3s 1;
   /* Chrome, Safari, Opera */
-  animation: utt-highlight-anim 2s infinite;
+  animation: utt-highlight-anim 3s 1;
 }
 
 /* Chrome, Safari, Opera */
 @-webkit-keyframes utt-highlight-anim {
-  /* line 10, ../../../../../source/lib/components/assets/styles/highlight.scss */
-  from {
-    outline-color: rgba(255, 0, 0, 0);
+  /* line 15, ../../../../../source/lib/components/assets/styles/highlight.scss */
+  0% {
+    outline-color: rgba(183, 55, 86, 0);
   }
 
-  /* line 11, ../../../../../source/lib/components/assets/styles/highlight.scss */
-  to {
-    outline-color: red;
+  /* line 16, ../../../../../source/lib/components/assets/styles/highlight.scss */
+  33% {
+    outline-color: #b73756;
+  }
+
+  /* line 17, ../../../../../source/lib/components/assets/styles/highlight.scss */
+  66% {
+    outline-color: rgba(183, 55, 86, 0);
+  }
+
+  /* line 18, ../../../../../source/lib/components/assets/styles/highlight.scss */
+  100% {
+    outline-color: #b73756;
   }
 }
 
 /* Standard syntax */
 @keyframes utt-highlight-anim {
-  /* line 16, ../../../../../source/lib/components/assets/styles/highlight.scss */
-  from {
-    outline-color: rgba(255, 0, 0, 0);
+  /* line 23, ../../../../../source/lib/components/assets/styles/highlight.scss */
+  0% {
+    outline-color: rgba(183, 55, 86, 0);
   }
 
-  /* line 17, ../../../../../source/lib/components/assets/styles/highlight.scss */
-  to {
-    outline-color: red;
+  /* line 24, ../../../../../source/lib/components/assets/styles/highlight.scss */
+  33% {
+    outline-color: #b73756;
   }
+
+  /* line 25, ../../../../../source/lib/components/assets/styles/highlight.scss */
+  66% {
+    outline-color: rgba(183, 55, 86, 0);
+  }
+
+  /* line 26, ../../../../../source/lib/components/assets/styles/highlight.scss */
+  100% {
+    outline-color: #b73756;
+  }
+}
+
+/* line 62, ../../../../../source/lib/components/assets/styles/main.scss */
+.example-appear {
+  opacity: 0.01;
+  transition: opacity 3s ease-in;
+}
+
+/* line 67, ../../../../../source/lib/components/assets/styles/main.scss */
+.example-appear.example-appear-active {
+  opacity: 1;
 }

@@ -7,41 +7,53 @@
   padding: 14px 10px;
   padding-left: 47px;
   border-bottom: solid 1px #bec1c2;
-  background: #f0f8fb;
   position: relative;
 }
 /* line 13, ../../../../../source/lib/components/assets/styles/home.scss */
+.home .module-item.completed {
+  background: #f3f8ec;
+}
+/* line 15, ../../../../../source/lib/components/assets/styles/home.scss */
+.home .module-item.completed > button {
+  background: #2f742d;
+}
+/* line 21, ../../../../../source/lib/components/assets/styles/home.scss */
 .home .module-item > img {
   position: absolute;
   top: 14px;
   left: 10px;
 }
-/* line 18, ../../../../../source/lib/components/assets/styles/home.scss */
+/* line 26, ../../../../../source/lib/components/assets/styles/home.scss */
 .home .module-item > button {
   position: absolute;
   top: 15px;
   right: 5px;
+  min-width: 50px;
+  background-image: url("../images/arrow.svg");
+  background-repeat: no-repeat;
+  background-position: right top;
+  background-size: 13px;
 }
-/* line 25, ../../../../../source/lib/components/assets/styles/home.scss */
+/* line 38, ../../../../../source/lib/components/assets/styles/home.scss */
 .home .content {
   height: 305px;
   overflow-y: auto;
   overflow-x: none;
 }
-/* line 31, ../../../../../source/lib/components/assets/styles/home.scss */
+/* line 44, ../../../../../source/lib/components/assets/styles/home.scss */
 .home .results-overview {
   padding: 18px 6px;
   text-align: center;
 }
-/* line 35, ../../../../../source/lib/components/assets/styles/home.scss */
+/* line 48, ../../../../../source/lib/components/assets/styles/home.scss */
 .home .results-overview ul, .home .results-overview li, .home .results-overview button {
   display: inline-block;
 }
-/* line 38, ../../../../../source/lib/components/assets/styles/home.scss */
+/* line 51, ../../../../../source/lib/components/assets/styles/home.scss */
 .home .results-overview li + li {
   margin-left: 6px;
 }
-/* line 41, ../../../../../source/lib/components/assets/styles/home.scss */
+/* line 54, ../../../../../source/lib/components/assets/styles/home.scss */
 .home .results-overview button {
   margin-left: 24px;
   padding: 3px 10px;

@@ -1,6 +1,6 @@
 "use strict";
 
-define(["qwest"], function (qwest) {
+define(["./mockServer"], function (qwest) {
 	var knownTypes = {
 		Assertor: "assertors",
 		evaluation: "evaluations",
@@ -155,7 +155,6 @@ define(["qwest"], function (qwest) {
 			})).then(function (userData) {
 				userData["utt:_privateKey"] = userkey;
 				connections[apiUrl] = createAdapter(apiUrl, userData);
-				console.log(1);
 				return { earlAdapter: connections[apiUrl] };
 			});
 		}

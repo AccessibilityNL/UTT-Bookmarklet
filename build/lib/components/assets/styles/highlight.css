@@ -1,33 +1,53 @@
-/* line 2, ../../../../../source/lib/components/assets/styles/highlight.scss */
+/* line 5, ../../../../../source/lib/components/assets/styles/highlight.scss */
 .utt-highlight {
-  outline: solid 3px;
-  -webkit-animation: utt-highlight-anim 2s infinite;
+  outline: solid 3px #b73756;
+  -webkit-animation: utt-highlight-anim 3s 1;
   /* Chrome, Safari, Opera */
-  animation: utt-highlight-anim 2s infinite;
+  animation: utt-highlight-anim 3s 1;
 }
 
 /* Chrome, Safari, Opera */
 @-webkit-keyframes utt-highlight-anim {
-  /* line 10, ../../../../../source/lib/components/assets/styles/highlight.scss */
-  from {
-    outline-color: rgba(255, 0, 0, 0);
+  /* line 15, ../../../../../source/lib/components/assets/styles/highlight.scss */
+  0% {
+    outline-color: rgba(183, 55, 86, 0);
   }
 
-  /* line 11, ../../../../../source/lib/components/assets/styles/highlight.scss */
-  to {
-    outline-color: red;
+  /* line 16, ../../../../../source/lib/components/assets/styles/highlight.scss */
+  33% {
+    outline-color: #b73756;
+  }
+
+  /* line 17, ../../../../../source/lib/components/assets/styles/highlight.scss */
+  66% {
+    outline-color: rgba(183, 55, 86, 0);
+  }
+
+  /* line 18, ../../../../../source/lib/components/assets/styles/highlight.scss */
+  100% {
+    outline-color: #b73756;
   }
 }
 
 /* Standard syntax */
 @keyframes utt-highlight-anim {
-  /* line 16, ../../../../../source/lib/components/assets/styles/highlight.scss */
-  from {
-    outline-color: rgba(255, 0, 0, 0);
+  /* line 23, ../../../../../source/lib/components/assets/styles/highlight.scss */
+  0% {
+    outline-color: rgba(183, 55, 86, 0);
   }
 
-  /* line 17, ../../../../../source/lib/components/assets/styles/highlight.scss */
-  to {
-    outline-color: red;
+  /* line 24, ../../../../../source/lib/components/assets/styles/highlight.scss */
+  33% {
+    outline-color: #b73756;
+  }
+
+  /* line 25, ../../../../../source/lib/components/assets/styles/highlight.scss */
+  66% {
+    outline-color: rgba(183, 55, 86, 0);
+  }
+
+  /* line 26, ../../../../../source/lib/components/assets/styles/highlight.scss */
+  100% {
+    outline-color: #b73756;
   }
 }

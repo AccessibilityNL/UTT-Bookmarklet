@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generator: Adobe Illustrator 16.0.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="31.5px"
+	 height="32.167px" viewBox="0 0 31.5 32.167" enable-background="new 0 0 31.5 32.167" xml:space="preserve">
+<g id="Layer_1">
+	<circle fill="#02B2D3" cx="15.589" cy="15.989" r="13.8"/>
+	<g>
+		<defs>
+			<rect id="SVGID_1_" x="0.627" y="-0.465" width="29.373" height="32.066"/>
+		</defs>
+		<clipPath id="SVGID_2_">
+			<use xlink:href="#SVGID_1_"  display="none" overflow="visible"/>
+		</clipPath>
+		<g clip-path="url(#SVGID_2_)">
+			<defs>
+				<rect id="SVGID_3_" x="0.627" y="-0.465" width="29.373" height="32.066"/>
+			</defs>
+			<clipPath id="SVGID_4_">
+				<use xlink:href="#SVGID_3_"  display="none" overflow="visible"/>
+			</clipPath>
+			<path display="none" clip-path="url(#SVGID_4_)" fill="#77B3D4" d="M30,15.571c0,8.85-6.576,16.029-14.686,16.029
+				c-8.111,0-14.688-7.18-14.688-16.029c0-8.856,6.576-16.037,14.688-16.037C23.424-0.465,30,6.715,30,15.571"/>
+			<g opacity="0.2" clip-path="url(#SVGID_4_)">
+				<g>
+					<defs>
+						<rect id="SVGID_5_" x="5.217" y="12.564" width="2.754" height="3.007"/>
+					</defs>
+					<clipPath id="SVGID_6_">
+						<use xlink:href="#SVGID_5_"  overflow="visible"/>
+					</clipPath>
+				</g>
+			</g>
+		</g>
+	</g>
+	<g opacity="0.2">
+		<g>
+			<defs>
+				<rect id="SVGID_7_" x="5.553" y="6.233" width="18.939" height="19.854"/>
+			</defs>
+			<clipPath id="SVGID_8_">
+				<use xlink:href="#SVGID_7_"  overflow="visible"/>
+			</clipPath>
+			<path clip-path="url(#SVGID_8_)" fill="#231F20" d="M23.725,14.068h-2.596h-2.911h-2.595h-2.912h-2.596h-3.98v3.507v7.511
+				c0,0.554,0.411,1.002,0.918,1.002h16.521c0.508,0,0.918-0.448,0.918-1.002v-7.511v-3.507H23.725z"/>
+			<path clip-path="url(#SVGID_8_)" fill="#231F20" d="M8.917,13.434l2.796-0.637l2.493-0.568l2.795-0.637l2.493-0.567l4.611-1.051
+				l-0.562-2.943c-0.104-0.542-0.59-0.89-1.086-0.777l-0.257,0.059L19.708,6.88l-2.796,0.637L14.42,8.085l-2.796,0.637L9.131,9.291
+				L6.284,9.938c-0.497,0.114-0.815,0.644-0.711,1.187l0.562,2.943l0.29-0.066L8.917,13.434z"/>
+		</g>
+	</g>
+	<path fill="#4F5D73" d="M6.135,16.572v7.511c0,0.555,0.411,1.003,0.918,1.003h16.521c0.508,0,0.918-0.448,0.918-1.003v-7.511H6.135
+		z"/>
+	<polygon fill="#4F5D73" points="6.135,13.065 6.135,16.572 6.903,16.572 10.115,13.065 	"/>
+	<polygon fill="#4F5D73" points="18.218,13.065 15.006,16.572 17.917,16.572 21.129,13.065 	"/>
+	<polygon fill="#4F5D73" points="12.711,13.065 9.499,16.572 12.41,16.572 15.623,13.065 	"/>
+	<polygon fill="#FFFFFF" points="10.115,13.065 6.903,16.572 9.499,16.572 12.711,13.065 	"/>
+	<polygon fill="#FFFFFF" points="15.623,13.065 12.41,16.572 15.006,16.572 18.218,13.065 	"/>
+	<polygon fill="#FFFFFF" points="21.129,13.065 17.917,16.572 20.513,16.572 23.725,13.065 	"/>
+	<polygon fill="#4F5D73" points="24.493,13.065 23.725,13.065 20.513,16.572 23.274,16.572 24.493,15.243 	"/>
+	<polygon fill="#FFFFFF" points="23.274,16.572 24.493,16.572 24.493,15.243 	"/>
+	<polygon fill="#4F5D73" points="11.624,7.72 8.917,12.432 11.714,11.795 14.42,7.083 	"/>
+	<polygon fill="#4F5D73" points="16.913,6.516 14.206,11.227 17.001,10.59 19.708,5.878 	"/>
+	<path fill="#4F5D73" d="M6.284,8.936C5.788,9.049,5.469,9.58,5.573,10.122l0.562,2.943L6.425,13l2.707-4.711L6.284,8.936z"/>
+	<polygon fill="#FFFFFF" points="9.131,8.288 6.425,13 8.917,12.432 11.624,7.72 	"/>
+	<polygon fill="#FFFFFF" points="14.42,7.083 11.713,11.795 14.206,11.227 16.913,6.516 	"/>
+	<polygon fill="#FFFFFF" points="22.201,5.311 19.708,5.878 17.001,10.59 19.495,10.022 	"/>
+	<path fill="#4F5D73" d="M23.543,6.028c-0.104-0.542-0.59-0.889-1.086-0.776l-0.257,0.059l-2.706,4.712l2.804-0.638l1.415-2.466
+		L23.543,6.028z"/>
+	<polygon fill="#FFFFFF" points="23.714,6.918 22.298,9.384 24.106,8.972 	"/>
+	<path fill="#FFFFFF" d="M7.971,14.068c0,0.831-0.616,1.503-1.377,1.503c-0.76,0-1.377-0.673-1.377-1.503s0.617-1.503,1.377-1.503
+		C7.354,12.564,7.971,13.237,7.971,14.068"/>
+	<path fill="#4F5D73" d="M7.971,13.065c0,0.831-0.616,1.504-1.377,1.504c-0.76,0-1.377-0.673-1.377-1.504
+		c0-0.83,0.617-1.503,1.377-1.503C7.354,11.562,7.971,12.235,7.971,13.065"/>
+</g>
+<g id="Layer_2">
+	<circle opacity="0.75" fill="#FFFFFF" cx="15.589" cy="15.989" r="13.8"/>
+</g>
+</svg>

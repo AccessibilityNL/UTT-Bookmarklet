@@ -26,15 +26,38 @@
 .panel .header h1 {
   color: white;
   font-size: 20px;
+  position: relative;
 }
 /* line 30, ../../../../../source/lib/components/assets/styles/panel.scss */
+.panel .header h1 > .app-name {
+  position: absolute;
+  top: 1px;
+  left: 65px;
+  border-bottom: solid 1px white;
+  margin: 0;
+}
+/* line 37, ../../../../../source/lib/components/assets/styles/panel.scss */
+.panel .header h1 > .app-byline {
+  position: absolute;
+  left: 69px;
+  top: 34px;
+  font-size: 12px;
+  font-weight: normal;
+  margin: 0;
+}
+/* line 47, ../../../../../source/lib/components/assets/styles/panel.scss */
 .panel .header p {
   color: white;
 }
-/* line 34, ../../../../../source/lib/components/assets/styles/panel.scss */
+/* line 51, ../../../../../source/lib/components/assets/styles/panel.scss */
 .panel .header .info-button {
   position: absolute;
-  top: -5px;
-  right: 5px;
-  margin-top: 0;
+  right: 0;
+  bottom: 0;
+}
+/* line 56, ../../../../../source/lib/components/assets/styles/panel.scss */
+.panel .header .close-button {
+  position: absolute;
+  top: 1px;
+  right: 2px;
 }

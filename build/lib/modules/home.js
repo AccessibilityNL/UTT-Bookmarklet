@@ -4,8 +4,9 @@ define(["React", "UTT/components/HomePanel", "UTT/utils/browser-polyfill"], func
 
 	return function home(_ref, i18n) {
 		var modules = _ref.modules;
+		var footerModule = _ref.footerModule;
 
-		return React.createElement(HomePanel, { modules: modules, i18n: i18n });
+		return React.createElement(HomePanel, { modules: modules, footerModule: footerModule, i18n: i18n });
 	};
 });
 //# sourceMappingURL=home.js.map

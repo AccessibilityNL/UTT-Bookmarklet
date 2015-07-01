@@ -42,6 +42,14 @@ define(["React", "UTT/components/UttBookmarklet", "./config", "UTT/modules/home"
                     activate: createModuleActivator(mod)
                 }, mod);
             });
+
+            if (config.footerModule) {
+                var mod = config.footerModule;
+                config.footerModule = Object.assign({
+                    activate: createModuleActivator(mod)
+                }, mod);
+            }
+
             UTT.userKey = userKey;
             Object.freeze(config);
             UTT.config = config;
@@ -63,9 +71,10 @@ define(["React", "UTT/components/UttBookmarklet", "./config", "UTT/modules/home"
 
         showHome: function showHome() {
             var modules = config.modules;
+            var footerModule = config.footerModule;
             var i18n = config.i18n;
 
-            UTT.bookmarkNode = React.createElement(UttBookmarklet, null, home({ modules: modules }, i18n));
+            UTT.bookmarkNode = React.createElement(UttBookmarklet, null, home({ modules: modules, footerModule: footerModule }, i18n));
 
             React.render(UTT.bookmarkNode, UTT.containerNode);
         },

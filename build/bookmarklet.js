@@ -12,8 +12,8 @@
             baseUrl: baseUrl,
             paths: {
                 UTT: "lib",
-                React: "bower_components/react/react",
-                qwest: "bower_components/qwest/qwest.min",
+                React: "bower_components/react/react-with-addons",
+                qwest: "bower_components/qwest/qwest-min",
                 "UTT/locale": "lib/locale/en"
             },
             shim: { exports: "React" }

@@ -37,7 +37,6 @@ define(["UTT/main", "UTT/earlTools/earlTools"], function (UTT) {
             var earlAdapter = _ref.earlAdapter;
             var webpage = _ref.webpage;
 
-            var earlMsg = undefined;
             var promise = undefined;
             var assertion = assertions.createFromQuestion({
                 webpage: webpage, question: question, outcome: outcome

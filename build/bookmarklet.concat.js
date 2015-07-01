@@ -12,8 +12,8 @@
             baseUrl: baseUrl,
             paths: {
                 UTT: "lib",
-                React: "bower_components/react/react",
-                qwest: "bower_components/qwest/qwest.min",
+                React: "bower_components/react/react-with-addons",
+                qwest: "bower_components/qwest/qwest-min",
                 "UTT/locale": "lib/locale/en"
             },
             shim: { exports: "React" }
@@ -45,7 +45,7 @@
 //# sourceMappingURL=bookmarklet.js.map
 "use strict";
 
-define(["UTT/locale/common", "UTT/locale/assessor/common", "UTT/locale/assessor/images", "UTT/locale/assessor/media", "UTT/locale/assessor/language", "UTT/locale/assessor/navigation", "UTT/locale/assessor/keyboard", "UTT/utils/browser-polyfill"], function () {
+define(["UTT/locale/common", "UTT/locale/assessor/common", "UTT/locale/assessor/images", "UTT/locale/assessor/media", "UTT/locale/assessor/language", "UTT/locale/assessor/navigation", "UTT/locale/assessor/keyboard", "UTT/locale/reporter", "UTT/utils/browser-polyfill"], function () {
     var localeAssessor = require("UTT/locale/assessor/common");
 
     var assessorNames = ["images", "media", "language", "navigation", "keyboard"];
@@ -57,12 +57,19 @@ define(["UTT/locale/common", "UTT/locale/assessor/common", "UTT/locale/assessor/
                 controller: "UTT/modules/assessor",
                 config: {
                     icon: "icon-" + assessorName + ".svg",
+                    iconIncomplete: "icon-" + assessorName + "-report-0.svg",
+                    iconComplete: "icon-" + assessorName + "-report-1.svg",
                     questions: "UTT/modules/assessor/questions",
                     category: assessorName
                 },
                 locale: Object.assign(require("UTT/locale/assessor/" + assessorName), localeAssessor)
             };
         }),
+        footerModule: {
+            controller: "UTT/modules/reporter/reporter",
+            config: {},
+            locale: require("UTT/locale/reporter")
+        },
         locale: require("UTT/locale/common")
     };
 
@@ -158,7 +165,7 @@ define(["./earlPointers"], function (earlPointers) {
 //# sourceMappingURL=assertions.js.map
 "use strict";
 
-define(["qwest"], function (qwest) {
+define(["./mockServer"], function (qwest) {
 	var knownTypes = {
 		Assertor: "assertors",
 		evaluation: "evaluations",
@@ -313,7 +320,6 @@ define(["qwest"], function (qwest) {
 			})).then(function (userData) {
 				userData["utt:_privateKey"] = userkey;
 				connections[apiUrl] = createAdapter(apiUrl, userData);
-				console.log(1);
 				return { earlAdapter: connections[apiUrl] };
 			});
 		}
@@ -504,16 +510,27 @@ define({
 "use strict";
 
 define({
-    TOOL_NAME: "AccessVerify",
+    TOOL_NAME: "EIII-Bookmarklet",
+    TOOL_BYLINE: "Accessibility checker for the EU",
     TOOL_DESCR: "Basic check for the accessibility of the web",
     "tool info": "Tool info",
     results: "Results",
-    "star testing": "Star testing",
+    start: "Start",
+    restart: "Restart",
+    close: "Close",
+    "Back to overview": "Back to overview",
+    complete: "Complete",
+    incomplete: "Incomplete",
     yes: "Yes",
     no: "No",
-    unclear: "unclear"
+    Unclear: "Unclear"
 });
 //# sourceMappingURL=common.js.map
+"use strict";
+
+define({
+	"Results list": "Results list" });
+//# sourceMappingURL=reporter.js.map
 "use strict";
 
 define(["React", "UTT/components/UttBookmarklet", "./config", "UTT/modules/home", "UTT/utils/translator", "UTT/utils/browser-polyfill"], function (React, UttBookmarklet, config, home, translator) {
@@ -558,6 +575,14 @@ define(["React", "UTT/components/UttBookmarklet", "./config", "UTT/modules/home"
                     activate: createModuleActivator(mod)
                 }, mod);
             });
+
+            if (config.footerModule) {
+                var mod = config.footerModule;
+                config.footerModule = Object.assign({
+                    activate: createModuleActivator(mod)
+                }, mod);
+            }
+
             UTT.userKey = userKey;
             Object.freeze(config);
             UTT.config = config;
@@ -579,9 +604,10 @@ define(["React", "UTT/components/UttBookmarklet", "./config", "UTT/modules/home"
 
         showHome: function showHome() {
             var modules = config.modules;
+            var footerModule = config.footerModule;
             var i18n = config.i18n;
 
-            UTT.bookmarkNode = React.createElement(UttBookmarklet, null, home({ modules: modules }, i18n));
+            UTT.bookmarkNode = React.createElement(UttBookmarklet, null, home({ modules: modules, footerModule: footerModule }, i18n));
 
             React.render(UTT.bookmarkNode, UTT.containerNode);
         },
@@ -618,15 +644,16 @@ define(["React", "UTT/components/UttBookmarklet", "./config", "UTT/modules/home"
 //# sourceMappingURL=main.js.map
 "use strict";
 
-define(["React", "UTT/components/Assessor", "./assessor/buildQuestions", "./assessor/saveResult"], function (React, Assessor) {
+define(["React", "UTT/components/Assessor", "./assessor/buildQuestions", "./assessor/saveResult", "UTT/utils/highlighter"], function (React, Assessor) {
 
 	var buildQuestions = require("UTT/modules/assessor/buildQuestions");
 	var saveResult = require("UTT/modules/assessor/saveResult");
+	var highlighter = require("UTT/utils/highlighter");
 
-	return function assertor(_ref, i18n, render) {
-		var questions = _ref.questions;
-		var category = _ref.category;
-		var icon = _ref.icon;
+	return function assertor(config, i18n, render) {
+		var questions = config.questions;
+		var category = config.category;
+		var icon = config.icon;
 
 		require([questions, "UTT/main"], function (qData, UTT) {
 			var questions = qData[category];
@@ -648,17 +675,25 @@ define(["React", "UTT/components/Assessor", "./assessor/buildQuestions", "./asse
 
 				return _showQuestionWrapper;
 			})(function (i) {
+				var question = questions[i];
+				var highlight = highlighter.bind(null, question.element);
+				highlight();
+
 				render(Assessor, {
-					question: questions[i],
+					question: question,
 					i18n: i18n,
 					current: i + 1,
 					iconSrc: iconSrc,
+					highlight: highlight,
 					total: questions.length,
 					sendResult: function sendResult(outcome) {
+						highlighter.removeHighlight();
+						config.completed = false;
 						saveResult(questions[i], outcome);
 						if (questions[i + 1]) {
 							showQuestion(i + 1);
 						} else {
+							config.completed = true;
 							UTT.showHome();
 						}
 					}
@@ -833,7 +868,6 @@ define(["UTT/main", "UTT/earlTools/earlTools"], function (UTT) {
             var earlAdapter = _ref.earlAdapter;
             var webpage = _ref.webpage;
 
-            var earlMsg = undefined;
             var promise = undefined;
             var assertion = assertions.createFromQuestion({
                 webpage: webpage, question: question, outcome: outcome
@@ -867,11 +901,25 @@ define(["React", "UTT/components/HomePanel", "UTT/utils/browser-polyfill"], func
 
 	return function home(_ref, i18n) {
 		var modules = _ref.modules;
+		var footerModule = _ref.footerModule;
 
-		return React.createElement(HomePanel, { modules: modules, i18n: i18n });
+		return React.createElement(HomePanel, { modules: modules, footerModule: footerModule, i18n: i18n });
 	};
 });
 //# sourceMappingURL=home.js.map
+"use strict";
+
+define(["UTT/components/Reporter"], function (Reporter) {
+
+	var reporter = function reporter(config, i18n, render) {
+
+		render(Reporter, {
+			i18n: i18n });
+	};
+
+	return reporter;
+});
+//# sourceMappingURL=reporter.js.map
 "use strict";
 
 define(function () {
@@ -2216,8 +2264,10 @@ define(function () {
 
 define(function () {
 
-	function highlighter(query) {
-		var elm = document.querySelector(query);
+	function highlighter(elm) {
+		if (typeof elm === "string") {
+			elm = document.querySelector(elm);
+		}
 		if (elm) {
 			elm.className += " utt-highlight";
 		}
@@ -2225,6 +2275,12 @@ define(function () {
 
 	highlighter.find = function (selector) {
 		return document.querySelectorAll(selector);
+	};
+
+	highlighter.removeHighlight = function () {
+		Array.from(document.querySelectorAll(".utt-highlight")).forEach(function (elm) {
+			elm.className = elm.className.replace(/utt-highlight/, "").trim();
+		});
 	};
 
 	return highlighter;

@@ -17,9 +17,16 @@ define(["React"], function (React) {
          * Render the name of a module
          */
         renderModule: function renderModule(mod, i) {
-            return React.createElement("li", { className: "module-item", key: i }, React.createElement("img", { src: require.toUrl("UTT/components/assets/images/" + mod.config.icon),
-                width: "30", height: "30", alt: "", role: "presentation" }), React.createElement("h2", null, mod.locale.CATG_TITLE), React.createElement("p", null, mod.locale.CATG_DESCR), React.createElement("button", { onClick: mod.activate }, i18n((function () {
-                var siteObj = ["star testing"];siteObj.raw = ["star testing"];Object.freeze(siteObj.raw);Object.freeze(siteObj);return siteObj;
+            var classes = "module-item";
+            if (mod.config.completed) {
+                classes += " completed";
+            }
+
+            return React.createElement("li", { className: classes, key: i }, React.createElement("img", { src: require.toUrl("UTT/components/assets/images/" + mod.config.icon),
+                width: "30", height: "30", alt: "", role: "presentation" }), React.createElement("h2", null, mod.locale.CATG_TITLE), React.createElement("p", null, mod.locale.CATG_DESCR), React.createElement("button", { onClick: mod.activate }, !mod.config.completed ? i18n((function () {
+                var siteObj = ["start"];siteObj.raw = ["start"];Object.freeze(siteObj.raw);Object.freeze(siteObj);return siteObj;
+            })()) : i18n((function () {
+                var siteObj = ["restart"];siteObj.raw = ["restart"];Object.freeze(siteObj.raw);Object.freeze(siteObj);return siteObj;
             })())));
         }
 
