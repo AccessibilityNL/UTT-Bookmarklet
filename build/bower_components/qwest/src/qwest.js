@@ -403,6 +403,7 @@
 				xhr.open(method,url);
 			}
 			else{
+				console.log(url, method);
 				xhr.open(method,url,options.async,options.user,options.password);
 				if(xhr2 && options.async){
 					xhr.withCredentials=options.withCredentials;
@@ -411,6 +412,7 @@
 			// Set headers
 			if(!xdr){
 				for(var i in headers){
+					console.log('headers:', i, headers[i]);
 					xhr.setRequestHeader(i,headers[i]);
 				}
 			}
