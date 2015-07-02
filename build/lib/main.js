@@ -1,9 +1,10 @@
 "use strict";
 
-define(["React", "UTT/components/UttBookmarklet", "./config", "UTT/modules/home", "UTT/utils/translator", "UTT/utils/browser-polyfill"], function (React, UttBookmarklet, config, home, translator) {
+define(["React", "UTT/components/UttBookmarklet", "./config", "UTT/modules/home", "UTT/utils/translator", "UTT/utils/rootNode", "UTT/utils/browser-polyfill"], function (React, UttBookmarklet, config, home, translator) {
     var UTT = undefined;
 
     config.i18n = translator({ messageBundle: config.locale });
+    var rootNode = require("UTT/utils/rootNode");
 
     function renderModule(comp, attr, children) {
         UTT.bookmarkNode = React.createElement(UttBookmarklet, {}, React.createElement(comp, attr, children));
@@ -29,14 +30,15 @@ define(["React", "UTT/components/UttBookmarklet", "./config", "UTT/modules/home"
         userKey: null,
         render: function render() {
             UTT.running = true;
-            React.render(UTT.bookmarkNode, UTT.containerNode);
+
+            React.render(UTT.bookmarkNode, rootNode.getContainer());
         },
 
         init: function init(_ref) {
             var userKey = _ref.userKey;
 
-            var styleLink = UTT.createStyleNode();
-            UTT.containerNode = UTT.createContainerNode();
+            rootNode.getContainer();
+
             config.modules = config.modules.map(function (mod) {
                 return Object.assign({
                     activate: createModuleActivator(mod)
@@ -53,10 +55,6 @@ define(["React", "UTT/components/UttBookmarklet", "./config", "UTT/modules/home"
             UTT.userKey = userKey;
             Object.freeze(config);
             UTT.config = config;
-
-            document.head.appendChild(styleLink);
-            document.body.appendChild(UTT.containerNode);
-
             this.showHome();
         },
 
@@ -66,7 +64,7 @@ define(["React", "UTT/components/UttBookmarklet", "./config", "UTT/modules/home"
 
         stop: function stop() {
             UTT.running = false;
-            React.unmountComponentAtNode(UTT.containerNode);
+            React.unmountComponentAtNode(rootNode.getContainer());
         },
 
         showHome: function showHome() {
@@ -76,35 +74,12 @@ define(["React", "UTT/components/UttBookmarklet", "./config", "UTT/modules/home"
 
             UTT.bookmarkNode = React.createElement(UttBookmarklet, null, home({ modules: modules, footerModule: footerModule }, i18n));
 
-            React.render(UTT.bookmarkNode, UTT.containerNode);
+            React.render(UTT.bookmarkNode, rootNode.getContainer());
         },
 
         toggle: function toggle() {
             UTT[UTT.running ? "stop" : "start"]();
-        },
-
-        createStyleNode: function createStyleNode() {
-            var id = "utt-bookmarklet-stylesheet";
-            var link = document.getElementById(id);
-            if (!link) {
-                link = document.createElement("link");
-                link.id = id;
-                link.setAttribute("rel", "stylesheet");
-                link.setAttribute("href", require.toUrl("UTT/components/assets/styles/main.css"));
-            }
-            return link;
-        },
-
-        createContainerNode: function createContainerNode() {
-            var id = "utt-bookmarklet-container";
-            var containerNode = document.getElementById(id);
-            if (!containerNode) {
-                containerNode = document.createElement("div");
-                containerNode.id = id;
-            }
-            return containerNode;
-        }
-    };
+        } };
 
     return UTT;
 });

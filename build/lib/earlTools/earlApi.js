@@ -1,6 +1,6 @@
 "use strict";
 
-define(["./mockServer"], function (qwest) {
+define(["qwest"], function (qwest) {
 	var knownTypes = {
 		Assertor: "assertors",
 		evaluation: "evaluations",
