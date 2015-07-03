@@ -163,6 +163,10 @@ function (qwest) {
 				'q': userkey
 
 			})).then(function (userData) {
+				// TODO: This should not be required for a real JSON-LD call
+				userData['@id'] = 'utt:assertors' +
+								userData['@id'].split('assertors')[1];
+
 				userData['utt:_privateKey'] = userkey;
 				connections[apiUrl] = createAdapter(apiUrl, userData);
 				return { earlAdapter: connections[apiUrl] };
