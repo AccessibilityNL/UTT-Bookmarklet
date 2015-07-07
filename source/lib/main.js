@@ -34,7 +34,6 @@ function (React, UttBookmarklet, config, home, translator) {
         userKey: null,
         render () {
             UTT.running = true;
-
             React.render(UTT.bookmarkNode, rootNode.getContainer());
         },
 
@@ -57,15 +56,17 @@ function (React, UttBookmarklet, config, home, translator) {
             UTT.userKey = userKey;
             Object.freeze(config);
             UTT.config = config;
-            this.showHome();
+            UTT.showHome();
         },
 
         start() {
             UTT.render();
+            rootNode.show();
         },
 
         stop() {
             UTT.running = false;
+            rootNode.hide();
             React.unmountComponentAtNode(rootNode.getContainer());
         },
 
@@ -75,7 +76,7 @@ function (React, UttBookmarklet, config, home, translator) {
                         UttBookmarklet, null,
                         home({modules, footerModule}, i18n));
 
-            React.render(UTT.bookmarkNode, rootNode.getContainer());
+            UTT.render();
         },
 
         toggle() {
