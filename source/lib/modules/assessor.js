@@ -1,53 +1,63 @@
-define(['React', 'UTT/components/Assessor',
-	'./assessor/buildQuestions', './assessor/saveResult',
+define(['React', 'UTT/components/Assessor', 'UTT/main',
+	'./assessor/saveResult',
 	'UTT/utils/highlighter'],
-function (React, Assessor) {
+function (React, Assessor, UTT) {
 
-	let buildQuestions = require('UTT/modules/assessor/buildQuestions');
 	let saveResult     = require('UTT/modules/assessor/saveResult');
 	let highlighter    = require('UTT/utils/highlighter');
+	let testCase       = require('autoWcag/testCase');
 
-	return function assertor(config, i18n, render) {
-		let {questions, category, icon} = config;
+	return function assertor({questions, category, icon}, i18n, render) {
+		let renderQuestion = function (question) {
+			let resolve;
+			let reject;
+			let p = new Promise(function (res, rej) {
+				resolve = res;
+				reject  = rej;
+			});
+			render(Assessor, {
+				question: question,
+				i18n: i18n,
+				iconSrc: icon,
+				sendResult(outcome) {
+					highlighter.removeHighlight();
+					resolve([question, outcome]);
+				},
+				exit() {
+					highlighter.removeHighlight();
+					reject();
+				}
+			});
+			return p;
+		};
 
-		require([questions, 'UTT/main'], (qData, UTT) => {
-			let questions = qData[category];
-			let iconSrc = require.toUrl(
-				'UTT/components/assets/images/' + icon);
 
-			if (!questions) {
-				return;
-			}
-			questions = buildQuestions(questions);
-
-			let showQuestion = function (i) {
-				let question  = questions[i];
-				let highlight = highlighter.bind(null, question.element);
-				highlight();
-
-				render(Assessor, {
-					question: question,
-					i18n: i18n,
-					current: i + 1,
-					iconSrc: iconSrc,
-					highlight: highlight,
-					total: questions.length,
-					sendResult(outcome) {
-						highlighter.removeHighlight();
-						config.completed = false;
-						saveResult(questions[i], outcome);
-						if (questions[i+1]) {
-							showQuestion(i+1);
-						} else {
-							config.completed = true;
-							UTT.showHome();
-						}
-
-					}
+		testCase.requireConfig(questions)
+		.then(function runTests(testConfig) {
+			let p = testCase.runSelector(renderQuestion, testConfig, document)
+			/**
+			 * Run through the steps of a testCase, prompting the user
+			 * whenever required, will resolve once an outcome is reach
+			 */
+			.then((elements) => {
+				let testReturns = elements.map(function (element) {
+					return testCase.runSteps(renderQuestion, testConfig, element);
 				});
-			};
-			showQuestion(0);
 
+				testReturns.forEach((testReturn) => {
+					testReturn.then(saveResult);
+				});
+				return Promise.all(testReturns);
+			});
+			return p;
+		/**
+		 * Get all elements the testCase should be applied to
+		 * prompting the user wherever needed.
+		 */
+		}).then(function (outcomes) {
+			let metaResult = testCase.aggregate(outcomes);
+			saveResult(metaResult);
+			UTT.showHome();
 		});
 
 	};

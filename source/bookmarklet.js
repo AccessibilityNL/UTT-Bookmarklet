@@ -10,6 +10,7 @@
             baseUrl,
             paths: {
                 UTT: 'lib',
+                autoWcag: 'lib/autoWcag',
                 React: 'bower_components/react/react-with-addons',
                 qwest: 'bower_components/qwest/qwest.min',
                 'UTT/locale': 'lib/locale/en'
