@@ -18,21 +18,21 @@ function () {
 		},
 
         show() {
-            console.log('show');
-            container.className += 'display';
+            window.setTimeout(() => container.className += 'display', 100);
         },
 
         hide() {
-            console.log('hide');
-            container.className = container.className
-                                  .replace(/display/i, '').trim();
+            window.setTimeout(() => {
+                container.className = container.className
+                                      .replace(/display/i, '').trim();
+            }, 100);
         },
 
         createContainer() {
             let node = document.createElement('div');
             node.id = rootNodeId;
             rootNode.addStyle();
-            window.setTimeout(rootNode.show, 100);
+            rootNode.show();
             return node;
         },
 
@@ -62,7 +62,6 @@ function () {
                 background: white;
                 z-index: 99999999;
                 overflow:hidden;
-
                 transition: opacity .5s,
                             height .2s,
                             top .5s;

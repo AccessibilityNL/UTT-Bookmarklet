@@ -4,14 +4,26 @@ function (React) {
     let i18n;
 
     let ModuleList = React.createClass({
+
+        getInitialState() {
+            return {leaving: false};
+        },
+
         /**
          * Render this module
          */
         render() {
             i18n = this.props.i18n;
-            return <ul className="content">
+            let className = 'content' + (!this.state.leaving ? '' : ' exit-left');
+
+            return <ul className={className}>
                 {this.props.modules.map(this.renderModule)}
             </ul>;
+        },
+
+        openModule(activate) {
+            this.setState({ leaving: true });
+            activate();
         },
 
         /**
@@ -30,7 +42,7 @@ function (React) {
                     width="30" height="30" alt="" role="presentation" />
                 <h2>{mod.locale.CATG_TITLE}</h2>
                 <p>{mod.locale.CATG_DESCR}</p>
-                <button onClick={mod.activate}>
+                <button onClick={this.openModule.bind(this, mod.activate)}>
                     {(!mod.config.completed ? i18n`start` : i18n`restart`)}
                 </button>
             </li>;

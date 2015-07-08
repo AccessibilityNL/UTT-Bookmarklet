@@ -46,4 +46,30 @@
             right: 2px;
         }
     }
+
+
+    .exit-left, .exit-right,
+    .exit-top, .exit-bottom {
+        transition: transform .3s;
+    }
+    .exit-left {
+        transform: translateX(-110%);
+    }
+    .exit-right {
+        transform: translateX(110%);
+    }
+    .exit-top {
+        transform: translateX(110%);
+    }
+    .exit-bottom {
+        transform: translateX(110%);
+    }
+
+    .fade {
+        opacity:0;
+        transition: opacity .3s;
+    }
+    .fade.enter {
+        opacity:1 !important;
+    }
 }

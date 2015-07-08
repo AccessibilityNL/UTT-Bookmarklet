@@ -3,12 +3,25 @@ function (React, UTT, Header) {
 
 	let i18n;
 	let UttModule = React.createClass({
+
+		getInitialState() {
+			return {enter: false};
+		},
+
 		render() {
 			i18n = this.props.i18n;
+
+			let animation =  " fade";
+			if (this.state.enter) {
+				animation += ' enter';
+			}
+
+			setTimeout(() => this.setState({enter: true}), 10);
+
 			return <div className={this.props.className + " module"}>
 				<Header i18n={i18n}></Header>
 
-				<div className="content">
+				<div className={"content" + animation}>
 					{this.props.children}
 				</div>
 

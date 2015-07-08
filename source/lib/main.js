@@ -15,13 +15,21 @@ function (React, UttBookmarklet, config, home, translator) {
         UTT.render();
     }
 
-    function createModuleActivator(mod) {
+    function createModuleActivator(mod, time = 300) {
         return function () {
+            // Don't initiate untill time (in ms) is passed
+            let done = false;
+            setTimeout(() => (done === false ? done = true : done()), time);
+
             require([mod.controller, ], (modController) => {
                 let i18n = translator({
                     messageBundle: Object.assign(mod.locale, config.locale)
                 });
-                modController(mod.config, i18n, renderModule);
+                if (done) {
+                    modController(mod.config, i18n, renderModule);
+                } else {
+                    done = modController.bind(null, mod.config, i18n, renderModule);
+                }
             });
         };
     }
