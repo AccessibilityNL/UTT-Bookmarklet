@@ -5,6 +5,7 @@ function (React, UTT, Header) {
 	let UttModule = React.createClass({
 
 		getInitialState() {
+			setTimeout(() => this.setState({enter: true}), 10);
 			return {enter: false};
 		},
 
@@ -16,12 +17,11 @@ function (React, UTT, Header) {
 				animation += ' enter';
 			}
 
-			setTimeout(() => this.setState({enter: true}), 10);
 
 			return <div className={this.props.className + " module"}>
 				<Header i18n={i18n}></Header>
 
-				<div className={"content" + animation}>
+				<div className={"content " + animation}>
 					{this.props.children}
 				</div>
 
@@ -36,9 +36,13 @@ function (React, UTT, Header) {
 				</p></div>
 			</div>;
 		},
+
 		home(e) {
 			e.preventDefault();
-			UTT.showHome();
+
+			this.setState( {enter: false} );
+
+			setTimeout(() => UTT.showHome(), 300);
 		}
 	});
 
