@@ -12,5 +12,5 @@ define({
     "incomplete": "Incomplete",
     "yes": "Yes",
     "no": "No",
-    "Unclear": "Unclear"
+    "unclear": "Unclear"
 });

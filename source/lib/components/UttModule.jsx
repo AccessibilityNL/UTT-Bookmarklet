@@ -11,16 +11,12 @@ function (React, UTT, Header) {
 
 		render() {
 			i18n = this.props.i18n;
-
 			let animation =  " fade";
 			if (this.state.enter) {
 				animation += ' enter';
 			}
 
-
 			return <div className={this.props.className + " module"}>
-				<Header i18n={i18n}></Header>
-
 				<div className={"content " + animation}>
 					{this.props.children}
 				</div>
@@ -39,9 +35,7 @@ function (React, UTT, Header) {
 
 		home(e) {
 			e.preventDefault();
-
 			this.setState( {enter: false} );
-
 			setTimeout(() => UTT.showHome(), 300);
 		}
 	});
