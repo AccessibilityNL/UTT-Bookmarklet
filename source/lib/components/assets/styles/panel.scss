@@ -64,12 +64,18 @@
     .exit-bottom {
         transform: translateX(110%);
     }
-
     .fade {
         opacity:0;
         transition: opacity .3s;
     }
     .fade.enter {
         opacity:1 !important;
+    }
+    .slide-left.enter {
+        transform: translateX(0);
+    }
+    .slide-left {
+        transition: transform .3s;
+        transform: translateX(-110%);
     }
 }

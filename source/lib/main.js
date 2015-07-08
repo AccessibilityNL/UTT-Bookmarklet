@@ -10,7 +10,9 @@ function (React, UttBookmarklet, config, home, translator) {
 
     function renderModule(comp, attr, children) {
         UTT.bookmarkNode = React.createElement(
-            UttBookmarklet, {}, React.createElement(comp, attr, children)
+            UttBookmarklet,
+            { i18n: config.i18n },
+            React.createElement(comp, attr, children)
         );
         UTT.render();
     }
@@ -79,12 +81,7 @@ function (React, UttBookmarklet, config, home, translator) {
         },
 
         showHome() {
-            let {modules, footerModule, i18n} = config;
-            UTT.bookmarkNode = React.createElement(
-                        UttBookmarklet, null,
-                        home({modules, footerModule}, i18n));
-
-            UTT.render();
+            home(config, config.i18n, renderModule);
         },
 
         toggle() {
