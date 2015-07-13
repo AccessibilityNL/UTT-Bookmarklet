@@ -2,8 +2,15 @@
 .assessor {
 	.module-head {
 		position:relative;
-		padding: 14px;
+		padding: 14px 0;
   		border-bottom: solid 1px $color-border;
+
+  		&:first-child {
+  			padding-top:14px;
+  		}
+  		&:last-child {
+  			padding-bottom:14px;
+  		}
 
 		img {
 		 	position: absolute;
@@ -36,8 +43,6 @@
 	}
 
 	.content {
-		padding: 14px;
-
 		button {
 			min-width: 65px;
 			padding: 5px;
