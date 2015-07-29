@@ -1,34 +1,21 @@
-/* line 2, ../../../../../source/lib/components/assets/styles/panel.scss */
-.panel {
-  position: fixed;
-  top: 10px;
-  right: 5%;
-  width: 310px;
-  height: 440px;
-  padding: 5px;
-  box-shadow: 0 0 15px RGBA(0, 0, 0, 0.6);
-  background: white;
-  z-index: 99999999;
-  opacity: 0.95;
-}
-/* line 16, ../../../../../source/lib/components/assets/styles/panel.scss */
+/* line 3, ../../../../../source/lib/components/assets/styles/panel.scss */
 .panel > * {
   margin-top: 0;
 }
-/* line 20, ../../../../../source/lib/components/assets/styles/panel.scss */
+/* line 7, ../../../../../source/lib/components/assets/styles/panel.scss */
 .panel .header {
   background: #0680a3;
   padding: 10px 7px;
   position: relative;
   cursor: move;
 }
-/* line 26, ../../../../../source/lib/components/assets/styles/panel.scss */
+/* line 13, ../../../../../source/lib/components/assets/styles/panel.scss */
 .panel .header h1 {
   color: white;
   font-size: 20px;
   position: relative;
 }
-/* line 30, ../../../../../source/lib/components/assets/styles/panel.scss */
+/* line 17, ../../../../../source/lib/components/assets/styles/panel.scss */
 .panel .header h1 > .app-name {
   position: absolute;
   top: 1px;
@@ -36,7 +23,7 @@
   border-bottom: solid 1px white;
   margin: 0;
 }
-/* line 37, ../../../../../source/lib/components/assets/styles/panel.scss */
+/* line 24, ../../../../../source/lib/components/assets/styles/panel.scss */
 .panel .header h1 > .app-byline {
   position: absolute;
   left: 69px;
@@ -45,19 +32,58 @@
   font-weight: normal;
   margin: 0;
 }
-/* line 47, ../../../../../source/lib/components/assets/styles/panel.scss */
+/* line 34, ../../../../../source/lib/components/assets/styles/panel.scss */
 .panel .header p {
   color: white;
 }
-/* line 51, ../../../../../source/lib/components/assets/styles/panel.scss */
+/* line 38, ../../../../../source/lib/components/assets/styles/panel.scss */
 .panel .header .info-button {
   position: absolute;
   right: 0;
   bottom: 0;
 }
-/* line 56, ../../../../../source/lib/components/assets/styles/panel.scss */
+/* line 43, ../../../../../source/lib/components/assets/styles/panel.scss */
 .panel .header .close-button {
   position: absolute;
   top: 1px;
   right: 2px;
+}
+/* line 52, ../../../../../source/lib/components/assets/styles/panel.scss */
+.panel .exit-left, .panel .exit-right,
+.panel .exit-top, .panel .exit-bottom {
+  transition: transform .3s;
+}
+/* line 55, ../../../../../source/lib/components/assets/styles/panel.scss */
+.panel .exit-left {
+  transform: translateX(-110%);
+}
+/* line 58, ../../../../../source/lib/components/assets/styles/panel.scss */
+.panel .exit-right {
+  transform: translateX(110%);
+}
+/* line 61, ../../../../../source/lib/components/assets/styles/panel.scss */
+.panel .exit-top {
+  transform: translateX(110%);
+}
+/* line 64, ../../../../../source/lib/components/assets/styles/panel.scss */
+.panel .exit-bottom {
+  transform: translateX(110%);
+}
+/* line 67, ../../../../../source/lib/components/assets/styles/panel.scss */
+.panel .fade {
+  opacity: 0;
+  transition: opacity .3s;
+}
+/* line 71, ../../../../../source/lib/components/assets/styles/panel.scss */
+.panel .fade.enter {
+  opacity: 1 !important;
+}
+/* line 74, ../../../../../source/lib/components/assets/styles/panel.scss */
+.panel .slide-left.enter {
+  transform: translateX(0);
+}
+/* line 77, ../../../../../source/lib/components/assets/styles/panel.scss */
+.panel .slide-left {
+  transition: transform .3s;
+  transform: translateX(-110%);
 }

@@ -4,6 +4,7 @@
   -webkit-animation: utt-highlight-anim 3s 1;
   /* Chrome, Safari, Opera */
   animation: utt-highlight-anim 3s 1;
+  outline-offset: 3px;
 }
 
 /* Chrome, Safari, Opera */

@@ -45,6 +45,36 @@
 //# sourceMappingURL=bookmarklet.js.map
 "use strict";
 
+define([], function () {
+
+	var testCase = {};
+
+	return testCase;
+});
+//# sourceMappingURL=testCase.js.map
+"use strict";
+
+define({
+	"@id": "auto-wcag:SC1-1-1-aria-describedby",
+	type: "TestCriterion",
+	name: "Proper use of aria-describedby",
+	isPartOf: "wcag20:text-equiv-all",
+	mode: "earl:semiAuto",
+	environment: "auto-wcag:environment/rendered",
+	subject_type: "auto-wcag:webpages/page_state",
+	user_expertise: "auto-wcag:expertise/none",
+	user_profile: ["auto-wcag:profile/sight"],
+	selector: {
+		method: "css",
+		args: "img[aria-describedby]," + "input[type=image][aria-describedby], " + "*[role=image][aria-describedby], "
+	},
+	steps: [function (elm, complete) {
+		complete({});
+	}]
+});
+//# sourceMappingURL=SC1-1-1aria-describedby.js.map
+"use strict";
+
 define(["UTT/locale/common", "UTT/locale/assessor/common", "UTT/locale/assessor/images", "UTT/locale/assessor/media", "UTT/locale/assessor/language", "UTT/locale/assessor/navigation", "UTT/locale/assessor/keyboard", "UTT/locale/reporter", "UTT/utils/browser-polyfill"], function () {
     var localeAssessor = require("UTT/locale/assessor/common");
 
@@ -318,6 +348,9 @@ define(["qwest"], function (qwest) {
 				q: userkey
 
 			})).then(function (userData) {
+				// TODO: This should not be required for a real JSON-LD call
+				userData["@id"] = "utt:assertors" + userData["@id"].split("assertors")[1];
+
 				userData["utt:_privateKey"] = userkey;
 				connections[apiUrl] = createAdapter(apiUrl, userData);
 				return { earlAdapter: connections[apiUrl] };
@@ -523,7 +556,7 @@ define({
     incomplete: "Incomplete",
     yes: "Yes",
     no: "No",
-    Unclear: "Unclear"
+    unclear: "Unclear"
 });
 //# sourceMappingURL=common.js.map
 "use strict";
@@ -540,17 +573,29 @@ define(["React", "UTT/components/UttBookmarklet", "./config", "UTT/modules/home"
     var rootNode = require("UTT/utils/rootNode");
 
     function renderModule(comp, attr, children) {
-        UTT.bookmarkNode = React.createElement(UttBookmarklet, {}, React.createElement(comp, attr, children));
+        UTT.bookmarkNode = React.createElement(UttBookmarklet, { i18n: config.i18n }, React.createElement(comp, attr, children));
         UTT.render();
     }
 
     function createModuleActivator(mod) {
+        var time = arguments[1] === undefined ? 300 : arguments[1];
+
         return function () {
+            // Don't initiate untill time (in ms) is passed
+            var done = false;
+            setTimeout(function () {
+                return done === false ? done = true : done();
+            }, time);
+
             require([mod.controller], function (modController) {
                 var i18n = translator({
                     messageBundle: Object.assign(mod.locale, config.locale)
                 });
-                modController(mod.config, i18n, renderModule);
+                if (done) {
+                    modController(mod.config, i18n, renderModule);
+                } else {
+                    done = modController.bind(null, mod.config, i18n, renderModule);
+                }
             });
         };
     }
@@ -563,7 +608,6 @@ define(["React", "UTT/components/UttBookmarklet", "./config", "UTT/modules/home"
         userKey: null,
         render: function render() {
             UTT.running = true;
-
             React.render(UTT.bookmarkNode, rootNode.getContainer());
         },
 
@@ -588,26 +632,22 @@ define(["React", "UTT/components/UttBookmarklet", "./config", "UTT/modules/home"
             UTT.userKey = userKey;
             Object.freeze(config);
             UTT.config = config;
-            this.showHome();
+            UTT.showHome();
         },
 
         start: function start() {
             UTT.render();
+            rootNode.show();
         },
 
         stop: function stop() {
             UTT.running = false;
+            rootNode.hide();
             React.unmountComponentAtNode(rootNode.getContainer());
         },
 
         showHome: function showHome() {
-            var modules = config.modules;
-            var footerModule = config.footerModule;
-            var i18n = config.i18n;
-
-            UTT.bookmarkNode = React.createElement(UttBookmarklet, null, home({ modules: modules, footerModule: footerModule }, i18n));
-
-            React.render(UTT.bookmarkNode, rootNode.getContainer());
+            home(config, config.i18n, renderModule);
         },
 
         toggle: function toggle() {
@@ -769,7 +809,7 @@ define([], function () {
                 text: "Is \"{0}\" a good description for this image?",
                 help: "some text about images",
                 limit: 10,
-                answers: [{ value: "passed", text: "yes" }, { value: "failed", text: "no" }, { value: "cantTell", text: "Unclear" }]
+                answers: [{ value: "passed", text: "yes" }, { value: "failed", text: "no" }, { value: "cantTell", text: "unclear" }]
             }
         },
 
@@ -780,7 +820,7 @@ define([], function () {
                 text: "Is \"{0}\" a good description for this page?",
                 help: "some text about titles",
                 limit: 1,
-                answers: [{ value: "passed", text: "yes" }, { value: "failed", text: "no" }, { value: "cantTell", text: "Unclear" }]
+                answers: [{ value: "passed", text: "yes" }, { value: "failed", text: "no" }, { value: "cantTell", text: "unclear" }]
             }
         },
 
@@ -874,11 +914,11 @@ define(["UTT/main", "UTT/earlTools/earlTools"], function (UTT) {
 
 define(["React", "UTT/components/HomePanel", "UTT/utils/browser-polyfill"], function (React, HomePanel) {
 
-	return function home(_ref, i18n) {
+	return function home(_ref, i18n, render) {
 		var modules = _ref.modules;
 		var footerModule = _ref.footerModule;
 
-		return React.createElement(HomePanel, { modules: modules, footerModule: footerModule, i18n: i18n });
+		render(HomePanel, { modules: modules, footerModule: footerModule, i18n: i18n });
 	};
 });
 //# sourceMappingURL=home.js.map
@@ -2269,16 +2309,36 @@ define([], function () {
     var styleNodeId = "utt-bookmarklet-stylesheet";
 
     var rootNode = {
+
         getContainer: function getContainer() {
             container = document.getElementById(rootNodeId);
             if (!container) {
-                container = document.createElement("div");
-                container.id = rootNodeId;
+                container = rootNode.createContainer();
             }
 
             document.head.appendChild(rootNode.getStyleNode());
             document.body.appendChild(container);
             return container;
+        },
+
+        show: function show() {
+            window.setTimeout(function () {
+                return container.className += "display";
+            }, 100);
+        },
+
+        hide: function hide() {
+            window.setTimeout(function () {
+                container.className = container.className.replace(/display/i, "").trim();
+            }, 100);
+        },
+
+        createContainer: function createContainer() {
+            var node = document.createElement("div");
+            node.id = rootNodeId;
+            rootNode.addStyle();
+            rootNode.show();
+            return node;
         },
 
         getStyleNode: function getStyleNode() {
@@ -2290,7 +2350,14 @@ define([], function () {
                 link.setAttribute("href", require.toUrl("UTT/components/assets/styles/main.css"));
             }
             return link;
-        } };
+        },
+
+        addStyle: function addStyle() {
+            var style = document.createElement("style");
+            style.innerHTML = "\n            #" + rootNodeId + " {\n                position: fixed;\n                top: 10px;\n                right: 5%;\n                width: 310px;\n                padding: 5px;\n                box-shadow: 0 0 15px RGBA(0, 0, 0, 0.6);\n                background: white;\n                z-index: 99999999;\n                overflow:hidden;\n                transition: opacity .5s,\n                            height .2s,\n                            top .5s;\n                opacity: 0;\n                height: 0px;\n                top:0;\n            }\n            #" + rootNodeId + ".display {\n                opacity:0.95;\n                height: 440px;\n                top: 10px;\n            }";
+            document.head.appendChild(style);
+        }
+    };
 
     return rootNode;
 });

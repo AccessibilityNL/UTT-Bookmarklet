@@ -8,37 +8,24 @@
   user-select: none;
   cursor: default;
 }
-/* line 2, ../../../../../source/lib/components/assets/styles/panel.scss */
-#utt-bookmarklet-container .panel {
-  position: fixed;
-  top: 10px;
-  right: 5%;
-  width: 310px;
-  height: 440px;
-  padding: 5px;
-  box-shadow: 0 0 15px RGBA(0, 0, 0, 0.6);
-  background: white;
-  z-index: 99999999;
-  opacity: 0.95;
-}
-/* line 16, ../../../../../source/lib/components/assets/styles/panel.scss */
+/* line 3, ../../../../../source/lib/components/assets/styles/panel.scss */
 #utt-bookmarklet-container .panel > * {
   margin-top: 0;
 }
-/* line 20, ../../../../../source/lib/components/assets/styles/panel.scss */
+/* line 7, ../../../../../source/lib/components/assets/styles/panel.scss */
 #utt-bookmarklet-container .panel .header {
   background: #0680a3;
   padding: 10px 7px;
   position: relative;
   cursor: move;
 }
-/* line 26, ../../../../../source/lib/components/assets/styles/panel.scss */
+/* line 13, ../../../../../source/lib/components/assets/styles/panel.scss */
 #utt-bookmarklet-container .panel .header h1 {
   color: white;
   font-size: 20px;
   position: relative;
 }
-/* line 30, ../../../../../source/lib/components/assets/styles/panel.scss */
+/* line 17, ../../../../../source/lib/components/assets/styles/panel.scss */
 #utt-bookmarklet-container .panel .header h1 > .app-name {
   position: absolute;
   top: 1px;
@@ -46,7 +33,7 @@
   border-bottom: solid 1px white;
   margin: 0;
 }
-/* line 37, ../../../../../source/lib/components/assets/styles/panel.scss */
+/* line 24, ../../../../../source/lib/components/assets/styles/panel.scss */
 #utt-bookmarklet-container .panel .header h1 > .app-byline {
   position: absolute;
   left: 69px;
@@ -55,51 +42,98 @@
   font-weight: normal;
   margin: 0;
 }
-/* line 47, ../../../../../source/lib/components/assets/styles/panel.scss */
+/* line 34, ../../../../../source/lib/components/assets/styles/panel.scss */
 #utt-bookmarklet-container .panel .header p {
   color: white;
 }
-/* line 51, ../../../../../source/lib/components/assets/styles/panel.scss */
+/* line 38, ../../../../../source/lib/components/assets/styles/panel.scss */
 #utt-bookmarklet-container .panel .header .info-button {
   position: absolute;
   right: 0;
   bottom: 0;
 }
-/* line 56, ../../../../../source/lib/components/assets/styles/panel.scss */
+/* line 43, ../../../../../source/lib/components/assets/styles/panel.scss */
 #utt-bookmarklet-container .panel .header .close-button {
   position: absolute;
   top: 1px;
   right: 2px;
 }
+/* line 52, ../../../../../source/lib/components/assets/styles/panel.scss */
+#utt-bookmarklet-container .panel .exit-left, #utt-bookmarklet-container .panel .exit-right,
+#utt-bookmarklet-container .panel .exit-top, #utt-bookmarklet-container .panel .exit-bottom {
+  transition: transform .3s;
+}
+/* line 55, ../../../../../source/lib/components/assets/styles/panel.scss */
+#utt-bookmarklet-container .panel .exit-left {
+  transform: translateX(-110%);
+}
+/* line 58, ../../../../../source/lib/components/assets/styles/panel.scss */
+#utt-bookmarklet-container .panel .exit-right {
+  transform: translateX(110%);
+}
+/* line 61, ../../../../../source/lib/components/assets/styles/panel.scss */
+#utt-bookmarklet-container .panel .exit-top {
+  transform: translateX(110%);
+}
+/* line 64, ../../../../../source/lib/components/assets/styles/panel.scss */
+#utt-bookmarklet-container .panel .exit-bottom {
+  transform: translateX(110%);
+}
+/* line 67, ../../../../../source/lib/components/assets/styles/panel.scss */
+#utt-bookmarklet-container .panel .fade {
+  opacity: 0;
+  transition: opacity .3s;
+}
+/* line 71, ../../../../../source/lib/components/assets/styles/panel.scss */
+#utt-bookmarklet-container .panel .fade.enter {
+  opacity: 1 !important;
+}
+/* line 74, ../../../../../source/lib/components/assets/styles/panel.scss */
+#utt-bookmarklet-container .panel .slide-left.enter {
+  transform: translateX(0);
+}
+/* line 77, ../../../../../source/lib/components/assets/styles/panel.scss */
+#utt-bookmarklet-container .panel .slide-left {
+  transition: transform .3s;
+  transform: translateX(-110%);
+}
 /* line 2, ../../../../../source/lib/components/assets/styles/UttModule.scss */
 #utt-bookmarklet-container .module {
   position: relative;
-  height: 100%;
+  height: 338px;
   width: 100%;
 }
 /* line 7, ../../../../../source/lib/components/assets/styles/UttModule.scss */
+#utt-bookmarklet-container .module > .content {
+  padding: 0 14px;
+  height: 100%;
+  overflow-y: auto;
+  overflow-x: none;
+}
+/* line 14, ../../../../../source/lib/components/assets/styles/UttModule.scss */
 #utt-bookmarklet-container .module h2, #utt-bookmarklet-container .module h3 {
   color: #1481a4;
 }
-/* line 10, ../../../../../source/lib/components/assets/styles/UttModule.scss */
+/* line 17, ../../../../../source/lib/components/assets/styles/UttModule.scss */
 #utt-bookmarklet-container .module h2 {
   font-size: 15px;
 }
-/* line 11, ../../../../../source/lib/components/assets/styles/UttModule.scss */
+/* line 18, ../../../../../source/lib/components/assets/styles/UttModule.scss */
 #utt-bookmarklet-container .module h3 {
   font-size: 14px;
 }
-/* line 13, ../../../../../source/lib/components/assets/styles/UttModule.scss */
+/* line 20, ../../../../../source/lib/components/assets/styles/UttModule.scss */
 #utt-bookmarklet-container .module .footer {
   margin: 0;
   background: #EAEAEA;
   position: absolute;
-  bottom: 0;
+  bottom: -24px;
   width: 100%;
+  height: 20px;
 }
-/* line 20, ../../../../../source/lib/components/assets/styles/UttModule.scss */
+/* line 28, ../../../../../source/lib/components/assets/styles/UttModule.scss */
 #utt-bookmarklet-container .module .footer > p {
-  padding: 3px 10px;
+  padding: 1px 10px;
 }
 /* line 3, ../../../../../source/lib/components/assets/styles/home.scss */
 #utt-bookmarklet-container .home * {
@@ -165,16 +199,24 @@
 /* line 3, ../../../../../source/lib/components/assets/styles/assessor.scss */
 #utt-bookmarklet-container .assessor .module-head {
   position: relative;
-  padding: 14px;
+  padding: 14px 0;
   border-bottom: solid 1px #bec1c2;
 }
 /* line 8, ../../../../../source/lib/components/assets/styles/assessor.scss */
+#utt-bookmarklet-container .assessor .module-head:first-child {
+  padding-top: 14px;
+}
+/* line 11, ../../../../../source/lib/components/assets/styles/assessor.scss */
+#utt-bookmarklet-container .assessor .module-head:last-child {
+  padding-bottom: 14px;
+}
+/* line 15, ../../../../../source/lib/components/assets/styles/assessor.scss */
 #utt-bookmarklet-container .assessor .module-head img {
   position: absolute;
   top: 9px;
   right: 15px;
 }
-/* line 14, ../../../../../source/lib/components/assets/styles/assessor.scss */
+/* line 21, ../../../../../source/lib/components/assets/styles/assessor.scss */
 #utt-bookmarklet-container .assessor .module-head .progress-bar {
   height: 13px;
   border: solid 1px #bec1c2;
@@ -182,14 +224,14 @@
   border-radius: 6px;
   position: relative;
 }
-/* line 20, ../../../../../source/lib/components/assets/styles/assessor.scss */
+/* line 27, ../../../../../source/lib/components/assets/styles/assessor.scss */
 #utt-bookmarklet-container .assessor .module-head .progress-bar .label {
   position: absolute;
   top: 0;
   right: 4px;
   font-size: 10px;
 }
-/* line 26, ../../../../../source/lib/components/assets/styles/assessor.scss */
+/* line 33, ../../../../../source/lib/components/assets/styles/assessor.scss */
 #utt-bookmarklet-container .assessor .module-head .progress-bar .bar {
   background: #0680a3;
   margin: 1px;
@@ -197,12 +239,9 @@
   height: 11px;
   float: left;
   border-radius: 5px;
+  transition: width .2s;
 }
-/* line 37, ../../../../../source/lib/components/assets/styles/assessor.scss */
-#utt-bookmarklet-container .assessor .content {
-  padding: 14px;
-}
-/* line 40, ../../../../../source/lib/components/assets/styles/assessor.scss */
+/* line 46, ../../../../../source/lib/components/assets/styles/assessor.scss */
 #utt-bookmarklet-container .assessor .content button {
   min-width: 65px;
   padding: 5px;
@@ -255,8 +294,6 @@
 #utt-bookmarklet-container .show {
   visibility: visible;
   opacity: 1;
-  transition: visibility .3s, opacity .3s, max-height .3s ease-in;
-  max-height: 3em;
 }
 
 /* line 5, ../../../../../source/lib/components/assets/styles/highlight.scss */
@@ -265,6 +302,7 @@
   -webkit-animation: utt-highlight-anim 3s 1;
   /* Chrome, Safari, Opera */
   animation: utt-highlight-anim 3s 1;
+  outline-offset: 3px;
 }
 
 /* Chrome, Safari, Opera */
@@ -311,15 +349,4 @@
   100% {
     outline-color: #b73756;
   }
-}
-
-/* line 62, ../../../../../source/lib/components/assets/styles/main.scss */
-.example-appear {
-  opacity: 0.01;
-  transition: opacity 3s ease-in;
-}
-
-/* line 67, ../../../../../source/lib/components/assets/styles/main.scss */
-.example-appear.example-appear-active {
-  opacity: 1;
 }

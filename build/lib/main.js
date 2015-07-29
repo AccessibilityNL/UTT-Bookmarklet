@@ -7,17 +7,29 @@ define(["React", "UTT/components/UttBookmarklet", "./config", "UTT/modules/home"
     var rootNode = require("UTT/utils/rootNode");
 
     function renderModule(comp, attr, children) {
-        UTT.bookmarkNode = React.createElement(UttBookmarklet, {}, React.createElement(comp, attr, children));
+        UTT.bookmarkNode = React.createElement(UttBookmarklet, { i18n: config.i18n }, React.createElement(comp, attr, children));
         UTT.render();
     }
 
     function createModuleActivator(mod) {
+        var time = arguments[1] === undefined ? 300 : arguments[1];
+
         return function () {
+            // Don't initiate untill time (in ms) is passed
+            var done = false;
+            setTimeout(function () {
+                return done === false ? done = true : done();
+            }, time);
+
             require([mod.controller], function (modController) {
                 var i18n = translator({
                     messageBundle: Object.assign(mod.locale, config.locale)
                 });
-                modController(mod.config, i18n, renderModule);
+                if (done) {
+                    modController(mod.config, i18n, renderModule);
+                } else {
+                    done = modController.bind(null, mod.config, i18n, renderModule);
+                }
             });
         };
     }
@@ -30,7 +42,6 @@ define(["React", "UTT/components/UttBookmarklet", "./config", "UTT/modules/home"
         userKey: null,
         render: function render() {
             UTT.running = true;
-
             React.render(UTT.bookmarkNode, rootNode.getContainer());
         },
 
@@ -55,26 +66,22 @@ define(["React", "UTT/components/UttBookmarklet", "./config", "UTT/modules/home"
             UTT.userKey = userKey;
             Object.freeze(config);
             UTT.config = config;
-            this.showHome();
+            UTT.showHome();
         },
 
         start: function start() {
             UTT.render();
+            rootNode.show();
         },
 
         stop: function stop() {
             UTT.running = false;
+            rootNode.hide();
             React.unmountComponentAtNode(rootNode.getContainer());
         },
 
         showHome: function showHome() {
-            var modules = config.modules;
-            var footerModule = config.footerModule;
-            var i18n = config.i18n;
-
-            UTT.bookmarkNode = React.createElement(UttBookmarklet, null, home({ modules: modules, footerModule: footerModule }, i18n));
-
-            React.render(UTT.bookmarkNode, rootNode.getContainer());
+            home(config, config.i18n, renderModule);
         },
 
         toggle: function toggle() {

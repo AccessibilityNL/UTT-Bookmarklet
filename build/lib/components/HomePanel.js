@@ -5,9 +5,23 @@ define(["React", "./Header", "./ModuleList"], function (React, Header, ModuleLis
     var i18n = undefined;
 
     var HomePanel = React.createClass({ displayName: "HomePanel",
+        getInitialState: function getInitialState() {
+            setTimeout((function () {
+                return this.setState({ enter: true });
+            }).bind(this), 10);
+            return { enter: false };
+        },
+
         render: function render() {
             i18n = this.props.i18n;
-            return React.createElement("div", { className: "home" }, React.createElement(Header, { i18n: i18n }), React.createElement(ModuleList, { modules: this.props.modules, i18n: i18n }), this.renderFooterModule());
+            var animation = " slide-left fade";
+
+            if (this.state.enter) {
+                animation += " enter";
+            }
+
+            i18n = this.props.i18n;
+            return React.createElement("div", { className: "home" + animation }, React.createElement(ModuleList, { modules: this.props.modules, i18n: i18n }), this.renderFooterModule());
         },
 
         renderFooterModule: function renderFooterModule() {

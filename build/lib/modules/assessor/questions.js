@@ -20,7 +20,7 @@ define([], function () {
                 text: "Is \"{0}\" a good description for this image?",
                 help: "some text about images",
                 limit: 10,
-                answers: [{ value: "passed", text: "yes" }, { value: "failed", text: "no" }, { value: "cantTell", text: "Unclear" }]
+                answers: [{ value: "passed", text: "yes" }, { value: "failed", text: "no" }, { value: "cantTell", text: "unclear" }]
             }
         },
 
@@ -31,7 +31,7 @@ define([], function () {
                 text: "Is \"{0}\" a good description for this page?",
                 help: "some text about titles",
                 limit: 1,
-                answers: [{ value: "passed", text: "yes" }, { value: "failed", text: "no" }, { value: "cantTell", text: "Unclear" }]
+                answers: [{ value: "passed", text: "yes" }, { value: "failed", text: "no" }, { value: "cantTell", text: "unclear" }]
             }
         },
 
