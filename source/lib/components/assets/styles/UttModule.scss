@@ -1,8 +1,15 @@
 @import "variables.scss";
 .module {
 	position: relative;
-	height: 100%;
+	height: 338px;
 	width: 100%;
+
+	&>.content {
+	    padding: 0 14px;
+	    height:100%;
+		overflow-y: auto;
+		overflow-x: none;
+	}
 
 	h2, h3 {
 		color: $color-primary-dark;
@@ -14,11 +21,12 @@
 		margin:0;
 		background: #EAEAEA;
 		position:absolute;
-		bottom:0;
+		bottom: -24px;
 		width:100%;
+		height:20px;
 
 		> p {
-			padding: 3px 10px;
+			padding: 1px 10px;
 		}
 	}
 

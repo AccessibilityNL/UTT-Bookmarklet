@@ -1,18 +1,5 @@
 @import "variables.scss";
 .panel {
-    position: fixed;
-    top: 10px;
-    right: 5%;
-    width: 310px;
-    height: 440px;
-
-    padding: 5px;
-    box-shadow: 0 0 15px RGBA(0, 0, 0, 0.6);
-    background: white;
-
-    z-index: 99999999;
-    opacity: 0.95;
-
     > * {
         margin-top:0;
     }
@@ -58,5 +45,37 @@
             top: 1px;
             right: 2px;
         }
+    }
+
+
+    .exit-left, .exit-right,
+    .exit-top, .exit-bottom {
+        transition: transform .3s;
+    }
+    .exit-left {
+        transform: translateX(-110%);
+    }
+    .exit-right {
+        transform: translateX(110%);
+    }
+    .exit-top {
+        transform: translateX(110%);
+    }
+    .exit-bottom {
+        transform: translateX(110%);
+    }
+    .fade {
+        opacity:0;
+        transition: opacity .3s;
+    }
+    .fade.enter {
+        opacity:1 !important;
+    }
+    .slide-left.enter {
+        transform: translateX(0);
+    }
+    .slide-left {
+        transition: transform .3s;
+        transform: translateX(-110%);
     }
 }

@@ -4,10 +4,21 @@ function (React, Header, ModuleList) {
     let i18n;
 
     let HomePanel = React.createClass({
+        getInitialState() {
+            setTimeout(() => this.setState({enter: true}), 10);
+            return {enter: false};
+        },
+
         render() {
             i18n = this.props.i18n;
-            return <div className="home">
-                <Header i18n={i18n}></Header>
+            let animation =  " slide-left fade";
+
+            if (this.state.enter) {
+                animation += ' enter';
+            }
+
+            i18n = this.props.i18n;
+            return <div className={"home" + animation}>
                 <ModuleList modules={this.props.modules} i18n={i18n} />
                 {this.renderFooterModule()}
             </div>;

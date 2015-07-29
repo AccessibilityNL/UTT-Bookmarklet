@@ -6,7 +6,7 @@ $color-highlight-noAlpha: rgba($color-highlight, 0);
 	outline:solid 3px $color-highlight;
 	-webkit-animation: utt-highlight-anim 3s 1; /* Chrome, Safari, Opera */
     animation: utt-highlight-anim 3s 1;
-
+    outline-offset: 3px;
 }
 
 /* Chrome, Safari, Opera */

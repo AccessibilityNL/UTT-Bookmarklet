@@ -3,12 +3,21 @@ function (React, UTT, Header) {
 
 	let i18n;
 	let UttModule = React.createClass({
+
+		getInitialState() {
+			setTimeout(() => this.setState({enter: true}), 10);
+			return {enter: false};
+		},
+
 		render() {
 			i18n = this.props.i18n;
-			return <div className={this.props.className + " module"}>
-				<Header i18n={i18n}></Header>
+			let animation =  " fade";
+			if (this.state.enter) {
+				animation += ' enter';
+			}
 
-				<div className="content">
+			return <div className={this.props.className + " module"}>
+				<div className={"content " + animation}>
 					{this.props.children}
 				</div>
 
@@ -23,9 +32,11 @@ function (React, UTT, Header) {
 				</p></div>
 			</div>;
 		},
+
 		home(e) {
 			e.preventDefault();
-			UTT.showHome();
+			this.setState( {enter: false} );
+			setTimeout(() => UTT.showHome(), 300);
 		}
 	});
 

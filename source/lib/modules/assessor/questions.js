@@ -26,7 +26,7 @@ define([], function () {
                 answers: [
                     {value: 'passed',   'text': 'yes'},
                     {value: 'failed',   'text': 'no'},
-                    {value: 'cantTell', 'text': 'Unclear'},
+                    {value: 'cantTell', 'text': 'unclear'},
                 ]
             }
         },
@@ -41,7 +41,7 @@ define([], function () {
                 answers: [
                     {value: 'passed',   'text': 'yes'},
                     {value: 'failed',   'text': 'no'},
-                    {value: 'cantTell', 'text': 'Unclear'},
+                    {value: 'cantTell', 'text': 'unclear'},
                 ]
             }
         },
