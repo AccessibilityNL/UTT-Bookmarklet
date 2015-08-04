@@ -1,3 +1,8 @@
+/**
+ * ModuleList takes an array of modules and renders them as a list. The modules
+ * should have the following properties:
+ *   icon (src string), title, description, activate (function), completed (bool)
+ */
 define(['React'],
 function (React) {
 
@@ -21,9 +26,18 @@ function (React) {
             </ul>;
         },
 
-        openModule(activate) {
-            this.setState({ leaving: true });
-            activate();
+        openModule(mod) {
+            let leaving;
+            if (mod.activate) {
+                leaving = mod.activate();
+
+            } else if (this.props.openModule) {
+                leaving = this.props.openModule(mod);
+            }
+
+            if (leaving !== false) {
+                this.setState({ leaving: true });
+            }
         },
 
         /**
@@ -42,7 +56,7 @@ function (React) {
                     width="30" height="30" alt="" role="presentation" />
                 <h2>{mod.title}</h2>
                 <p>{mod.description}</p>
-                <button onClick={this.openModule.bind(this, mod.activate)}>
+                <button onClick={this.openModule.bind(this, mod)}>
                     {(!mod.completed ? i18n`start` : i18n`restart`)}
                 </button>
             </li>;
