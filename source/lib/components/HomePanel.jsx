@@ -38,12 +38,12 @@ function (React, Header, ModuleList) {
         renderModStatus(mod, i) {
             let alt;
             let icon;
-            if (mod.config.completed) {
-                alt  = mod.locale.CATG_TITLE + ' ' + i18n`complete`;
+            if (mod.completed) {
+                alt  = mod.title + ' ' + i18n`complete`;
                 icon = mod.config.iconComplete;
 
             } else {
-                alt = mod.locale.CATG_TITLE + ' ' + i18n`incomplete`;
+                alt = mod.title + ' ' + i18n`incomplete`;
                 icon = mod.config.iconIncomplete;
             }
 

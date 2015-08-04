@@ -31,19 +31,19 @@ function (React) {
          */
         renderModule(mod, i) {
             let classes = 'module-item';
-            if (mod.config.completed) {
+            if (mod.completed) {
                 classes += ' completed';
             }
 
             return <li className={classes} key={i}>
                 <img src={require.toUrl(
-                        "UTT/components/assets/images/" + mod.config.icon
+                        "UTT/components/assets/images/" + mod.icon
                     )}
                     width="30" height="30" alt="" role="presentation" />
-                <h2>{mod.locale.CATG_TITLE}</h2>
-                <p>{mod.locale.CATG_DESCR}</p>
+                <h2>{mod.title}</h2>
+                <p>{mod.description}</p>
                 <button onClick={this.openModule.bind(this, mod.activate)}>
-                    {(!mod.config.completed ? i18n`start` : i18n`restart`)}
+                    {(!mod.completed ? i18n`start` : i18n`restart`)}
                 </button>
             </li>;
         }
