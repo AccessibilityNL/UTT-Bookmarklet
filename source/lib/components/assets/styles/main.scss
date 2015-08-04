@@ -7,54 +7,56 @@
     @import "assessor.scss";
 
     div, p, li, ul, h1, h2, h3, h4, h5, h6, img {
-        font-size: 12px;
-        color: $color-fore;
-        list-style:none;
-        border:0;
+        font-size: 12px !important;
+        color: $color-fore !important;
+        list-style:none !important;
+        border: none !important;
+        vertical-align: middle !important;
     }
 
     * {
-        margin:0;
-        padding:0;
-        text-align:left;
-    }
-    * + * {
-        margin-top: 5px;
+        margin: 0px !important;
+        padding: 0px !important;
+        text-align: left !important;
+        box-sizing: border-box !important;
     }
 
     button {
-    	background: $color-highlight;
-    	color:white;
-    	border:0;
-    	padding:1px 4px;
+    	background: $color-highlight !important;
+    	color:white !important;
+    	border: none !important;
+    	padding: 1px 4px !important;
+        margin: 0px !important;
+        box-sizing: initial !important;
+        min-height: 17px !important;
+        line-height: 17px !important;
     }
     a {
-        color:$color-highlight;
+        color: $color-highlight !important;
     }
 
     h2, h3 {
-        color: $color-primary-dark;
+        color: $color-primary-dark !important;
     }
 
-    .hide {
-        visibility:hidden;
-        opacity:0;
-        transition:visibility .3s, opacity .3s, max-height .3s ease-out;
-        max-height:0;
+    .UTT-hide {
+        visibility:hidden !important;
+        opacity:0 !important;
+        transition:visibility .3s, opacity .3s, max-height .3s ease-out !important;
+        max-height:0 !important;
     }
-    .show {
-        visibility:visible;
-        opacity:1;
-        // transition:visibility .3s, opacity .3s, max-height .3s ease-in;
+    .UTT-show {
+        visibility:visible !important;
+        opacity:1 !important;
     }
 
-    -webkit-touch-callout: none;
-    -webkit-user-select: none;
-    -khtml-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
-    user-select: none;
-    cursor:default;
+    -webkit-touch-callout: none !important;
+    -webkit-user-select: none !important;
+    -khtml-user-select: none !important;
+    -moz-user-select: none !important;
+    -ms-user-select: none !important;
+    user-select: none !important;
+    cursor:default !important;
 }
 
 @import "highlight.scss";

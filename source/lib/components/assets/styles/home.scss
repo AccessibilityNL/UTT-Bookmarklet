@@ -1,60 +1,57 @@
 @import "variables.scss";
-.home {
+.UTT-home {
 	* {
-		margin-top:0;
+		margin-top:0 !important;
 	}
-	.module-item {
-		padding:14px 10px;
-		padding-left:47px;
-		border-bottom:solid 1px $color-border;
-
-		position:relative;
-
+	.UTT-module-item {
+		padding:14px 10px !important;
+		padding-left:47px !important;
+		border-bottom:solid 1px $color-border !important;
+		position:relative !important;
 		&.completed {
-			background:$color-done-back;
+			background:$color-done-back !important;
 			> button {
-				background:$color-done-fore;
+				background:$color-done-fore !important;
 			}
 		}
 
-
 		> img {
-			position:absolute;
-			top:14px;
-			left:10px;
+			position:absolute !important;
+			top:14px !important;
+			left:10px !important;
 		}
 		> button {
-			position: absolute;
-			top: 15px;
-			right: 5px;
-			min-width: 50px;
-			background-image: url('../images/arrow.svg');
-			background-repeat: no-repeat;
-    		background-position: right top;
-    		background-size: 13px;
+			position: absolute !important;
+			top: 15px !important;
+			right: 5px !important;
+			min-width: 50px !important;
+			background-image: url('../images/arrow.svg') !important;
+			background-repeat: no-repeat !important;
+    		background-position: right top !important;
+    		background-size: 13px !important;
 		}
 	}
 
-	.content {
-		height: 305px;
-		overflow-y: auto;
-		overflow-x: none;
+	.UTT-content {
+		height: 305px !important;
+		overflow-y: auto !important;
+		overflow-x: none !important;
 	}
 
-	.results-overview {
-		padding:18px 6px;
-		text-align:center;
+	.UTT-results-overview {
+		padding:18px 6px !important;
+		text-align:center !important;
 
 		ul, li, button {
-			display:inline-block;
+			display:inline-block !important;
 		}
 		li + li {
-			margin-left:6px;
+			margin-left:6px !important;
 		}
 		button {
-			margin-left:24px;
-			padding:3px 10px;
-			font-size:13px;
+			margin-left:24px !important;
+			padding:3px 10px !important;
+			font-size:13px !important;
 		}
 	}
 }

@@ -11,17 +11,17 @@ function (React, UTT, Header) {
 
 		render() {
 			i18n = this.props.i18n;
-			let animation =  " fade";
+			let animation =  " UTT-fade";
 			if (this.state.enter) {
-				animation += ' enter';
+				animation += ' UTT-enter';
 			}
 
-			return <div className={this.props.className + " module"}>
-				<div className={"content " + animation}>
+			return <div className={this.props.className + " UTT-module"}>
+				<div className={"UTT-content " + animation}>
 					{this.props.children}
 				</div>
 
-				<div className="footer"><p>
+				<div className="UTT-footer"><p>
 				  <a href="" onClick={this.home}>
 				  	<img src={require.toUrl(
 				  			'UTT/components/assets/images/home.svg'

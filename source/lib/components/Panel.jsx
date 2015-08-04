@@ -17,7 +17,7 @@ function (React) {
 				mouseUp   = this.mouseUp;
 			}
 
-			return <div className="panel"
+			return <div className="UTT-panel"
 				onMouseDown={mouseDown} onMouseUp={mouseUp}
 				onMouseMove={( this.state.moving ? this.drag : null )}>
 				{this.props.children}
@@ -39,7 +39,10 @@ function (React) {
 		},
 
 		drag(e) {
-			// TODO
+			this.setState({
+				moving:  true
+			});
+			console.log('moving');
 		}
 	});
 

@@ -60,7 +60,7 @@ function () {
                 padding: 5px;
                 box-shadow: 0 0 15px RGBA(0, 0, 0, 0.6);
                 background: white;
-                z-index: 99999999;
+                z-index: 1000000000001;
                 overflow:hidden;
                 transition: opacity .5s,
                             height .2s,
@@ -70,7 +70,7 @@ function () {
                 top:0;
             }
             #${rootNodeId}.display {
-                opacity:0.95;
+                opacity:1;
                 height: 440px;
                 top: 10px;
             }`;

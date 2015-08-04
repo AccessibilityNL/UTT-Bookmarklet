@@ -11,21 +11,21 @@ function (React, Header, ModuleList) {
 
         render() {
             i18n = this.props.i18n;
-            let animation =  " slide-left fade";
+            let animation =  " UTT-slide-left UTT-fade";
 
             if (this.state.enter) {
-                animation += ' enter';
+                animation += ' UTT-enter';
             }
 
             i18n = this.props.i18n;
-            return <div className={"home" + animation}>
+            return <div className={"UTT-home" + animation}>
                 <ModuleList modules={this.props.modules} i18n={i18n} />
                 {this.renderFooterModule()}
             </div>;
         },
 
         renderFooterModule() {
-            return <div className="results-overview">
+            return <div className="UTT-results-overview">
                 <ul>
                     {this.props.modules.map(this.renderModStatus)}
                 </ul>

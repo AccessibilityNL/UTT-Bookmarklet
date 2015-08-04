@@ -1,7 +1,10 @@
-define(['React', 'UTT/components/UttBookmarklet', './config',
-    'UTT/modules/home', 'UTT/utils/translator',
-    'UTT/utils/rootNode',
-    'UTT/utils/browser-polyfill'],
+define([    'React', 
+            'UTT/components/UttBookmarklet', 
+            './config',
+            'UTT/modules/home', 
+            'UTT/utils/translator',
+            'UTT/utils/rootNode',
+            'UTT/utils/browser-polyfill'],
 function (React, UttBookmarklet, config, home, translator) {
     let UTT;
 

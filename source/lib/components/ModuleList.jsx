@@ -14,7 +14,7 @@ function (React) {
          */
         render() {
             i18n = this.props.i18n;
-            let className = 'content' + (!this.state.leaving ? '' : ' exit-left');
+            let className = 'UTT-content' + (!this.state.leaving ? '' : ' UTT-exit-left');
 
             return <ul className={className}>
                 {this.props.modules.map(this.renderModule)}
@@ -30,9 +30,9 @@ function (React) {
          * Render the name of a module
          */
         renderModule(mod, i) {
-            let classes = 'module-item';
+            let classes = 'UTT-module-item';
             if (mod.config.completed) {
-                classes += ' completed';
+                classes += ' UTT-completed';
             }
 
             return <li className={classes} key={i}>

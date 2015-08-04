@@ -10,22 +10,22 @@ function (React) {
             let UTT = require('UTT/main');
 
             i18n = this.props.i18n;
-            return <div><div className="header">
+            return <div><div className="UTT-header">
                 <h1>
                     <img src={logoSrc}
                         width="54" height="54" />
-                    <span className="app-name">{i18n`TOOL_NAME`}</span>
-                    <span className="app-byline">{i18n`TOOL_BYLINE`}</span>
+                    <span className="UTT-app-name">{i18n`TOOL_NAME`}</span>
+                    <span className="UTT-app-byline">{i18n`TOOL_BYLINE`}</span>
                 </h1>
-                <button className="info-button" onClick={this.toggleInfo}>
+                <button className="UTT-info-button" onClick={this.toggleInfo}>
                     {i18n`tool info`}
                 </button>
-                <input className="close-button" onClick={UTT.stop}
+                <input className="UTT-close-button" onClick={UTT.stop}
                     src={closeBtnSrc} alt={i18n`close`}
                     type="image"width="30" height="30" />
 
                 </div>
-                <p className={this.state.showInfo ? 'show info': 'hide info'}>
+                <p className={this.state.showInfo ? 'UTT-show UTT-info': 'UTT-hide UTT-info'}>
                     {i18n`TOOL_DESCR`}
                 </p>
             </div>;

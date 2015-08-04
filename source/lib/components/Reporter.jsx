@@ -6,7 +6,7 @@ function (React, UttModule) {
 	let Reporter = React.createClass({
         render() {
         	i18n  = this.props.i18n;
-        	return <UttModule className="reporter" i18n={i18n}>
+        	return <UttModule className="UTT-reporter" i18n={i18n}>
         		<h1>{i18n`Results list`}</h1>
 
         	</UttModule>;
