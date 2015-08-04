@@ -29,8 +29,6 @@ function (UTT) {
             return earlAdapter.post(pages.createCurrent())
             .then((page) => {
                 webpage = page;
-
-                UTT.data.webpage = webpage;
                 return {earlAdapter, webpage};
             });
 
@@ -48,24 +46,13 @@ function (UTT) {
                 .then(function (response) {
                     delete response.assertions;
                     Object.assign(evaluation, response);
-
-                    // Set evaluation as UTT data
-                    UTT.data.evaluation = evaluation;
-                    UTT.data.evaluation.auditResult[0] = assertion;
-
                     return evaluation;
                 });
 
             } else {
                 assertion.evaluation = evaluation['@id'];
                 auditResult.push(assertion);
-                promise = earlAdapter.post(assertion)
-                .then(function (response) {
-                    // Add assertion to evaluation data
-                    UTT.data.evaluation.auditResult.push(response);
-
-                    return response;
-                });
+                promise = earlAdapter.post(assertion);
             }
 
             return promise;
