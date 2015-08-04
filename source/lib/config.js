@@ -22,7 +22,7 @@ define([
     let config = {
         apiUrl:  'http://utt-dev.huell.appnormal.com/v1',
         modules: assessorNames.map(assessorName => ({
-                "controller": 'UTT/modules/assessor',
+                "controller": 'UTT/modules/assessor/assessor',
                 "config": {
                     'icon':           `icon-${assessorName}.svg`,
                     'iconIncomplete': `icon-${assessorName}-report-0.svg`,

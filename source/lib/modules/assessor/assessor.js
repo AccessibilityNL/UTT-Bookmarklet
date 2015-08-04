@@ -1,15 +1,20 @@
 define(['React', 'UTT/components/Assessor',
-	'./assessor/buildQuestions', './assessor/saveResult',
-	'UTT/utils/highlighter', './reporter/reporter'],
+	'./buildQuestions', './saveResult',
+	'UTT/utils/highlighter', 'UTT/modules/reporter/reporter'],
 function (React, Assessor) {
 
 	let buildQuestions = require('UTT/modules/assessor/buildQuestions');
 	let saveResult     = require('UTT/modules/assessor/saveResult');
-	let reporter     = require('UTT/modules/reporter/reporter');
+	let reporter       = require('UTT/modules/reporter/reporter');
 	let highlighter    = require('UTT/utils/highlighter');
 
 	return function assertor(config, i18n, render) {
 		let {questions, category, icon} = config;
+		let modDefinition = {
+			icon,
+			title: i18n`CATG_TITLE`,
+			description: i18n`CATG_DESCR`
+		};
 
 		require([questions, 'UTT/main'], (qData, UTT) => {
 			let questions = qData[category];
@@ -40,7 +45,7 @@ function (React, Assessor) {
 						// Save the results on the server
 						saveResult(questions[i], outcome)
 						// Then give the results to the reporter module
-						.then(reporter.addResult.bind(reporter, config.category));
+						.then(reporter.addResult.bind(reporter, modDefinition));
 
 						if (questions[i+1]) {
 							showQuestion(i+1);
