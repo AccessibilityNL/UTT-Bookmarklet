@@ -1,18 +1,36 @@
-define(['React', './UttModule',  './ModuleList'],
-function (React, UttModule, ModuleList) {
+define(['React', './UttModule',  './ModuleList', './ReportDetails'],
+function (React, UttModule, ModuleList, ReportDetails) {
 
     let i18n;
 
 	let Reporter = React.createClass({
+        getInitialState() {
+            return { details: false };
+        },
+
         render() {
             i18n  = this.props.i18n;
-            let modules = this.props.results;
+            return <UttModule className="reporter" i18n={i18n}>
+                <h1>{i18n`Results list`}</h1>
+                {(!this.state.details ? this.renderList()
+                                      : this.renderDetails(this.state.details) )}
+            </UttModule>;
+        },
 
-        	return <UttModule className="reporter" i18n={i18n}>
-        		<h1>{i18n`Results list`}</h1>
-                <ModuleList modules={modules} i18n={i18n} />
-        	</UttModule>;
-		}
+        renderList() {
+            let modules = this.props.categories;
+            return <ModuleList
+                    openModule={this.openModule}
+                    modules={modules} i18n={i18n} />;
+        },
+
+        renderDetails(details) {
+            return <ReportDetails details={details} i18n={i18n} />;
+        },
+
+        openModule(mod) {
+            this.setState({details: mod});
+        }
 	});
 	return Reporter;
 
