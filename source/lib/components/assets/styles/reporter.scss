@@ -1,0 +1,22 @@
+@import "variables.scss";
+.pagination {
+	> li {
+		display:inline;
+
+		> a {
+		    text-decoration: none;
+		    padding: 1px 5px 0;
+		    display: inline-block;
+		    margin-right: 5px;
+	    	background: $color-primary;
+	    	color: $color-back;
+	    	border: $color-border 1px solid;
+
+		    &[href="#"] {
+		    	background: $color-back;
+		    	color: $color-fore;
+		    }
+	    }
+	}
+
+}
