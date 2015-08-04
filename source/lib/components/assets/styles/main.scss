@@ -5,6 +5,8 @@
 	@import "UttModule.scss";
     @import "home.scss";
     @import "assessor.scss";
+    min-width: 330px !important;
+    min-height: 420px !important;
 
     div, p, li, ul, h1, h2, h3, h4, h5, h6, img {
         font-size: 12px !important;
@@ -23,13 +25,20 @@
 
     button {
     	background: $color-highlight !important;
-    	color:white !important;
-    	border: none !important;
-    	padding: 1px 4px !important;
+    	color: #fff !important;
+    	padding: 0px 13px 0px 8px !important;
         margin: 0px !important;
-        box-sizing: initial !important;
-        min-height: 17px !important;
-        line-height: 17px !important;
+        height: 23px !important;
+        line-height: 23px !important;
+        border: 1px solid #c9506e !important;
+        img {
+            position: absolute !important;
+            top: 50% !important;
+            margin-top: -7px !important;
+        }
+    }
+    ul button {
+        border-radius: 10px !important;
     }
     a {
         color: $color-highlight !important;
@@ -37,17 +46,6 @@
 
     h2, h3 {
         color: $color-primary-dark !important;
-    }
-
-    .UTT-hide {
-        visibility:hidden !important;
-        opacity:0 !important;
-        transition:visibility .3s, opacity .3s, max-height .3s ease-out !important;
-        max-height:0 !important;
-    }
-    .UTT-show {
-        visibility:visible !important;
-        opacity:1 !important;
     }
 
     -webkit-touch-callout: none !important;

@@ -35,7 +35,6 @@ function () {
             rootNode.show();
             return node;
         },
-
         getStyleNode() {
             let link = document.getElementById(styleNodeId);
             if (!link) {
@@ -48,36 +47,26 @@ function () {
             }
             return link;
         },
-
         addStyle() {
             let style = document.createElement('style');
             style.innerHTML = `
             #${rootNodeId} {
                 position: fixed;
-                top: 10px;
                 right: 5%;
-                width: 310px;
                 padding: 5px;
-                box-shadow: 0 0 15px RGBA(0, 0, 0, 0.6);
+                box-shadow: 0 0 15px rgba(0, 0, 0, 0.6);
                 background: white;
                 z-index: 1000000000001;
                 overflow:hidden;
-                transition: opacity .5s,
-                            height .2s,
-                            top .5s;
-                opacity: 0;
-                height: 0px;
-                top:0;
+                transition: top 0.8s, easeInOutBack;
+                top: -500px;
             }
             #${rootNodeId}.display {
-                opacity:1;
-                height: 440px;
-                top: 10px;
+                top: 50px;
+                transition: top 0.8s, easeInOutBack;
             }`;
             document.head.appendChild(style);
         }
 	};
-
 	return rootNode;
-
 });

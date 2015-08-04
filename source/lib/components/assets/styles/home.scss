@@ -1,7 +1,7 @@
 @import "variables.scss";
 .UTT-home {
 	* {
-		margin-top:0 !important;
+		margin-top: 0px !important;
 	}
 	.UTT-module-item {
 		padding:14px 10px !important;
@@ -14,7 +14,6 @@
 				background:$color-done-fore !important;
 			}
 		}
-
 		> img {
 			position:absolute !important;
 			top:14px !important;
@@ -27,13 +26,12 @@
 			min-width: 50px !important;
 			background-image: url('../images/arrow.svg') !important;
 			background-repeat: no-repeat !important;
-    		background-position: right top !important;
+    		background-position: 95% 50% !important;
     		background-size: 13px !important;
 		}
 	}
 
 	.UTT-content {
-		height: 305px !important;
 		overflow-y: auto !important;
 		overflow-x: none !important;
 	}
@@ -50,7 +48,6 @@
 		}
 		button {
 			margin-left:24px !important;
-			padding:3px 10px !important;
 			font-size:13px !important;
 		}
 	}
