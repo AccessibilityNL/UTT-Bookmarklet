@@ -38,6 +38,7 @@ define([
         footerModule: {
             controller: 'UTT/modules/reporter/reporter',
             config: {
+                categories: assessorNames
             },
             locale: require('UTT/locale/reporter')
         },

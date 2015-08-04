@@ -25,7 +25,9 @@ function (React, UttModule, ModuleList, ReportDetails) {
         },
 
         renderDetails(details) {
-            return <ReportDetails details={details} i18n={i18n} />;
+            return <ReportDetails
+                details={details} i18n={i18n}
+                showList={() => this.setState({details: false}) } />;
         },
 
         openModule(mod) {
