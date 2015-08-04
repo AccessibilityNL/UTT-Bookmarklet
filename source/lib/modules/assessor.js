@@ -1,10 +1,11 @@
 define(['React', 'UTT/components/Assessor',
 	'./assessor/buildQuestions', './assessor/saveResult',
-	'UTT/utils/highlighter'],
+	'UTT/utils/highlighter', './reporter/reporter'],
 function (React, Assessor) {
 
 	let buildQuestions = require('UTT/modules/assessor/buildQuestions');
 	let saveResult     = require('UTT/modules/assessor/saveResult');
+	let reporter     = require('UTT/modules/reporter/reporter');
 	let highlighter    = require('UTT/utils/highlighter');
 
 	return function assertor(config, i18n, render) {
@@ -35,7 +36,12 @@ function (React, Assessor) {
 					sendResult(outcome) {
 						highlighter.removeHighlight();
 						config.completed = false;
-						saveResult(questions[i], outcome);
+
+						// Save the results on the server
+						saveResult(questions[i], outcome)
+						// Then give the results to the reporter module
+						.then(reporter.addResult.bind(reporter, config.category));
+
 						if (questions[i+1]) {
 							showQuestion(i+1);
 						} else {
