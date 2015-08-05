@@ -1,24 +1,26 @@
 define(['UTT/components/Reporter'],
 function (Reporter) {
 
-	let categories = [];
+    let categories = [];
 
-	let reporter = function(config, i18n, render) {
-		render(Reporter, {
-			categories,
-			i18n: i18n
-		});
-	};
+    let reporter = function(config, i18n, render) {
+        render(Reporter, {
+            categories,
+            i18n: i18n
+        });
+    };
 
-	reporter.addResult = function (categoryBase, result) {
-		let category = categories.find((elm) => elm.title === categoryBase.title);
-		if (!category) {
-			category = Object.assign({results: []}, categoryBase);
-			categories.push(category);
-		}
-		category.results.push(result);
-	};
+    reporter.addResult = function (categoryBase, assertion) {
+        let category = categories
+        .find((elm) => elm.title === categoryBase.title);
 
-	return reporter;
+        if (!category) {
+            category = Object.assign({assertions: []}, categoryBase);
+            categories.push(category);
+        }
+        category.assertions.push(assertion);
+    };
+
+    return reporter;
 
 });

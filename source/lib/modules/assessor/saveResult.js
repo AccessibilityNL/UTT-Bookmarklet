@@ -38,6 +38,8 @@ function (UTT) {
                 webpage, question, outcome
             });
 
+            // Create an evaluation if one isn't already there
+            // and include the assertion within this save
             if (!evaluation) {
                 evaluation  = evaluations.create();
                 auditResult = evaluation.auditResult;
@@ -49,13 +51,18 @@ function (UTT) {
                     return evaluation;
                 });
 
+            // Save the assertion and associate it with the
+            // current evaluation
             } else {
                 assertion.evaluation = evaluation['@id'];
                 auditResult.push(assertion);
                 promise = earlAdapter.post(assertion);
             }
 
-            return promise;
+            // Finally, return the assertion
+            return promise.then(function () {
+                return assertion;
+            });
 
         }).catch(logError);
 

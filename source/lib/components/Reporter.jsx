@@ -4,34 +4,42 @@ function (React, UttModule, ModuleList, ReportDetails) {
     let i18n;
 
 	let Reporter = React.createClass({
+        propTypes: {
+            i18n:       React.PropTypes.func.isRequired,
+            categories: React.PropTypes.array.isRequired,
+        },
+
         getInitialState() {
-            return { details: false };
+            return { details: -1 };
         },
 
         render() {
             i18n  = this.props.i18n;
             return <UttModule className="reporter" i18n={i18n}>
                 <h1>{i18n`Results list`}</h1>
-                {(!this.state.details ? this.renderList()
+                {(this.state.details === -1 ? this.renderList()
                                       : this.renderDetails(this.state.details) )}
             </UttModule>;
         },
 
         renderList() {
-            let modules = this.props.categories;
+            let categories = this.props.categories;
             return <ModuleList
                     openModule={this.openModule}
-                    modules={modules} i18n={i18n} />;
+                    modules={categories} i18n={i18n} />;
         },
 
-        renderDetails(details) {
+        renderDetails(catNum) {
+            let category = this.props.categories[catNum];
             return <ReportDetails
-                details={details} i18n={i18n}
-                showList={() => this.setState({details: false}) } />;
+                    category={category} i18n={i18n}
+                    showList={() => this.setState({details: -1}) } />;
         },
 
         openModule(mod) {
-            this.setState({details: mod});
+            this.setState({
+                details: this.props.categories.indexOf(mod)
+            });
         }
 	});
 	return Reporter;
