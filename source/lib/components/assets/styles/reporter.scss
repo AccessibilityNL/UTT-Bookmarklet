@@ -1,8 +1,11 @@
 @import "variables.scss";
 .utt-reporter {
 
+    .utt-report-description {
+        min-height:50px;
+    }
 
-    .pagination {
+    .utt-pagination {
         > li {
             display:inline;
             > a, > span {
@@ -22,4 +25,5 @@
             }
         }
     }
+
 }

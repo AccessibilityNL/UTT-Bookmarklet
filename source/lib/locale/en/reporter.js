@@ -3,5 +3,6 @@ define({
 	"Results": "Results for",
 	"Back to result list": "Back to result list",
 	"previous": "previous",
-	"next": "next"
+	"next": "next",
+    "BTN_OPEN": "Results"
 });

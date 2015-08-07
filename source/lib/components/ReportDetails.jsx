@@ -29,15 +29,15 @@ function (React, highlighter) {
             // Show a description of the test
             return <div className="content">
                 {this.renderTop()}
-                <p>
-                  {this.renderResultIcon(assertion)}
-                  {assertion.test.title ||
-                   i18n`No label available`}
-                </p>
-                <p>{assertion.test.description ||
-                    i18n`No label available`}</p>
-
-                {this.renderPagination()}
+                <p>{[
+                    this.renderResultIcon(assertion),
+                    assertion.test.title || i18n`No label available`
+                ]}</p>
+                <p className="utt-report-description">{
+                    assertion.test.description ||
+                    i18n`No label available`
+                }</p>
+                {this.renderNavigation()}
             </div>;
         },
 
@@ -49,52 +49,57 @@ function (React, highlighter) {
             let imgSrc = require.toUrl(
                             'UTT/components/assets/images/' +
                             this.props.category.icon);
-            return <div>
-                <h1 className="utt-title">
-                    <img src={imgSrc} width="30" height="30"
-                     alt="" role="presentation" />
-                    {i18n`Results for` +' '+ this.props.category.title}
-                </h1>
-                <a href="#" onClick={this.props.showList}>
-                    {i18n`Back to result list`}
-                </a>
-            </div>;
+            return <h1 className="utt-title">
+                <img src={imgSrc} width="30" height="30"
+                 alt="" role="presentation" />
+                {i18n`Results for` +' '+ this.props.category.title}
+            </h1>;
         },
 
         /**
          * Render a pagination component
          * @return {React object}
          */
-        renderPagination() {
+        renderNavigation() {
             let assertions = this.props.category.assertions;
             let currAssert = this.state.currAssert;
-            if (assertions.length <= 1) {
-                return;
+
+            let button, pagination;
+            // Only include next button / pagination with more then
+            // one result
+            if (assertions.length > 1) {
+                // create an li for each result, without link for the
+                // current result
+                let numberings = assertions.map((assertion, i) => {
+                    let item;
+                    if (this.state.currAssert !== i) {
+                        let click = this.changeAssert.bind(this, i);
+                        item = <a href="#" onClick={click}>{i+1}</a>;
+
+                    } else {
+                        item = <span>{i+1}</span>;
+                    }
+                    return <li key={i}>{item}</li>;
+                });
+
+                // define the 'next' button
+                let nextClick = this.changeAssert.bind(
+                       this, (currAssert + 1) % assertions.length);
+                button = <button onClick={nextClick}>
+                    {i18n`next`}
+                </button>;
+
+                // Define the pagination list
+                pagination = <ul className="utt-pagination">
+                    {numberings}
+                </ul>;
             }
 
-            let numberings = assertions.map((assertion, i) => {
-                let item;
-
-                if (this.state.currAssert !== i) {
-                    let click = this.changeAssert.bind(this, i);
-                    item = <a href="#" onClick={click}>{i+1}</a>;
-
-                } else {
-                    item = <span>{i+1}</span>;
-                }
-                return <li key={i}>{item}</li>;
-            });
-
-            let nextClick = this.changeAssert.bind(
-                   this, (currAssert + 1) % assertions.length);
-
             return <div>
-                <button onClick={nextClick}>
-                    {i18n`next`}
-                </button>
-                <ul className="pagination">
-                    {numberings}
-                </ul>
+                {button} {pagination}
+                <p><a href="#" onClick={this.props.showList}>
+                    {i18n`Back to result list`}
+                </a></p>
             </div>;
         },
 

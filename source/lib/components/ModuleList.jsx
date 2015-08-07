@@ -55,9 +55,10 @@ function (React) {
                  alt="" role="presentation" />
                 <h2>{mod.title}</h2>
                 <p>{mod.description}</p>
-                <button onClick={this.openModule.bind(this, mod)}>
-                    {(!mod.completed ? i18n`start` : i18n`restart`)}
-                </button>
+                <button onClick={this.openModule.bind(this, mod)}>{
+                    (!mod.completed ? i18n('BTN_OPEN')
+                                    : i18n('BTN_OPEN_COMPLETE'))
+                }</button>
             </li>;
         }
 

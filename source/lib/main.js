@@ -1,6 +1,6 @@
 define(['React', 'UTT/components/UttBookmarklet', './config',
     'UTT/modules/home', 'UTT/utils/translator',
-    'UTT/utils/rootNode',
+    'UTT/utils/rootNode', 'UTT/locale/home',
     'UTT/utils/browser-polyfill'],
 function (React, UttBookmarklet, config, home, translator) {
     let UTT;
@@ -81,14 +81,16 @@ function (React, UttBookmarklet, config, home, translator) {
         },
 
         showHome() {
-            home(config, config.i18n, renderModule);
+            let homeLocale = require('UTT/locale/home');
+            let i18n = translator({
+                messageBundle: Object.assign(homeLocale, config.locale)
+            });
+            home(config, i18n, renderModule);
         },
 
         toggle() {
             UTT[UTT.running ? 'stop' : 'start']();
-        },
-
-
+        }
     };
 
     return UTT;
