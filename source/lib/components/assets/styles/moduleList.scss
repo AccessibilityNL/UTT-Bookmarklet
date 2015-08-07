@@ -5,13 +5,6 @@
     border-bottom:solid 1px $color-border;
     position:relative;
 
-    &.completed {
-        background:$color-done-back;
-        > button {
-            background:$color-done-fore;
-        }
-    }
-
     > img {
         position:absolute;
         top:14px;
@@ -26,5 +19,13 @@
         background-repeat: no-repeat;
         background-position: right top;
         background-size: 13px;
+        padding-right:14px;
+    }
+
+    &.completed {
+        background-color:$color-done-back;
+        > button {
+            background-color:$color-done-fore;
+        }
     }
 }
