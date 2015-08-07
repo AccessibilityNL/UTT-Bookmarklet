@@ -27,6 +27,8 @@ function (React) {
         },
 
         openModule(mod) {
+
+
             let leaving;
             if (mod.activate) {
                 leaving = mod.activate();
@@ -36,6 +38,9 @@ function (React) {
             }
 
             if (leaving !== false) {
+                if (this.props.exitStage) {
+                    this.props.exitStage(()=>{});
+                }
                 this.setState({ leaving: true });
             }
         },

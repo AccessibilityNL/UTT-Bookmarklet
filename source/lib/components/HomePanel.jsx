@@ -6,7 +6,10 @@ function (React, Header, ModuleList) {
     let HomePanel = React.createClass({
         getInitialState() {
             setTimeout(() => this.setState({enter: true}), 10);
-            return {enter: false};
+            return {
+                enter: false,
+                exit: false
+            };
         },
 
         render() {
@@ -19,7 +22,8 @@ function (React, Header, ModuleList) {
 
             i18n = this.props.i18n;
             return <div className={"home" + animation}>
-                <ModuleList modules={this.props.modules} i18n={i18n} />
+                <ModuleList exitStage={this.exitStage}
+                 modules={this.props.modules} i18n={i18n} />
                 {this.renderFooterModule()}
             </div>;
         },
@@ -29,10 +33,17 @@ function (React, Header, ModuleList) {
                 <ul>
                     {this.props.modules.map(this.renderModStatus)}
                 </ul>
-                <button onClick={this.props.footerModule.activate}>
+                <button onClick={this.exitStage.bind(
+                    this, this.props.footerModule.activate
+                )}>
                     {i18n`results`}
                 </button>
             </div>;
+        },
+
+        exitStage(callback) {
+            this.setState({enter: false});
+            setTimeout(callback, 100);
         },
 
         renderModStatus(mod, i) {
