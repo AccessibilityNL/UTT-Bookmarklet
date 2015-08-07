@@ -6,10 +6,7 @@ function (React, Header, ModuleList) {
     let HomePanel = React.createClass({
         getInitialState() {
             setTimeout(() => this.setState({enter: true}), 10);
-            return {
-                enter: false,
-                exit: false
-            };
+            return { enter: false };
         },
 
         render() {
