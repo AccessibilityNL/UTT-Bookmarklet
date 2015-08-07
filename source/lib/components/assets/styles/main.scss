@@ -4,7 +4,9 @@
 	@import "panel.scss";
 	@import "UttModule.scss";
     @import "home.scss";
+    @import "moduleList.scss";
     @import "assessor.scss";
+    @import "reporter.scss";
 
     div, p, li, ul, h1, h2, h3, h4, h5, h6, img {
         font-size: 12px;
@@ -17,9 +19,6 @@
         margin:0;
         padding:0;
         text-align:left;
-    }
-    * + * {
-        margin-top: 5px;
     }
 
     button {

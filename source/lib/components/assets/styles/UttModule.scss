@@ -4,11 +4,27 @@
 	height: 338px;
 	width: 100%;
 
-	&>.content {
-	    padding: 0 14px;
+	.module-content {
 	    height:100%;
 		overflow-y: auto;
-		overflow-x: none;
+		overflow-x: hidden;
+		margin-top: 5px;
+	}
+
+	.content {
+	    padding: 0 14px;
+		* + * {
+	        margin-top: 5px;
+	    }
+	}
+	.utt-title {
+		color: #1481a4;
+	    font-size: 16px;
+	    padding: 6px 10px;
+	    img {
+	        display: inline-block;
+    		margin: 0 5px 0 -9px;
+	    }
 	}
 
 	h2, h3 {

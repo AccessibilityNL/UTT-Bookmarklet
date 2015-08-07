@@ -3,7 +3,7 @@ function (React, UttModule) {
 
     let i18n;
 
-	let Assessor = React.createClass({
+    let Assessor = React.createClass({
         render() {
             i18n  = this.props.i18n;
             let q = this.props.question;
@@ -15,9 +15,9 @@ function (React, UttModule) {
 
         renderQuestion(q) {
             let showHelp = (this.state.showHelp ? 'show': 'hide');
-            return <div>
+            return <div className="content">
                 {this.renderModuleHead()}
-                <div className="content">
+                <div>
                     <h3>{i18n`question ${this.props.current}`}</h3>
                     <p>{q.text}</p>
 
