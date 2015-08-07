@@ -1,12 +1,12 @@
-define(['React'],
-function (React) {
+define(['React', 'UTT/utils/highlighter'],
+function (React, highlighter) {
 
     let i18n;
 
     let ReportDetails = React.createClass({
         propTypes: {
             i18n:     React.PropTypes.func.isRequired,
-            category:  React.PropTypes.object.isRequired,
+            category: React.PropTypes.object.isRequired,
             showList: React.PropTypes.func.isRequired
         },
 
@@ -19,20 +19,23 @@ function (React) {
         render() {
             i18n          = this.props.i18n;
             let category  = this.props.category;
-            console.log(category);
             let assertion = category.assertions[this.state.currAssert];
 
-            console.log(assertion);
+            highlighter.removeHighlight();
+            let cssSelector = assertion.result.pointer.expression;
+            let elms = highlighter.find(cssSelector);
+            highlighter(elms[0]);
 
             // Show a description of the test
-            return <div>
+            return <div className="content">
                 {this.renderTop()}
-                <p>{assertion.result.outcome}</p>
-                <p>L Lorem ipsum dolor sit amet, consectetuer adipiscing elit.
-                Aenean commodo ligula eget dolor. Aenean massa. Cum sociis
-                natoque penatibus et magnis dis parturient montes, nascetur
-                ridiculus mus. Donec quam felis, ultricies nec, pellentesque
-                eu, pretium quis, sem. Nulla consequat massa quis enim.</p>
+                <p>
+                  {this.renderResultIcon(assertion)}
+                  {assertion.test.title ||
+                   i18n`No label available`}
+                </p>
+                <p>{assertion.test.description ||
+                    i18n`No label available`}</p>
 
                 {this.renderPagination()}
             </div>;
@@ -47,12 +50,11 @@ function (React) {
                             'UTT/components/assets/images/' +
                             this.props.category.icon);
             return <div>
-                <h1>
+                <h1 className="utt-title">
                     <img src={imgSrc} width="30" height="30"
                      alt="" role="presentation" />
-                    {i18n`Results`}
+                    {i18n`Results for` +' '+ this.props.category.title}
                 </h1>
-                <h2>{this.props.category.title}</h2>
                 <a href="#" onClick={this.props.showList}>
                     {i18n`Back to result list`}
                 </a>
@@ -106,6 +108,18 @@ function (React) {
             if (typeof e === 'object' && e.preventDefault) {
                 e.preventDefault();
             }
+        },
+
+        renderResultIcon(assertion) {
+            let outcome = assertion.result.outcome.replace('earl:', '');
+            let imgPath = `UTT/components/assets/images/earl-${outcome}.svg`;
+            return <img src={require.toUrl(imgPath)}
+                    alt={i18n(outcome)} title={i18n(outcome)}
+                    width="30" height="30" />;
+        },
+
+        componentWillUnmount() {
+            highlighter.removeHighlight();
         }
 
     });

@@ -15,18 +15,31 @@ function (React, UttModule, ModuleList, ReportDetails) {
 
         render() {
             i18n  = this.props.i18n;
-            return <UttModule className="reporter" i18n={i18n}>
-                <h1>{i18n`Results list`}</h1>
-                {(this.state.details === -1 ? this.renderList()
-                                      : this.renderDetails(this.state.details) )}
+            let content;
+            if (this.state.details === -1) {
+                content = this.renderList();
+            } else {
+                content = this.renderDetails(this.state.details);
+            }
+
+            return <UttModule className="utt-reporter" i18n={i18n}>
+                {content}
             </UttModule>;
         },
 
         renderList() {
+            let content = [<h1 className="utt-title">{i18n`Results list`}</h1>];
             let categories = this.props.categories;
-            return <ModuleList
-                    openModule={this.openModule}
-                    modules={categories} i18n={i18n} />;
+
+            if (categories.length === 0) {
+                content.push(<p>{i18n`No tests available`}</p>);
+            } else {
+                content.push(<ModuleList
+                              openModule={this.openModule}
+                              modules={categories} i18n={i18n} />);
+            }
+
+            return content;
         },
 
         renderDetails(catNum) {
@@ -41,6 +54,7 @@ function (React, UttModule, ModuleList, ReportDetails) {
                 details: this.props.categories.indexOf(mod)
             });
         }
+
 	});
 	return Reporter;
 

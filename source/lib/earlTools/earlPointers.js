@@ -40,11 +40,9 @@ function() {
          * @return {[type]}        [description]
          */
         createPointer(domElm) {
-            let css = earlPointers.createCssSelector(domElm);
-            console.log(css);
             return {
                 "@type": "ptr:CSSSelectorPointer",
-                "expression":css,
+                "expression": earlPointers.createCssSelector(domElm),
             };
         },
 
@@ -176,7 +174,8 @@ function() {
         * @return Boolean   Whether or not the selector string represents a unique DOM element.
         */
         isUniquePath (selector) {
-            return document.querySelector(selector).length === 1;
+            let select = document.querySelector(selector);
+            return (select && select.length === 1);
         },
 
 
