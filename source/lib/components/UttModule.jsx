@@ -1,5 +1,5 @@
-define(['React', 'UTT/main', './Header'],
-function (React, UTT, Header) {
+define(['React', 'UTT/main', 'UTT/utils/highlighter'],
+function (React, UTT, highlighter) {
 
 	let i18n;
 	let UttModule = React.createClass({
@@ -17,7 +17,7 @@ function (React, UTT, Header) {
 			}
 
 			return <div className={this.props.className + " module"}>
-				<div className={"content " + animation}>
+				<div className={"module-content " + animation}>
 					{this.props.children}
 				</div>
 
@@ -34,6 +34,7 @@ function (React, UTT, Header) {
 		},
 
 		home(e) {
+			highlighter.removeHighlight();
 			e.preventDefault();
 			this.setState( {enter: false} );
 			setTimeout(() => UTT.showHome(), 300);

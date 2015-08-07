@@ -19,7 +19,7 @@ function (React) {
          */
         render() {
             i18n = this.props.i18n;
-            let className = 'content' + (!this.state.leaving ? '' : ' exit-left');
+            let className = (!this.state.leaving ? '' : ' exit-left');
 
             return <ul className={className}>
                 {this.props.modules.map(this.renderModule)}
@@ -50,10 +50,9 @@ function (React) {
             }
 
             return <li className={classes} key={i}>
-                <img src={require.toUrl(
-                        "UTT/components/assets/images/" + mod.icon
-                    )}
-                    width="30" height="30" alt="" role="presentation" />
+                <img width="30" height="30"
+                 src={require.toUrl("UTT/components/assets/images/" + mod.icon)}
+                 alt="" role="presentation" />
                 <h2>{mod.title}</h2>
                 <p>{mod.description}</p>
                 <button onClick={this.openModule.bind(this, mod)}>

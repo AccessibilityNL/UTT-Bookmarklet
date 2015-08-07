@@ -20,9 +20,6 @@
         padding:0;
         text-align:left;
     }
-    * + * {
-        margin-top: 5px;
-    }
 
     button {
     	background: $color-highlight;
