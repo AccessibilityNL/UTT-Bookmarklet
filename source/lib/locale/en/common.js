@@ -12,5 +12,10 @@ define({
     "incomplete": "Incomplete",
     "yes": "Yes",
     "no": "No",
-    "Unclear": "Unclear"
+    "passed": "Passed",
+    "failed": "Failed",
+    "cantTell": "Can't tell",
+    "untested": "Not yet tested",
+    "inapplicable": "Not applicable",
+    "unclear": "Unclear"
 });

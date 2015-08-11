@@ -4,7 +4,9 @@
 	@import "panel.scss";
 	@import "UttModule.scss";
     @import "home.scss";
+    @import "moduleList.scss";
     @import "assessor.scss";
+    @import "reporter.scss";
 
     div, p, li, ul, h1, h2, h3, h4, h5, h6, img {
         font-size: 12px;
@@ -17,9 +19,6 @@
         margin:0;
         padding:0;
         text-align:left;
-    }
-    * + * {
-        margin-top: 5px;
     }
 
     button {
@@ -45,9 +44,9 @@
     .show {
         visibility:visible;
         opacity:1;
-        transition:visibility .3s, opacity .3s, max-height .3s ease-in;
-        max-height:3em;
+        // transition:visibility .3s, opacity .3s, max-height .3s ease-in;
     }
+
     -webkit-touch-callout: none;
     -webkit-user-select: none;
     -khtml-user-select: none;
@@ -58,12 +57,3 @@
 }
 
 @import "highlight.scss";
-
-.example-appear {
-  opacity: 0.01;
-  transition: opacity 3s ease-in;
-}
-
-.example-appear.example-appear-active {
-  opacity: 1;
-}
