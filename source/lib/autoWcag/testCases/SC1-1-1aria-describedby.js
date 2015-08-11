@@ -23,7 +23,7 @@ define({
 	'steps': [{
 		'start': true,
 		'name': 'step 1',
-		'type': 'auto-wcag:userQuestion',
+		'type': 'userQuestion',
 		'question': {
 			'questiontext': '',
 			'helptext': '',
@@ -32,11 +32,15 @@ define({
 				'yes': {type: 'returnEarl', value: 'earl:failed'}
 			}
 		}
-	}, function (variables) {
-		if (variables.selected.nodeName === 'IMG') {
-			return {type: 'changeStep', value: 'step 3'};
-		} else {
-			return {type: 'returnEarl', value: 'earl:failed'};
+	}, {
+		'name': 'step 2',
+		'type': 'automatic',
+		call: function (variables) {
+			if (variables.selected.nodeName === 'IMG') {
+				return {type: 'changeStep', value: 'step 3'};
+			} else {
+				return {type: 'returnEarl', value: 'earl:failed'};
+			}
 		}
 	}]
 });
