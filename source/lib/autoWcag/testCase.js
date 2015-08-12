@@ -7,20 +7,45 @@ define(['autoWcag/testCaseBuilder'],
             let p = new Promise((r) => { resolve = r; });
 
             require(tests, function (...testCases) {
-                console.log(testCases);
                 resolve(testCases);
             });
             return p;
         },
 
-        runSelector(promptUser, test, root) {
-            let selector = builder.createSelector(test.selector);
-            console.log(selector);
+        runSelector(promptUser, testConfig, root) {
+            let selector = builder.createSelectorFunc(testConfig.selector);
             return Promise.resolve(selector(root, promptUser));
         },
 
-        runSteps(promptUser, testConfig, element) {
+        runSteps(promptUser, testConfig, element, currStep) {
+            // Initial step
+            if (!currStep) {
+                currStep = testConfig.steps.find((step) => step.start);
+            }
+            console.log(currStep);
 
+            // Turn the current step into a promise
+            let currStepFunc = builder.createStepFunc(currStep);
+            return currStepFunc(element, promptUser)
+            .then((result) => {
+                // Either return the value
+                if (result.type === 'returnEarl') {
+                    return result.value;
+
+                // Or go to another step
+                } else if (result.type === 'changeStep') {
+                    // Find the next step
+                    let nextStep = testConfig.steps
+                    .find((step) => step.name === result.value);
+
+                    // And run it:
+                    testCase.runSteps(promptUser, testConfig,
+                                      element, nextStep);
+
+                } else {
+                    throw "Invalid result for " + testConfig.id;
+                }
+            });
         },
 
         aggregate(outcomes) {

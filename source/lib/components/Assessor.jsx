@@ -19,12 +19,12 @@ function (React, UttModule) {
                 {this.renderModuleHead()}
                 <div>
                     <h3>{i18n`question ${this.props.current}`}</h3>
-                    <p>{q.text}</p>
+                    <p>{q.questiontext}</p>
 
                     <p><a href="" onClick={this.toggleHelp}>
                         {i18n`more information`}
                     </a></p>
-                    <p className={showHelp}>{q.help}</p>
+                    <p className={showHelp}>{q.helptext}</p>
                     {q.answers.map((answer, i) =>
                         <button key={i} onClick={this.props.sendResult.bind(null, answer.value)}>
                             {i18n(answer.text)}

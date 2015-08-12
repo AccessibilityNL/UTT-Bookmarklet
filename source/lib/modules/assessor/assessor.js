@@ -40,6 +40,7 @@ function (React, Assessor, UTT) {
         .then(function runTests(testConfigs) {
             // Loop over all test configurations
             return Promise.all(testConfigs.map((testConfig) => {
+
                 // Run Run the selector.
                 return testCase
                 .runSelector(renderQuestion, testConfig, document)
