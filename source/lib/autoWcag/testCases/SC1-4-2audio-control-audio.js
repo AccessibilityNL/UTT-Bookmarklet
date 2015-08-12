@@ -9,9 +9,8 @@ define({
   'user_expertise': 'auto-wcag:expertise/none',
   'user_profile': ['auto-wcag:profile/hearing'],
   'selector': {
-    'type':  'html',
-    'value': 'audio', +
-                 'video' // Formaat van selector?
+    'type':  'css',
+    'value': 'audio, video'
   },
   'steps': [
     {
@@ -19,9 +18,9 @@ define({
       'name': 'step 1',
       'type': 'automatic' 
       // check paused property (audio|video.paused).
-      function(selector) {
-        var item = 'selector';  // Hoe selecteren we de selector?
-        if (item.paused = true) {
+      function stepPaused(variables) {
+        var elm = variables.element;
+        if (elm.hasAttribute('paused')) {
           return {type: 'returnEarl', value: 'earl:passed'};
         } else {
           return {type: 'changeStep', value: 'step 2'};
@@ -32,9 +31,9 @@ define({
       'name': 'step 2',
       'type': 'automatic',
       // Check muted property (audio|video.muted).
-      function() {
-        var item = 'selector';
-        if (item.muted = true) {
+      function stepMuted(variables) {
+        var elm = variables.element;
+        if (elm.hasAttribute('muted')) {
           return {type: 'returnEarl', value: 'earl:passed'};
         } else {
           return {type: 'changeStep', value: 'step 3'};
@@ -45,20 +44,26 @@ define({
       'name': 'step 3',
       'type': 'automatic',
       // Check duration property is no longer than 3 seconds (audio|video.duration).
-      if (selector.duration < 3) {
-        return {type: 'returnEarl', value: 'earl:passed'};
-      } else {
-        return {type: 'changeStep', value: 'step 4'};
+      function stepDuration(variables) {
+        var elm = variables.element;
+        if (elm.duration < 3) {      
+          return {type: 'returnEarl', value: 'earl:passed'};
+        } else {
+          return {type: 'changeStep', value: 'step 4'};
+        }
       }
     }
     {
       'name': 'step 4',
       'type': 'automatic',
       // Check loop property (audio|video.loop).
-      if (selector.loop = true) {
-        return {type: 'returnEarl', value: 'earl:passed'};
-      } else {
-        return {type: 'changeStep', value: 'step 5'};
+      function stepLoop(variables) {
+        var elm = variables.element;
+        if (elm.hasAttribute('loop')) {
+          return {type: 'returnEarl', value: 'earl:passed'};
+        } else {
+          return {type: 'changeStep', value: 'step 5'};
+        }
       }
     }
     {
