@@ -1,4 +1,5 @@
-define(['qwest'],
+//define(['qwest'],
+define(['./mockServer'],
 function (qwest) {
     const knownTypes = {
         'Assertor':   'assertors',

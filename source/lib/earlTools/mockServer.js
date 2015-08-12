@@ -1,6 +1,7 @@
 define(function () {
 	console.warn('using MOCK connector!');
-	let id = '@id';
+	let id    = '@id';
+	let quite = true;
 
 	function mockRequest(url, obj, ...params) {
 
@@ -17,8 +18,9 @@ define(function () {
 				result[id] = url + '/FakeID!';
 			}
 		}
-
-		console.log('mock request to:', url, obj, ...params, result);
+			if (!quite) {
+			console.log('mock request to:', url, obj, ...params, result);
+		}
 
 		return new Promise(function(resolve) {
 			setTimeout(resolve.bind(null, result), 100);

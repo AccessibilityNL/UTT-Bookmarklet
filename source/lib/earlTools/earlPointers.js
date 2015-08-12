@@ -40,6 +40,9 @@ function() {
          * @return {[type]}        [description]
          */
         createPointer(domElm) {
+            if (!domElm) {
+                return;
+            }
             return {
                 "@type": "ptr:CSSSelectorPointer",
                 "expression": earlPointers.createCssSelector(domElm),

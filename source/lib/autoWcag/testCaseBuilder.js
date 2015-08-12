@@ -2,6 +2,7 @@ define(function () {
 
 	let builder = {
 		createSelector(selectConf) {
+			console.log(selectConf);
 			if (typeof selectConf === 'function') {
 				return selectConf;
 

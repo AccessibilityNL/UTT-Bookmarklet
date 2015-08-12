@@ -12,7 +12,7 @@ define({
 		'type':  'css',
 		'value': 'img[aria-describedby],' +
 				 'input[type=image][aria-describedby], '+
-				 '*[role=image][aria-describedby], '
+				 '*[role=image][aria-describedby]'
 	},
 	// of:
 	// 'selector': function (root) {

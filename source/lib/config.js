@@ -27,7 +27,9 @@ define([
                     'icon':           `icon-${assessorName}.svg`,
                     'iconIncomplete': `icon-${assessorName}-report-0.svg`,
                     'iconComplete':   `icon-${assessorName}-report-1.svg`,
-                    "questions":      "UTT/modules/assessor/questions",
+                    "questions":      [
+                        "autoWcag/testCases/SC1-1-1aria-describedby"
+                    ],
                     "category":  assessorName
                 },
                 locale: Object.assign(

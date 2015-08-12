@@ -1,13 +1,14 @@
-define(['React', 'UTT/components/Assessor',
+define(['React', 'UTT/components/Assessor', 'UTT/main',
         './saveResult', 'autoWcag/testCase',
         'UTT/utils/highlighter',
         'UTT/modules/reporter/reporter'],
-function (React, Assessor) {
+function (React, Assessor, UTT) {
 
     let saveResult     = require('UTT/modules/assessor/saveResult');
-    let reporter       = require('UTT/modules/reporter/reporter');
     let highlighter    = require('UTT/utils/highlighter');
     let testCase       = require('autoWcag/testCase');
+
+    let reporter       = require('UTT/modules/reporter/reporter');
     console.log('TODO: report results');
 
     return function assertor({questions, category, icon}, i18n, render) {
@@ -34,25 +35,30 @@ function (React, Assessor) {
             return p;
         };
 
-
+        // Load the configuration of all questions
         testCase.requireConfig(questions)
-        .then(function runTests(testConfig) {
-            let p = testCase.runSelector(renderQuestion, testConfig, document)
-            /**
-             * Run through the steps of a testCase, prompting the user
-             * whenever required, will resolve once an outcome is reach
-             */
-            .then((elements) => {
-                let testReturns = elements.map(function (element) {
-                    return testCase.runSteps(renderQuestion, testConfig, element);
-                });
+        .then(function runTests(testConfigs) {
+            // Loop over all test configurations
+            return Promise.all(testConfigs.map((testConfig) => {
+                // Run Run the selector.
+                return testCase
+                .runSelector(renderQuestion, testConfig, document)
+                /**
+                 * Run through the steps of a testCase, prompting the user
+                 * whenever required, will resolve once an outcome is reach
+                 */
+                .then((elements) => {
+                    console.log(elements);
+                    let testReturns = elements.map(function (element) {
+                        return testCase.runSteps(renderQuestion, testConfig, element);
+                    });
 
-                testReturns.forEach((testReturn) => {
-                    testReturn.then(saveResult);
+                    testReturns.forEach((testReturn) => {
+                        testReturn.then(saveResult);
+                    });
+                    return Promise.all(testReturns);
                 });
-                return Promise.all(testReturns);
-            });
-            return p;
+            }));
         /**
          * Get all elements the testCase should be applied to
          * prompting the user wherever needed.
