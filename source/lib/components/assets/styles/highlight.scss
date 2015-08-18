@@ -3,25 +3,38 @@
 $color-highlight-noAlpha: rgba($color-highlight, 0) !important;
 
 .utt-highlight {
-	outline:solid 3px $color-highlight !important;
-	-webkit-animation: utt-highlight-anim 3s 1 !important; /* Chrome, Safari, Opera */
+	outline:solid 2px #72b21b !important;
+	-webkit-animation: utt-highlight-anim 3s 1 !important;
     animation: utt-highlight-anim 3s 1 !important;
-    outline-offset: 3px !important;
+    outline-offset: 2px !important;
+}
+.utt-markerBox {
+    position: relative;
+}
+.utt-marker {
+    width: 40px !important;
+    height: 50px !important;
+    margin: 0px 0px 0px -20px !important;
+    position: absolute !important;
+    background: url(https://lh4.ggpht.com/Tr5sntMif9qOPrKV_UVl7K8A_V3xQDgA7Sw_qweLUFlg76d_vGFA7q1xIKZ6IcmeGqg=w300) no-repeat 50% top !important;
+    background-size: 50px 50px !important;
+    text-indent: -999em !important;
+    z-index: 10000000000000000001 !important;
 }
 
 /* Chrome, Safari, Opera */
 @-webkit-keyframes utt-highlight-anim {
 
-    0%   {outline-color: $color-highlight-noAlpha }
-    33%  {outline-color: $color-highlight }
-    66%  {outline-color: $color-highlight-noAlpha }
-    100% {outline-color: $color-highlight }
+    0%   {outline-color: #9dd651 }
+    33%  {outline-color: #72b21b }
+    66%  {outline-color: #9dd651 }
+    100% {outline-color: #72b21b }
 }
 
 /* Standard syntax */
 @keyframes utt-highlight-anim {
-    0%   {outline-color: $color-highlight-noAlpha }
-    33%  {outline-color: $color-highlight }
-    66%  {outline-color: $color-highlight-noAlpha }
-    100% {outline-color: $color-highlight }
+    0%   {outline-color: #9dd651 }
+    33%  {outline-color: #72b21b }
+    66%  {outline-color: #9dd651 }
+    100% {outline-color: #72b21b }
 }

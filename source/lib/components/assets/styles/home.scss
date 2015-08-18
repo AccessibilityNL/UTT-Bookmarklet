@@ -18,6 +18,10 @@
 			position:absolute !important;
 			top:14px !important;
 			left:10px !important;
+			width: auto !important;
+			height: auto !important;
+			min-width: 27px !important;
+			max-width: 27px !important;
 		}
 		> button {
 			position: absolute !important;

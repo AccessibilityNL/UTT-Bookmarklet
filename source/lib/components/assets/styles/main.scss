@@ -1,44 +1,69 @@
 @import "variables.scss";
 
 #utt-bookmarklet-container {
-	@import "panel.scss";
-	@import "UttModule.scss";
-    @import "home.scss";
-    @import "assessor.scss";
-    min-width: 330px !important;
-    min-height: 420px !important;
 
-    div, p, li, ul, h1, h2, h3, h4, h5, h6, img {
-        font-size: 12px !important;
-        color: $color-fore !important;
-        list-style:none !important;
-        border: none !important;
-        vertical-align: middle !important;
-    }
+    min-width: 350px !important;
+    max-width: 350px !important;
+    min-height: 420px !important;
+    max-height: 420px !important;
+    width: 350px !important;
+    height: 420px !important;
 
     * {
         margin: 0px !important;
         padding: 0px !important;
         text-align: left !important;
         box-sizing: border-box !important;
+        -webkit-text-shadow: none !important;
+        -moz-text-shadow: none !important;
+        background: none !important;
+        text-shadow: none !important;
+        font-style: normal !important;
+        font-family: "Arial", sans-serif !important;
     }
+
+    div, p, li, ul, h1, h2, h3, h4, h5, h6, img {
+        font-size: 12px !important;
+        font-family: Arial !important;
+        color: $color-fore !important;
+        list-style:none !important;
+        border: none !important;
+        vertical-align: middle !important;
+    }
+
+    @import "panel.scss";
+    @import "UttModule.scss";
+    @import "home.scss";
+    @import "assessor.scss";
 
     button {
     	background: $color-highlight !important;
     	color: #fff !important;
     	padding: 0px 13px 0px 8px !important;
         margin: 0px !important;
+        font-size: 12px !important;
+        font-family: Arial !important;
         height: 23px !important;
         line-height: 23px !important;
-        border: 1px solid #c9506e !important;
+        border: none !important;
+        box-shadow: none !important;
+        -webkit-box-shadow: none !important;
+        border-radius: 0px !important;
+        -webkit-border-radius: 0px !important;
+        outline: none !important;
+        -webkit-outline: none !important; 
         img {
             position: absolute !important;
             top: 50% !important;
             margin-top: -7px !important;
         }
+        &:hover, &:focus {
+            background: $color-highlight-light !important;
+        }
     }
     ul button {
         border-radius: 10px !important;
+        -webkit-border-radius: 10px !important;
     }
     a {
         color: $color-highlight !important;
@@ -47,7 +72,6 @@
     h2, h3 {
         color: $color-primary-dark !important;
     }
-
     -webkit-touch-callout: none !important;
     -webkit-user-select: none !important;
     -khtml-user-select: none !important;

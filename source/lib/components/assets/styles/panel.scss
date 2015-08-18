@@ -12,7 +12,7 @@
 
         h1 {
             color: $color-back !important;
-            font-size:20px !important;
+            font-size:24px !important;
             padding: 0px !important;
             margin: 0px !important;
             position:relative !important;
@@ -81,5 +81,24 @@
     .UTT-slide-left {
         transition: transform .3s !important;
         transform: translateX(-110%) !important;
+    }
+
+    .UTT-hide {
+        position: absolute !important;
+        left: -999em !important;
+        transition: all, 0.3s;
+    }
+    .UTT-show {
+        position: absolute !important;
+        left: 0px !important;
+        top: 80px !important;
+        height: calc(100%) !important;
+        width: calc(100%) !important;
+        background: rgba(255,255,255,0.95) !important;
+        z-index: 100000000000000000000000001 !important;
+        transition: all, 0.3s;
+    }
+    .UTT-info {
+        padding: 15px !important;
     }
 }

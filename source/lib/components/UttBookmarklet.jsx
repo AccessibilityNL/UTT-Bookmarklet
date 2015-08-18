@@ -3,7 +3,7 @@ function (React, Panel, Header) {
 
     let UttBookmarklet = React.createClass({
         render() {
-            return <Panel dragable={true}>
+            return <Panel draggable={true}>
                 <Header i18n={this.props.i18n}></Header>
                 {this.props.children}
             </Panel>;

@@ -35,7 +35,7 @@ function (React, UttModule) {
         },
 
         renderModuleHead() {
-            let perc    = (this.props.current - 1) / this.props.total * 100;
+            let perc    = ((this.props.current) / this.props.total * 100)-1;
 
             return <div className="UTT-module-head">
                 <h2>{i18n`CATG_TITLE`}</h2>

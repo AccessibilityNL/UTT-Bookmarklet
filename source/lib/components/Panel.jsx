@@ -1,18 +1,19 @@
 define(['React'],
 function (React) {
+
 	let Panel = React.createClass({
 		getInitialState() {
 			return {
-				moving: false,
+				moving:  false,
 				clientX: false,
-				clientY: false,
+				clientY: false
 			};
 		},
 		render() {
 			let mouseDown;
 			let mouseUp;
 
-			if (this.props.dragable) {
+			if (this.props.draggable) {
 				mouseDown = this.mouseDown;
 				mouseUp   = this.mouseUp;
 			}
@@ -37,12 +38,9 @@ function (React) {
 				clientY: false
 			});
 		},
-
 		drag(e) {
-			this.setState({
-				moving:  true
-			});
-			console.log('moving');
+
+			console.log('dragged');
 		}
 	});
 
